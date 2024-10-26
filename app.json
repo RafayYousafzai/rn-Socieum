@@ -1,0 +1,12 @@
+{
+  "name": "Younite",
+  "displayName": "Younite",
+  "expo": {
+    "name": "Younite",
+    "slug": "Younite",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+export const maxQrLength=6;
