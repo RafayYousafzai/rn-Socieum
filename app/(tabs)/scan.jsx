@@ -31,18 +31,18 @@ const Scan = () => {
             className="w-[200px] h-[200px] mb-[20px]"
           />
           <View className="items-center mb-10">
-            <MaterialIcons name="qr-code-scanner" size={40} color="#3b82f6" />
+            <MaterialIcons name="qr-code-scanner" size={40} color="#000" />
             <Text className="text-lg font-medium text-gray-800 mt-2">SCAN</Text>
           </View>
 
-          <View className="flex-row items-center bg-white rounded-full shadow-md p-4">
+          <View className="flex flex-row w-full">
             <TextInput
               placeholder="Or enter your 6 digit code"
-              className="flex-1 text-base text-gray-800"
+              className="w-[75%] ml-[5%] rounded-sm bg-slate-100 py-2 px-4 text-base text-gray-800"
               keyboardType="numeric"
             />
-            <TouchableOpacity className="ml-3">
-              <MaterialIcons name="search" size={24} color="#3b82f6" />
+            <TouchableOpacity className="ml-3 w-14 rounded-sm bg-slate-100 py-2 px-4 text-base text-gray-800">
+              <MaterialIcons name="search" size={24} color="#000" />
             </TouchableOpacity>
           </View>
         </View>

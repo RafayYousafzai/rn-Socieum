@@ -1,48 +1,7 @@
 import React from "react";
-import { View, Text, ScrollView, Image, SafeAreaView } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import { MaterialIcons } from "@expo/vector-icons";
+import { View, ScrollView, SafeAreaView } from "react-native";
 import Header from "../../components/Header";
-
-const BlogCard = ({
-  image,
-  contributor,
-  code,
-  location,
-  title,
-  description,
-}) => (
-  <View className="bg-white rounded-xl p-6 mb-6 border border-gray-100 shadow-md">
-    <Image
-      source={{ uri: image }}
-      className="w-full h-36 rounded-lg mb-4"
-      resizeMode="cover"
-    />
-    <LinearGradient
-      colors={["#4b5563", "#1f2937"]}
-      className="rounded-lg p-4 mb-4 flex-row justify-between items-center"
-      style={{ borderRadius: 10 }}
-    >
-      <View className="flex items-center">
-        <MaterialIcons name="person" size={24} color="white" />
-        <Text className="text-white mt-2 text-sm text-center">
-          {contributor}
-        </Text>
-      </View>
-      <View className="flex items-center">
-        <MaterialIcons name="pin" size={24} color="white" />
-        <Text className="text-white mt-2 text-sm text-center">{code}</Text>
-      </View>
-      <View className="flex items-center">
-        <MaterialIcons name="place" size={24} color="white" />
-        <Text className="text-white mt-2 text-sm text-center">{location}</Text>
-      </View>
-    </LinearGradient>
-
-    <Text className="text-lg font-semibold text-gray-800 mb-1">{title}</Text>
-    <Text className="text-sm text-gray-600">{description}</Text>
-  </View>
-);
+import BlogCard from "../../components/BlogCard";
 
 const ListBlog = () => {
   return (

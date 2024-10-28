@@ -5,7 +5,7 @@ import Header from "../../components/Header";
 const InfoCard = ({ icon, title, description }) => (
   <View className="bg-white rounded-xl p-6 mb-6 border border-gray-100 shadow-md elevation-5  ">
     <View className="flex-row items-center mb-4">
-      <Text className="text-lg font-medium text-gray-800 flex-1">{title}</Text>
+      <Text className="text-xl font-black text-gray-800 flex-1">{title}</Text>
     </View>
     <Text className="text-base leading-6 text-gray-600">{description}</Text>
   </View>
