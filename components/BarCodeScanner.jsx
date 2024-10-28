@@ -8,8 +8,10 @@ import {
   Modal,
   TouchableOpacity,
   Alert,
+  ToastAndroid,
 } from "react-native";
-import * as WebBrowser from 'expo-web-browser';
+import * as WebBrowser from "expo-web-browser";
+import { END_POINTS } from "../helper/endpoints";
 
 export default function BarcodeScanner() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -17,8 +19,38 @@ export default function BarcodeScanner() {
   const [scannedData, setScannedData] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const handlePressButtonAsync = async (url) => {
-    let result = await WebBrowser.openBrowserAsync(url);
+  const handlePressButtonAsync = async (qrCode) => {
+    try {
+      const url = END_POINTS.GET_BLOG_BY_QR_KEY({ qrCode });
+      const res = await fetch(url);
+      console.log(res, url);
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        ToastAndroid.show(
+          errorData.message || "No Contribution found against this qr-code.",
+          ToastAndroid.SHORT
+        );
+        return;
+      }
+
+      const data = await res.json();
+      if (data.length > 0) {
+        ToastAndroid.show(
+          "No Contribution found against this qr-code.",
+          ToastAndroid.SHORT
+        );
+        return;
+      }
+
+      console.log("Data fetched successfully:", data);
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+      ToastAndroid.show(
+        "An error occurred while fetching data.",
+        ToastAndroid.SHORT
+      );
+    }
   };
 
   // Request camera permissions on component mount
@@ -33,7 +65,7 @@ export default function BarcodeScanner() {
   const handleBarCodeScanned = ({ type, data }) => {
     resetScanner();
     console.log(type, data);
-    handlePressButtonAsync(data);
+    handlePressButtonAsync(type, data);
     setScanned(true);
     setScannedData(`Type: ${type}\nData: ${data}`);
     setIsModalVisible(false); // Close the modal after scanning
