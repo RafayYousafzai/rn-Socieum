@@ -36,6 +36,8 @@ const History = () => {
       <LinearGradient
         colors={["#6366f1", "#2563eb"]}
         className="mx-5 mt-10 mb-6 rounded-2xl shadow-lg elevation-8"
+        style={{ borderRadius: 10 }}
+
       >
         <View className="p-8">
           <Text className="text-2xl font-bold text-white text-center mb-2">

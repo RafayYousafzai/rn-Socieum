@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const InfoCard = ({ icon, title, description }) => (
-  <View className="bg-white rounded-xl p-6 mb-6 border border-gray-100 shadow-md elevation-5">
+  <View className="bg-white rounded-xl p-6 mb-6 border border-gray-100 shadow-md elevation-5  ">
     <View className="flex-row items-center mb-4">
       <View className="bg-blue-50 p-3 rounded-lg mr-4">
         <MaterialIcons name={icon} size={24} color="#3b82f6" />
@@ -21,6 +21,7 @@ const Home = () => {
       <LinearGradient
         colors={["#6366f1", "#2563eb"]}
         className="mx-5 mt-10 mb-6 rounded-2xl shadow-lg elevation-8"
+        style={{ borderRadius: 10 }}
       >
         <View className="p-8">
           <Text className="text-2xl font-bold text-white text-center mb-2">

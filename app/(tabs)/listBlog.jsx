@@ -20,6 +20,7 @@ const BlogCard = ({
     <LinearGradient
       colors={["#4b5563", "#1f2937"]}
       className="rounded-lg p-4 mb-4 flex-row justify-between items-center"
+      style={{ borderRadius: 10 }}
     >
       <View className="flex items-center">
         <MaterialIcons name="person" size={24} color="white" />
@@ -48,6 +49,8 @@ const ListBlog = () => {
       <LinearGradient
         colors={["#6366f1", "#2563eb"]}
         className="mx-5 mt-10 mb-6 rounded-2xl shadow-lg"
+        style={{ borderRadius: 10 }}
+
       >
         <View className="p-8">
           <Text className="text-2xl font-bold text-white text-center mb-2">
