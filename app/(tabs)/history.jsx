@@ -1,7 +1,15 @@
 import React from "react";
-import { View, Text, ScrollView, Image, Platform } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  Platform,
+  SafeAreaView,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialIcons } from "@expo/vector-icons";
+import Header from "../../components/Header";
 
 const HistoryCard = ({ contribution, date, location, title, description }) => (
   <View className="bg-white rounded-xl p-6 mb-6 border border-gray-100 shadow-md elevation-5">
@@ -32,23 +40,11 @@ const HistoryCard = ({ contribution, date, location, title, description }) => (
 
 const History = () => {
   return (
-    <ScrollView className="bg-gray-100 flex-1">
-      <LinearGradient
-        colors={["#6366f1", "#2563eb"]}
-        className="mx-5 mt-10 mb-6 rounded-2xl shadow-lg elevation-8"
-        style={{ borderRadius: 10 }}
-
-      >
-        <View className="p-8">
-          <Text className="text-2xl font-bold text-white text-center mb-2">
-            Search History
-          </Text>
-          <Text className="text-base text-blue-200 text-center">
-            View which blogs you have previously read
-          </Text>
-        </View>
-      </LinearGradient>
-
+    <SafeAreaView className="flex-1 bg-white">
+      <Header
+        text={"Search History"}
+        desc={"View which blogs you have previously read"}
+      />
       <View className="px-5 pb-12 mt-10">
         <HistoryCard
           contribution="500 YNT"
@@ -58,7 +54,7 @@ const History = () => {
           description="Providing free school uniform and educational equipment to support school children."
         />
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
