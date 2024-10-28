@@ -4,9 +4,7 @@ import React from "react";
 const home = () => {
   return (
     <View>
-      <Text style={{ color: "#fff" }} className="text-4xl text-white">
-        home
-      </Text>
+      <Text className="text-4xl text-white">home</Text>
     </View>
   );
 };
