@@ -9,31 +9,32 @@ import {
 } from "react-native";
 import { Card, Avatar } from "react-native-paper";
 
-export default function BlogCard({
-  title = "Cash For Kids",
-  description = "Helping families and children hit hardest by the pandemic",
-  contribution = "500 YNT",
-  date = "28-10-2021",
-  location = "Manchester",
-  image = "https://via.placeholder.com/300x150.png?text=Cash+For+Kids",
-  onPress,
-}) {
-  const handlePress = () => {
-    onPress?.({
-      title,
-      description,
-      contribution,
-      date,
-      location,
-      image,
-    });
-  };
+export default function BlogCard({ blog }) {
+  const placeholderImg = "https://via.placeholder.com/300x150.png?text=Blog+Image";
+
+  // Destructuring properties from the blog object
+  const {
+    title,
+    description,
+    donorDescription,
+    imagePath,
+    updatedAt,
+    donorName,
+  } = blog;
+
+  // Creating a dynamic image URL
+  const imageUrl = imagePath ? `https://yourserver.com${imagePath}` : placeholderImg;
+
+  // Formatting the contribution and date
+  const contribution = donorDescription || "N/A";
+  const date = updatedAt ? new Date(updatedAt).toLocaleDateString() : "Unknown";
+  const location = donorName || "Unknown";
 
   return (
-    <TouchableOpacity onPress={handlePress} activeOpacity={0.9}>
+    <TouchableOpacity activeOpacity={0.9}>
       <Card style={styles.card}>
         <ImageBackground
-          source={{ uri: image }}
+          source={{ uri: imageUrl }}
           style={styles.imageBackground}
           imageStyle={{ borderTopLeftRadius: 12, borderTopRightRadius: 12 }}
         >
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     padding: 16,
-    height: 200, // Adjust height based on design
+    height: 200,
     justifyContent: "center",
     borderRadius: 12,
   },
