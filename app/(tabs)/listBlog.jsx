@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { View, ScrollView, SafeAreaView } from "react-native";
-import Header from "../../components/Header";
-import BlogCard from "../../components/BlogCard";
-import BlogDetails from "../../components/BlogDetails";
+import Header from "@/components/Header";
+import BlogCard from "@/components/BlogCard";
+import BlogDetails from "@/components/BlogDetails";
 
 const ListBlog = () => {
   const [selectedBlog, setSelectedBlog] = useState(null);

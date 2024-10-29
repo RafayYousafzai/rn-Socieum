@@ -9,8 +9,8 @@ import {
   SafeAreaView,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import Header from "../../components/Header";
-import BarcodeScanner from "../../components/BarCodeScanner";
+import Header from "@/components/Header";
+import BarcodeScanner from "@/components/BarCodeScanner";
 import img from "@/assets/images/HomeQR.png";
 
 const Scan = () => {

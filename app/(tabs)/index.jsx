@@ -1,6 +1,6 @@
 import { View, Text, ScrollView, SafeAreaView } from "react-native";
 import React from "react";
-import Header from "../../components/Header";
+import Header from "@/components/Header";
 
 const InfoCard = ({ icon, title, description }) => (
   <View className="bg-white rounded-xl p-6 mb-6 border border-gray-100 shadow-md elevation-5  ">
