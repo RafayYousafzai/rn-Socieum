@@ -8,14 +8,14 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Card, Avatar } from "react-native-paper";
-import { limitString } from "./common/limitString";
+import { limitString } from "../../common/limitString";
 import { useBlogContext } from "@/context/BlogContext";
 
 export default function BlogCard({ blog }) {
   const { setViewBlog } = useBlogContext();
 
-
-  const placeholderImg = "https://via.placeholder.com/300x150.png?text=Blog+Image";
+  const placeholderImg =
+    "https://via.placeholder.com/300x150.png?text=Blog+Image";
 
   // Destructuring properties from the blog object
   const {
@@ -25,11 +25,13 @@ export default function BlogCard({ blog }) {
     imagePath,
     updatedAt,
     donorName,
-    _id
+    _id,
   } = blog;
 
   // Creating a dynamic image URL
-  const imageUrl = imagePath ? `https://yourserver.com${imagePath}` : placeholderImg;
+  const imageUrl = imagePath
+    ? `https://yourserver.com${imagePath}`
+    : placeholderImg;
 
   // Formatting the contribution and date
   const contribution = donorDescription || "N/A";
@@ -54,7 +56,9 @@ export default function BlogCard({ blog }) {
                 style={{ backgroundColor: "#fff" }}
               />
               <Text style={styles.infoText}>Contribution</Text>
-              <Text style={styles.infoValue}>{limitString(contribution, 10)}</Text>
+              <Text style={styles.infoValue}>
+                {limitString(contribution, 10)}
+              </Text>
             </View>
 
             <View style={styles.infoItem}>
@@ -83,7 +87,9 @@ export default function BlogCard({ blog }) {
 
         <Card.Content style={styles.content}>
           <Text style={styles.cardTitle}>{limitString(title, 30)}</Text>
-          <Text style={styles.description}>{limitString(description, 100)}</Text>
+          <Text style={styles.description}>
+            {limitString(description, 100)}
+          </Text>
         </Card.Content>
       </Card>
     </TouchableOpacity>
@@ -96,8 +102,10 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     overflow: "hidden",
     shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 8,
     backgroundColor: "#fff",
   },
   imageBackground: {
