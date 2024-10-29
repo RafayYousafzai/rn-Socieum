@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../components/Header";
 
-import { SafeAreaView, ScrollView, View } from "react-native";
+import { SafeAreaView, ScrollView } from "react-native";
 import BlogCard from "../../components/BlogCard";
 
 const History = () => {

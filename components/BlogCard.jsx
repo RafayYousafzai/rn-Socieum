@@ -50,7 +50,7 @@ export default function BlogCard({
               <Avatar.Icon
                 color="#EF4444"
                 size={40}
-                icon="location-pin"
+                // icon="location-pin"
                 style={{ backgroundColor: "#fff" }} // Red
               />
               <Text style={styles.infoText}>Location</Text>
