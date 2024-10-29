@@ -1,5 +1,12 @@
+// BlogCard.js
 import React from "react";
-import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
 import { Card, Avatar } from "react-native-paper";
 
 export default function BlogCard({
@@ -9,11 +16,22 @@ export default function BlogCard({
   date = "28-10-2021",
   location = "Manchester",
   image = "https://via.placeholder.com/300x150.png?text=Cash+For+Kids",
+  onPress,
 }) {
+  const handlePress = () => {
+    onPress?.({
+      title,
+      description,
+      contribution,
+      date,
+      location,
+      image,
+    });
+  };
+
   return (
-    <View>
+    <TouchableOpacity onPress={handlePress} activeOpacity={0.9}>
       <Card style={styles.card}>
-        {/* Image Background */}
         <ImageBackground
           source={{ uri: image }}
           style={styles.imageBackground}
@@ -21,37 +39,34 @@ export default function BlogCard({
         >
           <Text style={styles.titleOverlay}>{title}</Text>
           <View style={styles.infoRow}>
-            {/* Contribution Section */}
             <View style={styles.infoItem}>
               <Avatar.Icon
                 color="#3B82F6"
                 size={40}
                 icon="account-circle"
-                style={{ backgroundColor: "#fff" }} // Blue
+                style={{ backgroundColor: "#fff" }}
               />
               <Text style={styles.infoText}>Contribution</Text>
               <Text style={styles.infoValue}>{contribution}</Text>
             </View>
 
-            {/* Contribution Date Section */}
             <View style={styles.infoItem}>
               <Avatar.Icon
                 color="#10B981"
                 size={40}
                 icon="calendar-today"
-                style={{ backgroundColor: "#fff" }} // Green
+                style={{ backgroundColor: "#fff" }}
               />
               <Text style={styles.infoText}>Contribution Date</Text>
               <Text style={styles.infoValue}>{date}</Text>
             </View>
 
-            {/* Location Section */}
             <View style={styles.infoItem}>
               <Avatar.Icon
                 color="#EF4444"
                 size={40}
-                // icon="location-pin"
-                style={{ backgroundColor: "#fff" }} // Red
+                icon="map-marker"
+                style={{ backgroundColor: "#fff" }}
               />
               <Text style={styles.infoText}>Location</Text>
               <Text style={styles.infoValue}>{location}</Text>
@@ -59,13 +74,12 @@ export default function BlogCard({
           </View>
         </ImageBackground>
 
-        {/* Title and Description Section */}
         <Card.Content style={styles.content}>
           <Text style={styles.cardTitle}>{title}</Text>
           <Text style={styles.description}>{description}</Text>
         </Card.Content>
       </Card>
-    </View>
+    </TouchableOpacity>
   );
 }
 
