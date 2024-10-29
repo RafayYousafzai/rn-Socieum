@@ -25,10 +25,10 @@ const ViewBlogs = ({ blog }) => {
             return <AllBlogs setPage={setPage} />;
         case "Details":
             return <Details setPage={setPage} blog={blog} />;
-        case "OverView":
-            return <OverView setPage={setPage} blog={blog} />;
-        case "Read":
-            return <Read setPage={setPage} blog={blog} />;
+        // case "OverView":
+        //     return <OverView setPage={setPage} blog={blog} />;
+        // case "Read":
+        //     return <Read setPage={setPage} blog={blog} />;
         default:
             return <AllBlogs setPage={setPage} blog={blog} />;
     }

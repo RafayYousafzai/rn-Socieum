@@ -3,7 +3,7 @@ import { useBlogContext } from "@/context/BlogContext";
 import { ScrollView } from "react-native";
 
 export default function AllBlogs({ setPage }) {
-    const { blogs, loading, } = useBlogContext();
+    const { blogs } = useBlogContext();
 
     return (
         <ScrollView className="px-5 pb-12">
@@ -13,7 +13,6 @@ export default function AllBlogs({ setPage }) {
                     blog={blog}
                 />
             ))}
-
         </ScrollView>
     )
 }
