@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Card, Avatar } from "react-native-paper";
+import { limitString } from "./common/limitString";
 
 export default function BlogCard({ blog }) {
   const placeholderImg = "https://via.placeholder.com/300x150.png?text=Blog+Image";
@@ -38,7 +39,7 @@ export default function BlogCard({ blog }) {
           style={styles.imageBackground}
           imageStyle={{ borderTopLeftRadius: 12, borderTopRightRadius: 12 }}
         >
-          <Text style={styles.titleOverlay}>{title}</Text>
+          <Text style={styles.titleOverlay}>{limitString(title, 25)}</Text>
           <View style={styles.infoRow}>
             <View style={styles.infoItem}>
               <Avatar.Icon
@@ -48,7 +49,7 @@ export default function BlogCard({ blog }) {
                 style={{ backgroundColor: "#fff" }}
               />
               <Text style={styles.infoText}>Contribution</Text>
-              <Text style={styles.infoValue}>{contribution}</Text>
+              <Text style={styles.infoValue}>{limitString(contribution, 10)}</Text>
             </View>
 
             <View style={styles.infoItem}>
@@ -59,7 +60,7 @@ export default function BlogCard({ blog }) {
                 style={{ backgroundColor: "#fff" }}
               />
               <Text style={styles.infoText}>Contribution Date</Text>
-              <Text style={styles.infoValue}>{date}</Text>
+              <Text style={styles.infoValue}>{limitString(date, 10)}</Text>
             </View>
 
             <View style={styles.infoItem}>
@@ -70,14 +71,14 @@ export default function BlogCard({ blog }) {
                 style={{ backgroundColor: "#fff" }}
               />
               <Text style={styles.infoText}>Location</Text>
-              <Text style={styles.infoValue}>{location}</Text>
+              <Text style={styles.infoValue}>{limitString(location, 10)}</Text>
             </View>
           </View>
         </ImageBackground>
 
         <Card.Content style={styles.content}>
-          <Text style={styles.cardTitle}>{title}</Text>
-          <Text style={styles.description}>{description}</Text>
+          <Text style={styles.cardTitle}>{limitString(title, 30)}</Text>
+          <Text style={styles.description}>{limitString(description, 100)}</Text>
         </Card.Content>
       </Card>
     </TouchableOpacity>
