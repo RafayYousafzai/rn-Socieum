@@ -2,13 +2,27 @@ import React, { useEffect, useState } from 'react';
 import Details from './Details';
 import OverView from './OverView';
 import Read from './Read';
+import AllBlogs from './AllBlogs';
+import { useBlogContext } from "@/context/BlogContext";
 
 
-const ViewBlogs = ({ blog, }) => {
-    const [page, setPage] = useState("Details");
+const ViewBlogs = ({ blog }) => {
+    const [page, setPage] = useState("AllBlogs");
+    const { viewBlog } = useBlogContext();
+
+
+    useEffect(() => {
+        if (viewBlog) {
+            setPage("Details");
+        }
+    }, [viewBlog])
+
+
 
 
     switch (page) {
+        case "AllBlogs":
+            return <AllBlogs setPage={setPage} />;
         case "Details":
             return <Details setPage={setPage} blog={blog} />;
         case "OverView":
@@ -16,7 +30,7 @@ const ViewBlogs = ({ blog, }) => {
         case "Read":
             return <Read setPage={setPage} blog={blog} />;
         default:
-            return <Details setPage={setPage} blog={blog} />;
+            return <AllBlogs setPage={setPage} blog={blog} />;
     }
 };
 
