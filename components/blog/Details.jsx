@@ -1,48 +1,100 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
-import { TouchableOpacity } from "react-native";
 import Header from "@/components/Header";
 import BlogCard from "./cards/BlogCard";
 
-const Details = ({ setPage }) => {
-  const blog = {
-    key: "key",
-    title: "title",
-    description: "description",
-    donorDescription: "donorDescription",
-    imagePath: "imagePath",
-    updatedAt: "updatedAt",
-    donorName: "donorName",
-    _id: "_id",
-  };
-
+const Details = ({ setPage, blog }) => {
   return (
-    <View>
+    <View  className="flex-1">
       <Header
         text={"Scan Your QR Code"}
         desc={
           "Scan your QR code or use your 6 digit code to see how your contribution is progressing"
         }
       />
+      <View className="flex-1" style={styles.container}>
+        <View>
+          <BlogCard
+            key={blog._id}
+            title={blog?.title || ""}
+            description={blog?.description || ""}
+            donorDescription={blog?.donorDescription || ""}
+            imagePath={blog?.imagePath || ""}
+            updatedAt={blog?.updatedAt || ""}
+            donorName={blog?.donorName || ""}
+            _id={blog?._id || ""}
+            // Uncomment the line below to enable onPress functionality
+            // onPress={() => setViewBlog(blog._id)}
+          />
+        </View>
 
-      <BlogCard
-        key={blog._id}
-        title={blog?.title || ""}
-        description={blog?.description || ""}
-        donorDescription={blog?.donorDescription || ""}
-        imagePath={blog?.imagePath || ""}
-        updatedAt={blog?.updatedAt || ""}
-        donorName={blog?.donorName || ""}
-        _id={blog?._id || ""}
-      />
-      <TouchableOpacity onPress={() => setPage("AllBlogs")}>
-        <Text>Back</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => setPage("OverView")}>
-        <Text>Next</Text>
-      </TouchableOpacity>
+        <View style={styles.card}>
+          <TouchableOpacity>
+            <Text style={styles.text}>
+              View your Contribution on the blockchain
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>View Blockchain</Text>
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity
+          onPress={() => setPage("OverView")}
+          style={styles.overviewButton}
+        >
+          <Text style={styles.overviewButtonText}>Blog Overview</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 10,
+  },
+  card: {
+    marginTop: 16,
+    padding: 16,
+    borderRadius: 10,
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 15,
+      height: 15,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 2, // For Android
+  },
+  button: {
+    padding: 12,
+    marginBottom: 10,
+    borderRadius: 3,
+    backgroundColor: "#000",
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  overviewButton: {
+    marginTop: 16,
+    padding: 12,
+    borderRadius: 3,
+    backgroundColor: "#000",
+    alignItems: "center",
+  },
+  overviewButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  text: {
+    marginBottom: 16,
+  },
+});
 
 export default Details;

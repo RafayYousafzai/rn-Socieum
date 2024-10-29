@@ -16,10 +16,11 @@ const showToast = (message) => {
 // Provider Component
 const BlogProvider = ({ children }) => {
   const [viewBlog, setViewBlog] = useState("");
-
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  console.log();
 
   const fetchBlogs = async () => {
     setLoading(true);
@@ -60,7 +61,8 @@ const BlogProvider = ({ children }) => {
     fetchBlogs();
   }, []);
 
-  const selectedBlogs = () => blogs.find((b) => b._id === viewBlog);
+  const selectedBlogs = blogs.find((b) => b._id === viewBlog);
+  console.log(viewBlog, selectedBlogs);
 
   return (
     <BlogContext.Provider

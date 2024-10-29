@@ -19,9 +19,8 @@ export default function BlogCard({
   updatedAt,
   donorName,
   _id,
+  onPress,
 }) {
-  const { setViewBlog } = useBlogContext();
-
   const placeholderImg =
     "https://via.placeholder.com/300x150.png?text=Blog+Image";
 
@@ -36,7 +35,7 @@ export default function BlogCard({
   const location = donorName || "Unknown";
 
   return (
-    <TouchableOpacity onPress={() => setViewBlog(_id)} activeOpacity={0.9}>
+    <TouchableOpacity onPress={() => onPress(_id)} activeOpacity={0.9}>
       <Card style={styles.card}>
         <ImageBackground
           source={{ uri: imageUrl }}

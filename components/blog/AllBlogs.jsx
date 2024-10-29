@@ -4,16 +4,11 @@ import { ScrollView, View } from "react-native";
 import Header from "@/components/Header";
 
 export default function AllBlogs({ setPage }) {
-  const { blogs } = useBlogContext();
+  const { blogs, setViewBlog } = useBlogContext();
 
   return (
     <View>
-      <Header
-        text={"Blog Y"}
-        desc={
-          "Read other blog published by Y"
-        }
-      />
+      <Header text={"Blog Y"} desc={"Read other blog published by Y"} />
       <ScrollView className="px-5 pb-12">
         {blogs &&
           blogs.map((blog) => (
@@ -26,6 +21,10 @@ export default function AllBlogs({ setPage }) {
               updatedAt={blog?.updatedAt || ""}
               donorName={blog?.donorName || ""}
               _id={blog?._id || ""}
+              onPress={(_id) => {
+                setViewBlog(_id);
+                setPage("Details");
+              }}
             />
           ))}
       </ScrollView>

@@ -5,7 +5,7 @@ import Read from "./Read";
 import AllBlogs from "./AllBlogs";
 import { useBlogContext } from "@/context/BlogContext";
 
-const ViewBlogs = () => {
+const ViewBlogs = ({ onlyHistory }) => {
   const [page, setPage] = useState("AllBlogs");
   const { selectedBlogs } = useBlogContext();
 
