@@ -9,8 +9,12 @@ import {
 } from "react-native";
 import { Card, Avatar } from "react-native-paper";
 import { limitString } from "./common/limitString";
+import { useBlogContext } from "@/context/BlogContext";
 
 export default function BlogCard({ blog }) {
+  const { setViewBlog } = useBlogContext();
+
+
   const placeholderImg = "https://via.placeholder.com/300x150.png?text=Blog+Image";
 
   // Destructuring properties from the blog object
@@ -21,6 +25,7 @@ export default function BlogCard({ blog }) {
     imagePath,
     updatedAt,
     donorName,
+    _id
   } = blog;
 
   // Creating a dynamic image URL
@@ -32,7 +37,7 @@ export default function BlogCard({ blog }) {
   const location = donorName || "Unknown";
 
   return (
-    <TouchableOpacity activeOpacity={0.9}>
+    <TouchableOpacity onPress={() => setViewBlog(_id)} activeOpacity={0.9}>
       <Card style={styles.card}>
         <ImageBackground
           source={{ uri: imageUrl }}

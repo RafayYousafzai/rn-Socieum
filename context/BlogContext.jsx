@@ -15,6 +15,8 @@ const showToast = (message) => {
 
 // Provider Component
 const BlogProvider = ({ children }) => {
+    const [viewBlog, setViewBlog] = useState("")
+
     const [blogs, setBlogs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -60,7 +62,7 @@ const BlogProvider = ({ children }) => {
     }, []);
 
     return (
-        <BlogContext.Provider value={{ blogs, loading, error, fetchBlogs }}>
+        <BlogContext.Provider value={{ blogs, loading, error, fetchBlogs, viewBlog, setViewBlog }}>
             {children}
         </BlogContext.Provider>
     );
