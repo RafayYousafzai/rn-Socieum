@@ -1,12 +1,22 @@
 import React, { useState } from "react";
-import { View, ScrollView, SafeAreaView } from "react-native";
+import {
+  View,
+  ScrollView,
+  SafeAreaView,
+  ActivityIndicator,
+  Text,
+} from "react-native";
 import Header from "@/components/Header";
 import BlogCard from "@/components/BlogCard";
 import BlogDetails from "@/components/BlogDetails";
+import { useBlogContext } from "@/context/BlogContext";
+import { SERVER_URL } from "@/helper/endpoints";
 
 const ListBlog = () => {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const { blogs, loading, error } = useBlogContext();
 
   const handleBlogPress = (blogData) => {
     setSelectedBlog(blogData);
@@ -17,6 +27,24 @@ const ListBlog = () => {
     setIsModalVisible(false);
     setSelectedBlog(null);
   };
+
+  if (loading) {
+    return (
+      <ActivityIndicator
+        size="large"
+        color="#3B82F6"
+        style={{ flex: 1, justifyContent: "center" }}
+      />
+    );
+  }
+
+  if (error) {
+    return (
+      <SafeAreaView className="flex-1 bg-white justify-center items-center">
+        <Text style={{ color: "#EF4444", fontSize: 16 }}>Error: {error}</Text>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -29,26 +57,19 @@ const ListBlog = () => {
 
       <ScrollView className="bg-gray-100 flex-1">
         <View className="px-5 pb-12 mt-10">
-          <BlogCard
-            image="https://via.placeholder.com/300x150.png?text=Cash+For+Kids"
-            contributor="Contributor Name"
-            contribution="500 YNT"
-            date="28-10-2021"
-            location="Manchester"
-            title="Cash For Kids"
-            description="Helping families and children hit hardest by the pandemic"
-            onPress={handleBlogPress}
-          />
-          <BlogCard
-            image="https://via.placeholder.com/300x150.png?text=Bolton+Helping+The+Homeless"
-            contributor="Anonymous"
-            contribution="750 YNT"
-            date="29-10-2021"
-            location="Bolton"
-            title="Bolton Helping The Homeless"
-            description="Providing the homeless with hot and cold food"
-            onPress={handleBlogPress}
-          />
+          {blogs.map((blog) => (
+            <BlogCard
+              key={blog._id}
+              image={`${SERVER_URL}${blog.imagePath}`}
+              contributor={blog.donorName}
+              contribution={`${blog.donorDescription}`}
+              date={new Date(blog.updatedAt).toLocaleDateString()}
+              location={blog.location || "Unknown"}
+              title={blog.title}
+              description={blog.description}
+              onPress={() => handleBlogPress(blog)}
+            />
+          ))}
         </View>
       </ScrollView>
 
