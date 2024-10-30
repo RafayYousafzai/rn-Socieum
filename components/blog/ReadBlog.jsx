@@ -8,7 +8,7 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons"; // Importing Ionicons
+import { Ionicons } from "@expo/vector-icons";
 
 const ReadBlog = ({ setPage }) => {
   const { width } = Dimensions.get("window");

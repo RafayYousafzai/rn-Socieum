@@ -12,7 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 const OverView = ({ setPage, blog }) => {
   return (
-    <View>
+    <View style={styles.flexContainer}>
       <Header
         text={"Blog Overview"}
         desc={
@@ -39,14 +39,14 @@ const OverView = ({ setPage, blog }) => {
             <TouchableOpacity>
               <View style={styles.contributorContainer}>
                 <Text style={styles.contributorText}>Contributor</Text>
-                <Text style={styles.text}>Anonymous-blockchain supporter</Text>
+                <Text style={styles.text}>Y</Text>
               </View>
-              <Text style={styles.text}>
-                About Contributor: The individual supports and advises
-                blockchain projects tackling social issues
+              <Text style={styles.aboutText}>
+                About Contributor : Y wanted to help children and families
+                affected by the lockdown
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.seeDetailsButton}>
               <Text style={styles.buttonText}>See Details</Text>
             </TouchableOpacity>
           </View>
@@ -54,15 +54,23 @@ const OverView = ({ setPage, blog }) => {
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               onPress={() => setPage("Details")}
-              style={styles.overviewButton}
+              style={styles.backButton}
             >
               <Ionicons name="arrow-back" size={24} color="white" />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => setPage("Read")}
-              style={[styles.overviewButton, styles.wideButton]}
+              style={styles.readBlogButton}
             >
-              <Text style={styles.overviewButtonText}>Read Blog</Text>
+              <View style={styles.readBlogContent}>
+                <Ionicons
+                  name="book-outline"
+                  size={20}
+                  color="white"
+                  style={styles.bookIcon}
+                />
+                <Text style={styles.readBlogText}>Read The Blog</Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>
@@ -76,70 +84,90 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    marginHorizontal: 10,
+    marginHorizontal: 16,
+    marginBottom: 20,
   },
   card: {
-    marginTop: 16,
+    marginTop: 6,
     padding: 16,
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: "#fff",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 2, // For Android
-  },
-  button: {
-    padding: 12,
-    marginBottom: 10,
-    borderRadius: 3,
-    backgroundColor: "#000",
-    alignItems: "center",
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  overviewButton: {
-    marginTop: 16,
-    padding: 12,
-    borderRadius: 3,
-    backgroundColor: "#000",
-    alignItems: "center",
-  },
-  overviewButtonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  text: {
-    marginBottom: 8,
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
   },
   contributorContainer: {
     flexDirection: "row",
     alignItems: "center",
+    marginBottom: 12,
   },
   contributorText: {
-    borderColor: "black",
+    borderColor: "#e0e0e0",
     borderWidth: 1,
-    borderRadius: 50,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    borderRadius: 20,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
     marginRight: 10,
-    backgroundColor: "#e0e0e0",
+    fontSize: 14,
+    color: "#666",
+  },
+  text: {
+    fontSize: 14,
+    color: "#333",
+  },
+  aboutText: {
+    fontSize: 14,
+    color: "#666",
+    marginBottom: 16,
+    lineHeight: 20,
+  },
+  seeDetailsButton: {
+    backgroundColor: "#000",
+    paddingVertical: 12,
+    alignItems: "center",
+    marginTop: 8,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 15,
+    fontWeight: "500",
   },
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginHorizontal: 12,
+    marginTop: 8,
+    paddingHorizontal: 4,
   },
-  wideButton: {
-    width: "80%",
+  backButton: {
+    backgroundColor: "#000",
+    padding: 12,
+    width: 90,
+    alignItems: "center",
+  },
+  readBlogButton: {
+    backgroundColor: "#000",
+    flex: 1,
+    marginLeft: 12,
+    padding: 12,
+  },
+  readBlogContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  bookIcon: {
+    marginRight: 8,
+  },
+  readBlogText: {
+    color: "#fff",
+    fontSize: 15,
+    fontWeight: "500",
   },
 });
 
