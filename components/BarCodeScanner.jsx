@@ -23,7 +23,7 @@ export default function BarcodeScanner() {
     try {
       const url = END_POINTS.GET_BLOG_BY_QR_KEY({ qrCode });
       const res = await fetch(url);
-      console.log(res, url);
+      // console.log(res, url);
 
       if (!res.ok) {
         const errorData = await res.json();
@@ -42,10 +42,7 @@ export default function BarcodeScanner() {
         );
         return;
       }
-
-      console.log("Data fetched successfully:", data);
     } catch (error) {
-      console.error("Failed to fetch data:", error);
       ToastAndroid.show(
         "An error occurred while fetching data.",
         ToastAndroid.SHORT
@@ -64,7 +61,7 @@ export default function BarcodeScanner() {
   // Callback function when barcode is scanned
   const handleBarCodeScanned = ({ type, data }) => {
     resetScanner();
-    console.log(type, data);
+    // console.log(type, data);
     handlePressButtonAsync(type, data);
     setScanned(true);
     setScannedData(`Type: ${type}\nData: ${data}`);

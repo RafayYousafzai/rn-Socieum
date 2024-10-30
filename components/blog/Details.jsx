@@ -1,9 +1,51 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "@/components/Header";
 import BlogCard from "./cards/BlogCard";
+import { useBlogContext } from "@/context/BlogContext";
+import { END_POINTS, showToast } from "@/helper/endpoints";
 
 const Details = ({ setPage, blog }) => {
+  const { selectedBlogs } = useBlogContext();
+
+  const fetchBlogsByQrCode = async () => {
+    if (!selectedBlogs?.qrCode) {
+      showToast("No QrCode.");
+      return;
+    }
+
+    try {
+      // console.log(selectedBlogs);
+
+      const url = END_POINTS.GET_BLOG_BY_QR_KEY(selectedBlogs.qrCode);
+      const res = await fetch(url);
+      console.log("fetchBlogsByQrCode URL:", url);
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        showToast(errorData.message || "No Blog found");
+        return;
+      }
+
+      const data = await res.json();
+      if (data.length === 0) {
+        showToast("No Contribution found against this QR code.");
+        setBlogs([]);
+        return;
+      }
+
+      console.log(data);
+      showToast("Blogs By Qr Code fetched successfully.");
+    } catch (err) {
+      console.error("Failed to fetch data:", err);
+      showToast("An error occurred while fetching data.");
+    }
+  };
+
+  useEffect(() => {
+    fetchBlogsByQrCode();
+  }, [selectedBlogs]);
+
   return (
     <View className="flex-1">
       <Header
@@ -16,8 +58,8 @@ const Details = ({ setPage, blog }) => {
         <View>
           <BlogCard
             key={blog._id}
-            title={blog?.title || ""}
-            description={blog?.description || ""}
+            title={blog?.donorName || ""}
+            description={blog?.donorDescription || ""}
             donorDescription={blog?.donorDescription || ""}
             imagePath={blog?.imagePath || ""}
             updatedAt={blog?.updatedAt || ""}

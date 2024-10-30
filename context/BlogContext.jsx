@@ -1,17 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { ToastAndroid, Alert, Platform } from "react-native";
-import { END_POINTS } from "@/helper/endpoints";
+import { END_POINTS, showToast } from "@/helper/endpoints";
 // Create the BlogContext
 const BlogContext = createContext();
-
-// Helper function for showing toast messages
-const showToast = (message) => {
-  if (Platform.OS === "android") {
-    ToastAndroid.show(message, ToastAndroid.SHORT);
-  } else {
-    Alert.alert(message);
-  }
-};
 
 // Provider Component
 const BlogProvider = ({ children }) => {
@@ -27,7 +18,7 @@ const BlogProvider = ({ children }) => {
     try {
       const url = END_POINTS.GET_ALL_LIST_BLOG;
       const res = await fetch(url);
-      console.log("Response:", res, "URL:", url);
+      // console.log("BlogProvider URL:", url);
 
       if (!res.ok) {
         const errorData = await res.json();
@@ -43,11 +34,11 @@ const BlogProvider = ({ children }) => {
         return;
       }
 
-      console.log("Data fetched successfully:", data);
+      // console.log("Data fetched successfully:", data);
       setBlogs(data);
       showToast("Data fetched successfully.");
     } catch (err) {
-      console.error("Failed to fetch data:", err);
+      // console.error("Failed to fetch data:", err);
       showToast("An error occurred while fetching data.");
       setError("An error occurred while fetching data.");
     } finally {
@@ -60,7 +51,6 @@ const BlogProvider = ({ children }) => {
   }, []);
 
   const selectedBlogs = blogs.find((b) => b._id === viewBlog);
-  console.log("context line 63:", viewBlog, selectedBlogs);
 
   return (
     <BlogContext.Provider

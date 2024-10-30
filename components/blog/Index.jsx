@@ -8,7 +8,7 @@ import { useFocusEffect } from "expo-router";
 
 const ViewBlogs = ({ onlyHistory }) => {
   const [page, setPage] = useState("AllBlogs");
-  const { selectedBlogs, viewBlog } = useBlogContext();
+  const { selectedBlogs } = useBlogContext();
 
   useEffect(() => {
     if (!selectedBlogs) {
