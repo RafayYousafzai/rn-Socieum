@@ -30,6 +30,8 @@ export default function BlogCard({
     ? `https://younite.uk/images/${imagePath}`
     : placeholderImg;
 
+  console.log("imageUrl:", imageUrl);
+
   const contribution = donorDescription || "N/A";
   const date = updatedAt ? new Date(updatedAt).toLocaleDateString() : "Unknown";
   const location = donorName || "Unknown";
