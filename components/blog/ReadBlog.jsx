@@ -9,9 +9,20 @@ import {
   Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useBlogContext } from "@/context/BlogContext";
+import { showToast } from "@/helper/endpoints";
 
 const ReadBlog = ({ setPage }) => {
+  const { selectedBlogs } = useBlogContext();
   const { width } = Dimensions.get("window");
+
+  const blog = selectedBlogs?.childStory?.[0];
+
+  if (!blog) {
+    showToast("No Contribution.");
+    setPage("OverView");
+    return null;
+  }
 
   const handleBackPress = () => {
     setPage("OverView");
@@ -32,18 +43,23 @@ const ReadBlog = ({ setPage }) => {
         {/* Profile Section */}
         <View style={styles.profileContainer}>
           <View style={styles.avatarCircle}>
-            <Text style={styles.avatarText}>MW</Text>
+            <Text style={styles.avatarText}>
+              {blog.title
+                .split(" ")
+                .map((word) => word[0])
+                .join("")}
+            </Text>
           </View>
           <View style={styles.profileInfo}>
-            <Text style={styles.name}>Michelle Williamson - Regional</Text>
-            <Text style={styles.title}>Charity Manager</Text>
+            <Text style={styles.name}>{blog.title}</Text>
+            <Text style={styles.title}>Regional Charity Manager</Text>
           </View>
         </View>
 
         {/* Large Image */}
         <Image
           source={{
-            uri: "https://skydivenorthwest.co.uk/wp-content/uploads/2014/02/Cash-for-kids-logo.png",
+            uri: `https://younite.uk/images/${blog.imagePath}`,
           }}
           style={[styles.largeImage, { width }]}
           resizeMode="contain"
@@ -51,26 +67,7 @@ const ReadBlog = ({ setPage }) => {
 
         {/* Message Content */}
         <View style={styles.messageContainer}>
-          <Text style={styles.paragraph}>
-            On behalf of Hits Radio Cash for Kids, I would like to offer you a
-            sincere thank you for your incredible donation of £500 to our
-            charity. Here at Hits Radio Cash for Kids, our mission is to improve
-            the lives of disadvantaged children and young people living in
-            Greater Manchester who are affected by poverty, illness, neglect or
-            have additional needs. We believe that all children should be able
-            to express their individuality, achieve their potential and live
-            life to the max. We help local grassroots organisations that aim to
-            make a difference to young lives, directly supporting families who
-            often have nowhere else to go. It breaks our hearts that 1 in 3
-            children in the UK are living in poverty and an ever-growing
-            hardship more than ever before. Covid-19 is directly affecting the
-            unemployment levels and heightened incomes and having devastating
-            effects on families. As a small team, we rely on the incredible help
-            of wonderful supporters like you so we can give a helping hand to as
-            many local disadvantaged children as we can during these
-            unprecedented times. On behalf of these kids at Hits Radio Cash for
-            Kids, thank you so much from the bottom of our hearts.
-          </Text>
+          <Text style={styles.paragraph}>{blog.description}</Text>
         </View>
       </ScrollView>
     </View>

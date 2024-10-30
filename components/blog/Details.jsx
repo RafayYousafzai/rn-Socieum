@@ -16,7 +16,6 @@ const Details = ({ setPage, blog }) => {
   const { selectedBlogs, loading } = useBlogContext();
   const [qrBlog, setQrBlog] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
-  console.log("qrBlog", qrBlog);
 
   const qrCode = selectedBlogs?.qrCode;
 
