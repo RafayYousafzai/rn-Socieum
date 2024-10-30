@@ -10,14 +10,18 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // Importing Ionicons
 
-const ReadBlog = () => {
+const ReadBlog = ({ setPage }) => {
   const { width } = Dimensions.get("window");
+
+  const handleBackPress = () => {
+    setPage("OverView");
+  };
 
   return (
     <View style={styles.container}>
       {/* Fixed Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton}>
+        <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
           <Ionicons name="arrow-back" size={24} color="white" />
           <Text style={styles.backText}>Back</Text>
         </TouchableOpacity>

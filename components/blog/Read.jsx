@@ -5,7 +5,7 @@ import ReadBlog from "./ReadBlog";
 const OverView = ({ setPage, blog }) => {
   return (
     <SafeAreaView className="flex-1">
-      <ReadBlog />
+      <ReadBlog setPage={setPage} />
     </SafeAreaView>
   );
 };
