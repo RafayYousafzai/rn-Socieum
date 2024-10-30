@@ -1,15 +1,13 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native";
 import React from "react";
+import ReadBlog from "./ReadBlog";
 
-const Read = ({ setPage }) => {
+const OverView = ({ setPage, blog }) => {
   return (
-    <View>
-      <Text>Read</Text>
-      <TouchableOpacity onPress={() => setPage("OverView")}>
-        <Text>Back</Text>
-      </TouchableOpacity>
-    </View>
+    <SafeAreaView className="flex-1">
+      <ReadBlog />
+    </SafeAreaView>
   );
 };
 
-export default Read;
+export default OverView;

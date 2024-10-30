@@ -5,11 +5,11 @@ import BlogCard from "./cards/BlogCard";
 
 const Details = ({ setPage, blog }) => {
   return (
-    <View  className="flex-1">
+    <View className="flex-1">
       <Header
-        text={"Scan Your QR Code"}
+        text={"Track Your Contribution"}
         desc={
-          "Scan your QR code or use your 6 digit code to see how your contribution is progressing"
+          "See details about where, when and how your contribution has been used"
         }
       />
       <View className="flex-1" style={styles.container}>

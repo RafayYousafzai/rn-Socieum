@@ -58,10 +58,10 @@ const OverView = ({ setPage, blog }) => {
               <Text style={styles.overviewButtonText}>Back</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => setPage("OverView")}
+              onPress={() => setPage("Read")}
               style={[styles.overviewButton, styles.wideButton]}
             >
-              <Text style={styles.overviewButtonText}>Blog Overview</Text>
+              <Text style={styles.overviewButtonText}>Read Blog</Text>
             </TouchableOpacity>
           </View>
         </View>
