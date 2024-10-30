@@ -26,10 +26,9 @@ export default function BlogCard({
 
   // Creating a dynamic image URL
   const imageUrl = imagePath
-    ? `https://yourserver.com${imagePath}`
+    ? `https://younite.uk/images/${imagePath}`
     : placeholderImg;
 
-  // Formatting the contribution and date
   const contribution = donorDescription || "N/A";
   const date = updatedAt ? new Date(updatedAt).toLocaleDateString() : "Unknown";
   const location = donorName || "Unknown";
@@ -40,16 +39,16 @@ export default function BlogCard({
         <ImageBackground
           source={{ uri: imageUrl }}
           style={styles.imageBackground}
-          imageStyle={{ borderTopLeftRadius: 12, borderTopRightRadius: 12 }}
+          imageStyle={styles.imageGradient}
         >
           <Text style={styles.titleOverlay}>{limitString(title, 25)}</Text>
           <View style={styles.infoRow}>
             <View style={styles.infoItem}>
               <Avatar.Icon
                 color="#3B82F6"
-                size={40}
+                size={36}
                 icon="account-circle"
-                style={{ backgroundColor: "#fff" }}
+                style={styles.avatarIcon}
               />
               <Text style={styles.infoText}>Contribution</Text>
               <Text style={styles.infoValue}>
@@ -60,9 +59,9 @@ export default function BlogCard({
             <View style={styles.infoItem}>
               <Avatar.Icon
                 color="#10B981"
-                size={40}
+                size={36}
                 icon="calendar-today"
-                style={{ backgroundColor: "#fff" }}
+                style={styles.avatarIcon}
               />
               <Text style={styles.infoText}>Contribution Date</Text>
               <Text style={styles.infoValue}>{limitString(date, 10)}</Text>
@@ -71,9 +70,9 @@ export default function BlogCard({
             <View style={styles.infoItem}>
               <Avatar.Icon
                 color="#EF4444"
-                size={40}
+                size={36}
                 icon="map-marker"
-                style={{ backgroundColor: "#fff" }}
+                style={styles.avatarIcon}
               />
               <Text style={styles.infoText}>Location</Text>
               <Text style={styles.infoValue}>{limitString(location, 10)}</Text>
@@ -110,11 +109,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 12,
   },
+  imageGradient: {
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+    opacity: 0.9, // Simulating gradient overlay
+  },
   titleOverlay: {
-    color: "white",
-    fontSize: 12,
+    color: "#ffffff",
+    fontSize: 16,
     fontWeight: "600",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 12,
@@ -131,13 +135,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
   },
+  avatarIcon: {
+    backgroundColor: "#ffffff",
+    borderRadius: 50,
+    padding: 4,
+  },
   infoText: {
     color: "#D1D5DB",
     fontSize: 10,
-    marginTop: -10,
+    marginTop: -6,
   },
   infoValue: {
-    color: "#fff",
+    color: "#ffffff",
     fontWeight: "bold",
     fontSize: 12,
   },
