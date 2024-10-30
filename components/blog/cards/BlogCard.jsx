@@ -7,6 +7,7 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { Card, Avatar } from "react-native-paper";
 import { limitString } from "../../common/limitString";
 import { useBlogContext } from "@/context/BlogContext";
@@ -36,49 +37,57 @@ export default function BlogCard({
   return (
     <TouchableOpacity onPress={() => onPress(_id)} activeOpacity={0.9}>
       <Card style={styles.card}>
-        <ImageBackground
-          source={{ uri: imageUrl }}
-          style={styles.imageBackground}
-          imageStyle={styles.imageGradient}
-        >
-          <Text style={styles.titleOverlay}>{limitString(title, 25)}</Text>
-          <View style={styles.infoRow}>
-            <View style={styles.infoItem}>
-              <Avatar.Icon
-                color="#3B82F6"
-                size={36}
-                icon="account-circle"
-                style={styles.avatarIcon}
-              />
-              <Text style={styles.infoText}>Contribution</Text>
-              <Text style={styles.infoValue}>
-                {limitString(contribution, 10)}
-              </Text>
-            </View>
+        <View style={styles.imageContainer}>
+          <ImageBackground
+            source={{ uri: imageUrl }}
+            style={styles.imageBackground}
+            imageStyle={styles.imageStyle}
+          >
+            <LinearGradient
+              colors={["rgba(0, 0, 0, 0.8)", "rgba(0, 0, 0, 0.0)"]}
+              style={styles.gradientOverlay}
+            />
+            <Text style={styles.titleOverlay}>{limitString(title, 25)}</Text>
+            <View style={styles.infoRow}>
+              <View style={styles.infoItem}>
+                <Avatar.Icon
+                  color="#3B82F6"
+                  size={36}
+                  icon="account-circle"
+                  style={styles.avatarIcon}
+                />
+                <Text style={styles.infoText}>Contribution</Text>
+                <Text style={styles.infoValue}>
+                  {limitString(contribution, 10)}
+                </Text>
+              </View>
 
-            <View style={styles.infoItem}>
-              <Avatar.Icon
-                color="#10B981"
-                size={36}
-                icon="calendar-today"
-                style={styles.avatarIcon}
-              />
-              <Text style={styles.infoText}>Contribution Date</Text>
-              <Text style={styles.infoValue}>{limitString(date, 10)}</Text>
-            </View>
+              <View style={styles.infoItem}>
+                <Avatar.Icon
+                  color="#10B981"
+                  size={36}
+                  icon="calendar-today"
+                  style={styles.avatarIcon}
+                />
+                <Text style={styles.infoText}>Contribution Date</Text>
+                <Text style={styles.infoValue}>{limitString(date, 10)}</Text>
+              </View>
 
-            <View style={styles.infoItem}>
-              <Avatar.Icon
-                color="#EF4444"
-                size={36}
-                icon="map-marker"
-                style={styles.avatarIcon}
-              />
-              <Text style={styles.infoText}>Location</Text>
-              <Text style={styles.infoValue}>{limitString(location, 10)}</Text>
+              <View style={styles.infoItem}>
+                <Avatar.Icon
+                  color="#EF4444"
+                  size={36}
+                  icon="map-marker"
+                  style={styles.avatarIcon}
+                />
+                <Text style={styles.infoText}>Location</Text>
+                <Text style={styles.infoValue}>
+                  {limitString(location, 10)}
+                </Text>
+              </View>
             </View>
-          </View>
-        </ImageBackground>
+          </ImageBackground>
+        </View>
 
         <Card.Content style={styles.content}>
           <Text style={styles.cardTitle}>{limitString(title, 30)}</Text>
@@ -103,16 +112,24 @@ const styles = StyleSheet.create({
     elevation: 8,
     backgroundColor: "#fff",
   },
+  imageContainer: {
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+    overflow: "hidden",
+  },
   imageBackground: {
     padding: 16,
     height: 200,
     justifyContent: "center",
-    borderRadius: 12,
   },
-  imageGradient: {
+  imageStyle: {
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
-    opacity: 0.9, // Simulating gradient overlay
+  },
+  gradientOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
   },
   titleOverlay: {
     color: "#ffffff",
