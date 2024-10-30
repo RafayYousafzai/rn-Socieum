@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
     elevation: 2, // For Android
   },
   button: {
-    padding: 12,
-    marginBottom: 10,
+    padding: 8,
+
     borderRadius: 3,
     backgroundColor: "#000",
     alignItems: "center",
@@ -93,6 +93,8 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   text: {
+    fontSize: 19,
+    fontWeight: 800,
     marginBottom: 16,
   },
 });
