@@ -1,19 +1,28 @@
-import React, { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Details from "./Details";
 import OverView from "./OverView";
 import Read from "./Read";
 import AllBlogs from "./AllBlogs";
 import { useBlogContext } from "@/context/BlogContext";
+import { useFocusEffect } from "expo-router";
 
 const ViewBlogs = ({ onlyHistory }) => {
   const [page, setPage] = useState("AllBlogs");
-  const { selectedBlogs } = useBlogContext();
+  const { selectedBlogs, viewBlog } = useBlogContext();
 
   useEffect(() => {
     if (!selectedBlogs) {
       setPage("AllBlogs");
     }
   }, [selectedBlogs]);
+
+  useFocusEffect(
+    useCallback(() => {
+      console.log("AllBlogs listBlog");
+      setPage("AllBlogs");
+      return () => {};
+    }, [])
+  );
 
   switch (page) {
     case "AllBlogs":

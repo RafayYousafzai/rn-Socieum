@@ -20,8 +20,6 @@ const BlogProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  console.log();
-
   const fetchBlogs = async () => {
     setLoading(true);
     setError(null);
@@ -62,7 +60,7 @@ const BlogProvider = ({ children }) => {
   }, []);
 
   const selectedBlogs = blogs.find((b) => b._id === viewBlog);
-  console.log(viewBlog, selectedBlogs);
+  console.log("context line 63:", viewBlog, selectedBlogs);
 
   return (
     <BlogContext.Provider

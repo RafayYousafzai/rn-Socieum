@@ -1,18 +1,14 @@
 import { Tabs } from "expo-router";
 import React from "react";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
-import { Colors } from "@/constants/Colors";
-import { useColorScheme } from "@/hooks/useColorScheme";
 import BlogProvider from "@/context/BlogContext";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <BlogProvider>
       <Tabs
         screenOptions={{
-          tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+          tabBarActiveTintColor: "#000",
           tabBarInactiveTintColor: "#8e8e93",
           tabBarLabelStyle: {
             fontSize: 12,
@@ -22,7 +18,7 @@ export default function TabLayout() {
             height: 65,
             paddingTop: 10,
             paddingBottom: 10,
-            backgroundColor: Colors[colorScheme ?? "light"].background,
+            backgroundColor: "#fff",
             borderTopWidth: 0,
             elevation: 0,
             shadowOpacity: 0,
