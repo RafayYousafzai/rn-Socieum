@@ -11,8 +11,8 @@ import "react-native-reanimated";
 import "@/global.css";
 import { PaperProvider } from "react-native-paper";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { showToast } from "@/helper/endpoints";
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -22,24 +22,27 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
+    let timer;
+
     if (loaded) {
+      timer = setInterval(() => {
+        showToast("Early Build for testing only");
+      }, 18000);
+
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
 
-  if (!loaded) {
-    return null;
-  }
+    return () => clearTimeout(timer);
+  }, [loaded]);
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <PaperProvider>
         <Stack
           screenOptions={{
-            headerShown: false, // Ensure no header is shown
+            headerShown: false,
           }}
         >
-          {/* Define the screens explicitly */}
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
