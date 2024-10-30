@@ -8,6 +8,7 @@ import {
 import React from "react";
 import Header from "@/components/Header";
 import BlogCard from "./cards/BlogCard";
+import { Ionicons } from "@expo/vector-icons";
 
 const OverView = ({ setPage, blog }) => {
   return (
@@ -46,7 +47,7 @@ const OverView = ({ setPage, blog }) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>View Blockchain</Text>
+              <Text style={styles.buttonText}>See Details</Text>
             </TouchableOpacity>
           </View>
 
@@ -55,7 +56,7 @@ const OverView = ({ setPage, blog }) => {
               onPress={() => setPage("Details")}
               style={styles.overviewButton}
             >
-              <Text style={styles.overviewButtonText}>Back</Text>
+              <Ionicons name="arrow-back" size={24} color="white" />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => setPage("Read")}
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
   },
   wideButton: {
-    width: "80%", // Set width for Blog Overview button
+    width: "80%",
   },
 });
 
