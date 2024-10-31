@@ -53,7 +53,6 @@ const ReadBlog = ({ setPage }) => {
           <Text style={styles.name}>{item.title}</Text>
           <Text style={styles.title}>Regional Charity Manager</Text>
         </View>
-        <Player url={item.voicePath} />
       </View>
 
       {/* Blog Image */}
@@ -72,6 +71,7 @@ const ReadBlog = ({ setPage }) => {
       <Text style={[styles.paragraph, { marginHorizontal: 20 }]}>
         {formatDateToCustomString(item.updatedAt)}
       </Text>
+      <Player url={item.voicePath} />
     </View>
   );
 
