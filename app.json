@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "not-native",
-    "slug": "not-native",
+    "name": "We are Y",
+    "slug": "younite",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "younite",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",

@@ -127,7 +127,9 @@ export default function BarcodeScanner() {
             style={styles.closeButton}
             onPress={() => setIsScannerModalVisible(false)}
           >
-            <Text style={styles.closeButtonText}>Close Scanner</Text>
+            <Text style={styles.closeButtonText}>
+              <MaterialIcons name="close-fullscreen" size={40} color="#000" />
+            </Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -144,6 +146,7 @@ const styles = StyleSheet.create({
   camera: {
     width: "100%",
     height: "70%",
+    marginBottom: 100,
   },
   buttonContainer: {
     alignItems: "center",
@@ -169,7 +172,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   closeButtonText: {
-    fontSize: 18,
+    fontSize: 14,
     color: "#000",
     fontWeight: "bold",
   },
