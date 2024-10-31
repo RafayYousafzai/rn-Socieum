@@ -73,7 +73,7 @@ const Details = ({ setPage, blog }) => {
       />
       <View style={styles.container}>
         {isFetching ? (
-          <ActivityIndicator size="large" color="#0000ff" />
+          <ActivityIndicator size="large" color="#000" />
         ) : (
           <View>
             {qrBlog.length > 0 && (
@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
   card: {
     marginTop: 16,
     padding: 16,
-    borderRadius: 10,
     backgroundColor: "#fff",
     shadowColor: "#000",
     shadowOffset: {
@@ -133,7 +132,6 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 8,
-    borderRadius: 3,
     backgroundColor: "#000",
     alignItems: "center",
   },
@@ -145,7 +143,6 @@ const styles = StyleSheet.create({
   overviewButton: {
     marginTop: 16,
     padding: 12,
-    borderRadius: 3,
     backgroundColor: "#000",
     alignItems: "center",
   },

@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
     overflow: "hidden",
-    minHeight: 200,
+    minHeight: 80,
+    maxHeight: 200,
   },
   innerContainer: {
     flex: 1,

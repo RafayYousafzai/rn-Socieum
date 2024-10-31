@@ -3,7 +3,7 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ScrollView,
+  FlatList,
   StyleSheet,
   Image,
   Dimensions,
@@ -15,29 +15,63 @@ import { showToast } from "@/helper/endpoints";
 function formatDateToCustomString(isoDateString) {
   const date = new Date(isoDateString);
   const options = { month: "short", day: "numeric", year: "numeric" };
-  const formattedDate = date.toLocaleDateString("en-US", options);
-  return formattedDate.replace(/,/g, "");
+  return date.toLocaleDateString("en-US", options).replace(/,/g, "");
 }
 
 const ReadBlog = ({ setPage }) => {
   const { selectedBlogs } = useBlogContext();
   const { width } = Dimensions.get("window");
 
-  // Get the first child story from the selected blogs
-  const blog = selectedBlogs?.childStory?.[0];
+  const blogs = selectedBlogs?.childStory;
 
-  console.log(blog);
-
-  if (!blog) {
+  if (!blogs || blogs.length === 0) {
     showToast("No Contribution.");
     setPage("OverView");
     return null;
   }
 
-  // Handle back button press
   const handleBackPress = () => {
     setPage("OverView");
   };
+
+  const renderItem = ({ item }) => (
+    <View style={styles.blogContainer}>
+      {/* Profile Section */}
+      <View style={styles.profileContainer}>
+        <View style={styles.avatarCircle}>
+          <Text style={styles.avatarText}>
+            {item.title
+              .split(" ")
+              .slice(0, 2)
+              .map((word) => word[0])
+              .filter((char) => /[a-zA-Z]/.test(char))
+              .join("")}
+          </Text>
+        </View>
+        <View style={styles.profileInfo}>
+          <Text style={styles.name}>{item.title}</Text>
+          <Text style={styles.title}>Regional Charity Manager</Text>
+        </View>
+      </View>
+
+      {/* Blog Image */}
+      <Image
+        source={{ uri: `https://younite.uk/images/${item.imagePath}` }}
+        style={styles.largeImage}
+        resizeMode="contain"
+      />
+
+      {/* Blog Description */}
+      <View style={styles.messageContainer}>
+        <Text style={styles.paragraph}>{item.description}</Text>
+      </View>
+
+      {/* Blog Date */}
+      <Text style={[styles.paragraph, { marginHorizontal: 20 }]}>
+        {formatDateToCustomString(item.updatedAt)}
+      </Text>
+    </View>
+  );
 
   return (
     <View style={styles.container}>
@@ -49,45 +83,14 @@ const ReadBlog = ({ setPage }) => {
         </TouchableOpacity>
       </View>
 
-      {/* Scrollable Content */}
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        {/* Profile Section */}
-        <View style={styles.profileContainer}>
-          <View style={styles.avatarCircle}>
-            <Text style={styles.avatarText}>
-              {
-                blog.title
-                  .split(" ") // Split the title into words
-                  .slice(0, 2) // Take the first two words
-                  .map((word) => word[0]) // Get the first letter of each word
-                  .filter((char) => /[a-zA-Z]/.test(char)) // Filter to include only alphabetic characters
-                  .join("") // Join the characters into a single string
-              }
-            </Text>
-          </View>
-          <View style={styles.profileInfo}>
-            <Text style={styles.name}>{blog.title}</Text>
-            <Text style={styles.title}>Regional Charity Manager</Text>
-          </View>
-        </View>
-
-        {/* Large Image */}
-        <Image
-          source={{
-            uri: `https://younite.uk/images/${blog.imagePath}`,
-          }}
-          style={[styles.largeImage, { width }]}
-          resizeMode="contain"
-        />
-
-        {/* Message Content */}
-        <View style={styles.messageContainer}>
-          <Text style={styles.paragraph}>{blog.description}</Text>
-        </View>
-        <Text style={[styles.paragraph, { marginHorizontal: 20 }]}>
-          {formatDateToCustomString(blog?.updatedAt)}
-        </Text>
-      </ScrollView>
+      {/* FlatList Content */}
+      <FlatList
+        data={blogs}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+        contentContainerStyle={styles.scrollContent}
+        ListHeaderComponent={<View style={{ height: 80 }} />}
+      />
     </View>
   );
 };
@@ -119,7 +122,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   scrollContent: {
-    paddingTop: 80,
+    paddingBottom: 80,
+  },
+  blogContainer: {
+    marginBottom: 20,
+    borderBottomColor: "#ccc",
+    borderBottomWidth: 1,
+    paddingBottom: 16,
   },
   profileContainer: {
     flexDirection: "row",
@@ -152,20 +161,18 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   largeImage: {
-    height: 200,
+    height: 400,
     marginVertical: 16,
+    width: "100%",
+    objectFit: "cover",
   },
   messageContainer: {
     padding: 16,
-    borderBottomColor: "gray",
-    borderBottomWidth: 2,
-    marginBottom: 16,
   },
   paragraph: {
     fontSize: 16,
-    lineHeight: 24, // Ensure good spacing between lines
+    lineHeight: 24,
     color: "#333",
-    marginBottom: 16,
   },
 });
 

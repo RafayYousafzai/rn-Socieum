@@ -158,16 +158,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     borderRadius: 50,
     padding: 4,
+    height: 35,
+    marginBottom: 10,
   },
   infoText: {
     color: "#D1D5DB",
     fontSize: 10,
     marginTop: -6,
+    height: 14,
   },
   infoValue: {
     color: "#ffffff",
     fontWeight: "bold",
     fontSize: 12,
+    marginBottom: 10,
   },
   content: {
     paddingVertical: 12,
