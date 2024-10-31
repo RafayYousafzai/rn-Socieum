@@ -10,40 +10,56 @@ import {
   Alert,
   ToastAndroid,
 } from "react-native";
-import * as WebBrowser from "expo-web-browser";
+// Removed unused import for WebBrowser
 import { END_POINTS } from "../helper/endpoints";
 
 export default function BarcodeScanner() {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [scanned, setScanned] = useState(false);
-  const [scannedData, setScannedData] = useState(null);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const handlePressButtonAsync = async (qrCode) => {
+  const [cameraPermission, setCameraPermission] = useState(null);
+  const [isBarcodeScanned, setIsBarcodeScanned] = useState(false);
+  const [isScannerModalVisible, setIsScannerModalVisible] = useState(false);
+  const handleScanButtonPress = async (barcodeType, barcodeData) => {
     try {
-      const url = END_POINTS.GET_BLOG_BY_QR_KEY({ qrCode });
-      const res = await fetch(url);
-      console.log(res, url);
+      // Construct the URL using the barcode data
+      const url = END_POINTS.GET_BLOG_BY_QR_KEY({ qrCode: barcodeData });
+      const response = await fetch(url);
 
-      if (!res.ok) {
-        const errorData = await res.json();
+      console.log(
+        "barcodeType:",
+        barcodeType,
+        "barcodeData:",
+        barcodeData,
+        "response:",
+        response,
+        "url:",
+        url
+      );
+
+      if (!response.ok) {
+        const errorResponse = await response.json();
         ToastAndroid.show(
-          errorData.message || "No Contribution found against this QR code.",
+          errorResponse.message ||
+            "No Contribution found against this QR code.",
           ToastAndroid.SHORT
         );
         return;
       }
 
-      const data = await res.json();
-      console.log("Data fetched successfully:", data);
+      const responseData = await response.json();
 
-      if (data.data && data.data.length > 0) {
+      if (
+        responseData.success &&
+        responseData.data &&
+        responseData.data.length > 0
+      ) {
+        const contribution = responseData.data[0];
+        console.log("Contribution data:", contribution);
+
+        ToastAndroid.show("Contribution found!", ToastAndroid.SHORT);
       } else {
         ToastAndroid.show(
           "No Contribution found against this QR code.",
           ToastAndroid.SHORT
         );
-        // router("NoContribution");
       }
     } catch (error) {
       console.error("Failed to fetch data:", error);
@@ -54,62 +70,62 @@ export default function BarcodeScanner() {
     }
   };
 
-  // Request camera permissions on component mount
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === "granted");
+      setCameraPermission(status === "granted");
     })();
   }, []);
 
   // Callback function when barcode is scanned
-  const handleBarCodeScanned = ({ type, data }) => {
-    resetScanner();
-    console.log(type, data);
-    handlePressButtonAsync(type, data);
-    setScanned(true);
-    setScannedData(`Type: ${type}\nData: ${data}`);
-    setIsModalVisible(false); // Close the modal after scanning
-    Alert.alert("Scanned");
+  const handleBarcodeScanned = ({ type, data }) => {
+    handleScanButtonPress(type, data);
+    setIsBarcodeScanned(true);
+    setIsScannerModalVisible(false);
   };
 
-  // Reset scanning and data
   const resetScanner = () => {
-    setScanned(false);
-    setScannedData(null);
+    setIsBarcodeScanned(false);
   };
 
-  if (hasPermission === null) {
+  if (cameraPermission === null) {
     return <Text>Requesting camera permission...</Text>;
   }
 
-  if (hasPermission === false) {
+  if (cameraPermission === false) {
     return <Text>No access to camera</Text>;
   }
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => setIsModalVisible(true)}>
-        <View className="items-center mb-10">
+      <TouchableOpacity
+        onPress={() => {
+          resetScanner();
+          setIsScannerModalVisible(true);
+        }}
+      >
+        <View style={styles.buttonContainer}>
           <MaterialIcons name="qr-code-scanner" size={40} color="#000" />
-          <Text className="text-lg font-medium text-gray-800 mt-2">SCAN</Text>
+          <Text style={styles.buttonText}>SCAN</Text>
         </View>
       </TouchableOpacity>
 
       <Modal
-        visible={isModalVisible}
+        visible={isScannerModalVisible}
         transparent={true}
         animationType="slide"
-        onRequestClose={() => setIsModalVisible(false)}
+        onRequestClose={() => setIsScannerModalVisible(false)}
       >
         <View style={styles.modalContainer}>
           <Camera
             style={styles.camera}
-            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+            onBarCodeScanned={
+              isBarcodeScanned ? undefined : handleBarcodeScanned
+            } // Updated to use meaningful variable
           />
           <TouchableOpacity
             style={styles.closeButton}
-            onPress={() => setIsModalVisible(false)}
+            onPress={() => setIsScannerModalVisible(false)}
           >
             <Text style={styles.closeButtonText}>Close Scanner</Text>
           </TouchableOpacity>
@@ -129,15 +145,15 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "70%",
   },
-  scannedContainer: {
-    marginTop: 20,
+  buttonContainer: {
     alignItems: "center",
-  },
-  scannedText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#000",
     marginBottom: 10,
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: "500",
+    color: "#000",
+    marginTop: 5,
   },
   modalContainer: {
     flex: 1,

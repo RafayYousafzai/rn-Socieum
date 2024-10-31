@@ -12,7 +12,7 @@ export const END_POINTS = {
   GET_BLOG_BY_UNIQUE_KEY: ({ key }) =>
     `${BASE_API_URL}/getMerchandiseByUniqueKey?uniqueKey=${key}`,
   GET_BLOG_DETAIL_BY_QR_KEY: ({ qrCode }) =>
-    `${BASE_API_URL}/getCharityBlogByQrcode/${qrCode}`,
+    `${BASE_API_URL}/getBlogByQrCode/${qrCode}`,
 };
 
 export const showToast = (message) => {
