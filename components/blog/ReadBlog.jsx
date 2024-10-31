@@ -12,11 +12,21 @@ import { Ionicons } from "@expo/vector-icons";
 import { useBlogContext } from "@/context/BlogContext";
 import { showToast } from "@/helper/endpoints";
 
+function formatDateToCustomString(isoDateString) {
+  const date = new Date(isoDateString);
+  const options = { month: "short", day: "numeric", year: "numeric" };
+  const formattedDate = date.toLocaleDateString("en-US", options);
+  return formattedDate.replace(/,/g, "");
+}
+
 const ReadBlog = ({ setPage }) => {
   const { selectedBlogs } = useBlogContext();
   const { width } = Dimensions.get("window");
 
+  // Get the first child story from the selected blogs
   const blog = selectedBlogs?.childStory?.[0];
+
+  console.log(blog);
 
   if (!blog) {
     showToast("No Contribution.");
@@ -24,6 +34,7 @@ const ReadBlog = ({ setPage }) => {
     return null;
   }
 
+  // Handle back button press
   const handleBackPress = () => {
     setPage("OverView");
   };
@@ -44,10 +55,14 @@ const ReadBlog = ({ setPage }) => {
         <View style={styles.profileContainer}>
           <View style={styles.avatarCircle}>
             <Text style={styles.avatarText}>
-              {blog.title
-                .split(" ")
-                .map((word) => word[0])
-                .join("")}
+              {
+                blog.title
+                  .split(" ") // Split the title into words
+                  .slice(0, 2) // Take the first two words
+                  .map((word) => word[0]) // Get the first letter of each word
+                  .filter((char) => /[a-zA-Z]/.test(char)) // Filter to include only alphabetic characters
+                  .join("") // Join the characters into a single string
+              }
             </Text>
           </View>
           <View style={styles.profileInfo}>
@@ -69,6 +84,9 @@ const ReadBlog = ({ setPage }) => {
         <View style={styles.messageContainer}>
           <Text style={styles.paragraph}>{blog.description}</Text>
         </View>
+        <Text style={[styles.paragraph, { marginHorizontal: 20 }]}>
+          {formatDateToCustomString(blog?.updatedAt)}
+        </Text>
       </ScrollView>
     </View>
   );
@@ -84,7 +102,7 @@ const styles = StyleSheet.create({
     padding: 16,
     flexDirection: "row",
     alignItems: "center",
-    position: "absolute", // Keeps it fixed at the top
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
@@ -101,12 +119,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   scrollContent: {
-    paddingTop: 80, // To avoid overlapping with the fixed header
+    paddingTop: 80,
   },
   profileContainer: {
     flexDirection: "row",
     alignItems: "center",
     padding: 16,
+    width: "95%",
   },
   avatarCircle: {
     width: 48,
@@ -138,10 +157,13 @@ const styles = StyleSheet.create({
   },
   messageContainer: {
     padding: 16,
+    borderBottomColor: "gray",
+    borderBottomWidth: 2,
+    marginBottom: 16,
   },
   paragraph: {
     fontSize: 16,
-    lineHeight: 24,
+    lineHeight: 24, // Ensure good spacing between lines
     color: "#333",
     marginBottom: 16,
   },
