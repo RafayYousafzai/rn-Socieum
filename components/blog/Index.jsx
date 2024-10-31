@@ -10,6 +10,9 @@ const ViewBlogs = ({ onlyHistory }) => {
   const [page, setPage] = useState("AllBlogs");
   const { selectedBlog } = useBlogContext();
 
+  // console.log(selectedBlog);
+  
+
   useEffect(() => {
     if (!selectedBlog) {
       setPage("AllBlogs");

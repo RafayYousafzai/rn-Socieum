@@ -11,6 +11,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useBlogContext } from "@/context/BlogContext";
 import { showToast } from "@/helper/endpoints";
+import Player from "./Player";
 
 function formatDateToCustomString(isoDateString) {
   const date = new Date(isoDateString);
@@ -52,6 +53,7 @@ const ReadBlog = ({ setPage }) => {
           <Text style={styles.name}>{item.title}</Text>
           <Text style={styles.title}>Regional Charity Manager</Text>
         </View>
+        <Player url={item.voicePath} />
       </View>
 
       {/* Blog Image */}

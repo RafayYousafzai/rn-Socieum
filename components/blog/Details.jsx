@@ -19,7 +19,7 @@ const saveBlogId = async (blogId) => {
   try {
     const existingIds = await getValueFor(BLOG_IDS_KEY);
     const blogIdsArray = existingIds ? JSON.parse(existingIds) : [];
-    console.log(existingIds);
+    // console.log(existingIds);
     
 
     if (!blogIdsArray.includes(blogId)) {
