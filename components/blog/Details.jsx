@@ -11,12 +11,31 @@ import BlogCard from "./cards/BlogCard";
 import { useBlogContext } from "@/context/BlogContext";
 import { END_POINTS, showToast } from "@/helper/endpoints";
 import * as WebBrowser from "expo-web-browser";
+import { getValueFor, save } from "@/lib/SecureStore";
 
-const Details = ({ setPage, blog }) => {
+const BLOG_IDS_KEY = "openedBlogIds"; // Define the key here
+
+const saveBlogId = async (blogId) => {
+  try {
+    const existingIds = await getValueFor(BLOG_IDS_KEY);
+    const blogIdsArray = existingIds ? JSON.parse(existingIds) : [];
+    console.log(existingIds);
+    
+
+    if (!blogIdsArray.includes(blogId)) {
+      blogIdsArray.push(blogId);
+    }
+
+    await save(BLOG_IDS_KEY, JSON.stringify(blogIdsArray));
+  } catch (error) {
+    console.error("Error saving blog ID:", error);
+  }
+};
+
+const Details = ({ setPage }) => {
   const { selectedBlogs, loading } = useBlogContext();
   const [qrBlog, setQrBlog] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
-
   const qrCode = selectedBlogs?.qrCode;
 
   const fetchBlogsByQrCode = async () => {
@@ -32,6 +51,7 @@ const Details = ({ setPage, blog }) => {
 
       if (!res.ok) {
         const errorData = await res.json();
+        showToast("Failed to fetch data: " + errorData.message);
         return;
       }
 
@@ -60,8 +80,12 @@ const Details = ({ setPage, blog }) => {
   };
 
   useEffect(() => {
+    if (!loading && selectedBlogs?._id) {
+      saveBlogId(selectedBlogs._id); // Save the blog ID
+    }
+
     if (!loading) {
-      fetchBlogsByQrCode();
+      fetchBlogsByQrCode(); // Fetch blogs based on QR code
     }
   }, [selectedBlogs, loading]);
 

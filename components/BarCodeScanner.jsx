@@ -23,16 +23,16 @@ export default function BarcodeScanner() {
       const url = END_POINTS.GET_BLOG_BY_QR_KEY({ qrCode: barcodeData });
       const response = await fetch(url);
 
-      console.log(
-        "barcodeType:",
-        barcodeType,
-        "barcodeData:",
-        barcodeData,
-        "response:",
-        response,
-        "url:",
-        url
-      );
+      // console.log(
+      //   "barcodeType:",
+      //   barcodeType,
+      //   "barcodeData:",
+      //   barcodeData,
+      //   "response:",
+      //   response,
+      //   "url:",
+      //   url
+      // );
 
       if (!response.ok) {
         const errorResponse = await response.json();
@@ -52,7 +52,7 @@ export default function BarcodeScanner() {
         responseData.data.length > 0
       ) {
         const contribution = responseData.data[0];
-        console.log("Contribution data:", contribution);
+        // console.log("Contribution data:", contribution);
 
         ToastAndroid.show("Contribution found!", ToastAndroid.SHORT);
       } else {

@@ -18,7 +18,7 @@ const ViewBlogs = ({ onlyHistory }) => {
 
   useFocusEffect(
     useCallback(() => {
-      console.log("AllBlogs listBlog");
+      // console.log("AllBlogs listBlog");
       setPage("AllBlogs");
       return () => {};
     }, [])
@@ -26,7 +26,7 @@ const ViewBlogs = ({ onlyHistory }) => {
 
   switch (page) {
     case "AllBlogs":
-      return <AllBlogs setPage={setPage} />;
+      return <AllBlogs setPage={setPage} onlyHistory={onlyHistory} />;
     case "Details":
       return <Details setPage={setPage} blog={selectedBlogs} />;
     case "OverView":
