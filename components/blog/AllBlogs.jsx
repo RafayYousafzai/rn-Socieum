@@ -27,7 +27,7 @@ export default function AllBlogs({ setPage, onlyHistory }) {
     } else {
       setHistoryIds([]);
     }
-  }, [onlyHistory]);
+  }, [onlyHistory, setViewBlog]);
 
   const filteredBlogs = onlyHistory
     ? blogs.filter((blog) => historyIds.includes(blog._id))
