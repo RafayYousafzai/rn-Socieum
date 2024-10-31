@@ -8,13 +8,13 @@ import { useFocusEffect } from "expo-router";
 
 const ViewBlogs = ({ onlyHistory }) => {
   const [page, setPage] = useState("AllBlogs");
-  const { selectedBlogs } = useBlogContext();
+  const { selectedBlog } = useBlogContext();
 
   useEffect(() => {
-    if (!selectedBlogs) {
+    if (!selectedBlog) {
       setPage("AllBlogs");
     }
-  }, [selectedBlogs]);
+  }, [selectedBlog]);
 
   useFocusEffect(
     useCallback(() => {
@@ -28,13 +28,13 @@ const ViewBlogs = ({ onlyHistory }) => {
     case "AllBlogs":
       return <AllBlogs setPage={setPage} onlyHistory={onlyHistory} />;
     case "Details":
-      return <Details setPage={setPage} blog={selectedBlogs} />;
+      return <Details setPage={setPage} blog={selectedBlog} />;
     case "OverView":
-      return <OverView setPage={setPage} blog={selectedBlogs} />;
+      return <OverView setPage={setPage} blog={selectedBlog} />;
     case "Read":
-      return <Read setPage={setPage} blog={selectedBlogs} />;
+      return <Read setPage={setPage} blog={selectedBlog} />;
     default:
-      return <AllBlogs setPage={setPage} blog={selectedBlogs} />;
+      return <AllBlogs setPage={setPage} blog={selectedBlog} />;
   }
 };
 

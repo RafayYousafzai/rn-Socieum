@@ -19,10 +19,10 @@ function formatDateToCustomString(isoDateString) {
 }
 
 const ReadBlog = ({ setPage }) => {
-  const { selectedBlogs } = useBlogContext();
+  const { selectedBlog } = useBlogContext();
   const { width } = Dimensions.get("window");
 
-  const blogs = selectedBlogs?.childStory;
+  const blogs = selectedBlog?.childStory;
 
   if (!blogs || blogs.length === 0) {
     showToast("No Contribution.");

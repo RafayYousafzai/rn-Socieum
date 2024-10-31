@@ -50,7 +50,7 @@ const BlogProvider = ({ children }) => {
     fetchBlogs();
   }, []);
 
-  const selectedBlogs = blogs.find((b) => b._id === viewBlog);
+  const selectedBlog = blogs.find((b) => b._id === viewBlog);
 
   return (
     <BlogContext.Provider
@@ -61,7 +61,7 @@ const BlogProvider = ({ children }) => {
         fetchBlogs,
         viewBlog,
         setViewBlog,
-        selectedBlogs,
+        selectedBlog,
       }}
     >
       {children}

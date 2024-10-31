@@ -33,10 +33,10 @@ const saveBlogId = async (blogId) => {
 };
 
 const Details = ({ setPage }) => {
-  const { selectedBlogs, loading } = useBlogContext();
+  const { selectedBlog, loading } = useBlogContext();
   const [qrBlog, setQrBlog] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
-  const qrCode = selectedBlogs?.qrCode;
+  const qrCode = selectedBlog?.qrCode;
 
   const fetchBlogsByQrCode = async () => {
     if (!qrCode) {
@@ -80,14 +80,14 @@ const Details = ({ setPage }) => {
   };
 
   useEffect(() => {
-    if (!loading && selectedBlogs?._id) {
-      saveBlogId(selectedBlogs._id); // Save the blog ID
+    if (!loading && selectedBlog?._id) {
+      saveBlogId(selectedBlog._id); // Save the blog ID
     }
 
     if (!loading) {
       fetchBlogsByQrCode(); // Fetch blogs based on QR code
     }
-  }, [selectedBlogs, loading]);
+  }, [selectedBlog, loading]);
 
   return (
     <View className="flex-1">
