@@ -83,12 +83,6 @@ export default function Player({ url }) {
       : undefined;
   }, [sound]);
 
-  const renderTime = (millis) => {
-    const minutes = Math.floor(millis / 60000);
-    const seconds = ((millis % 60000) / 1000).toFixed(0);
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  };
-
   if (!url) {
     return null;
   }
@@ -96,19 +90,9 @@ export default function Player({ url }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={togglePlayback} style={styles.playButton}>
-        <Ionicons name={isPlaying ? "pause" : "play"} size={32} color="#fff" />
+        <Ionicons name={isPlaying ? "pause" : "play"} size={20} color="#fff" />
       </TouchableOpacity>
-      <View style={styles.progressBarContainer}>
-        <View
-          style={[
-            styles.progressBar,
-            { width: `${(position / duration) * 100}%` },
-          ]}
-        />
-      </View>
-      <Text style={styles.timer}>
-        {renderTime(position)} / {renderTime(duration || 0)}
-      </Text>
+      <Text style={styles.text}>Listen To Voice Message</Text>
     </View>
   );
 }
@@ -118,28 +102,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 10,
-    backgroundColor: "#ecf0f1",
     borderRadius: 10,
   },
   playButton: {
-    backgroundColor: "#25D366",
+    backgroundColor: "#000",
     borderRadius: 30,
     padding: 10,
   },
-  progressBarContainer: {
-    flex: 1,
-    height: 4,
-    backgroundColor: "#e0e0e0",
-    borderRadius: 2,
-    marginHorizontal: 10,
-  },
-  progressBar: {
-    height: 4,
-    backgroundColor: "#25D366",
-    borderRadius: 2,
-  },
-  timer: {
-    fontSize: 12,
-    color: "#555",
+  text: {
+    color: "#000",
+    fontSize: 16,
+    fontWeight: "600",
+    marginLeft: 10,
   },
 });

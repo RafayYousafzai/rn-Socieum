@@ -71,7 +71,7 @@ const ReadBlog = ({ setPage }) => {
       <Text style={[styles.paragraph, { marginHorizontal: 20 }]}>
         {formatDateToCustomString(item.updatedAt)}
       </Text>
-      <Player url={item.voicePath} />
+        <Player url={item.voicePath} />
     </View>
   );
 
