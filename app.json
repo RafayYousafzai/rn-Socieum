@@ -23,7 +23,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#000"
       },
-      "package": "com.rafaykhan177.notnative",
+      "package": "com.rafayyousafzai.younite",
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"
@@ -39,8 +39,8 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
-          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+          "cameraPermission": "Allow We Are Y to access your camera",
+          "microphonePermission": "Allow We Are Y to access your microphone",
           "recordAudioAndroid": true
         }
       ],

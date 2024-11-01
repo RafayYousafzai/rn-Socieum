@@ -12,15 +12,15 @@ import { useBlogContext } from "@/context/BlogContext";
 import { END_POINTS, showToast } from "@/helper/endpoints";
 import * as WebBrowser from "expo-web-browser";
 import { getValueFor, save } from "@/lib/SecureStore";
+import { Ionicons } from "@expo/vector-icons";
 
-const BLOG_IDS_KEY = "openedBlogIds"; // Define the key here
+const BLOG_IDS_KEY = "openedBlogIds";
 
 const saveBlogId = async (blogId) => {
   try {
     const existingIds = await getValueFor(BLOG_IDS_KEY);
     const blogIdsArray = existingIds ? JSON.parse(existingIds) : [];
     // console.log(existingIds);
-    
 
     if (!blogIdsArray.includes(blogId)) {
       blogIdsArray.push(blogId);
@@ -97,7 +97,9 @@ const Details = ({ setPage }) => {
       />
       <View style={styles.container}>
         {isFetching ? (
-          <ActivityIndicator size="large" color="#000" />
+          <View style={{ marginTop: 200 }}>
+            <ActivityIndicator size="large" color="#000" />
+          </View>
         ) : (
           <View>
             {qrBlog.length > 0 && (
@@ -124,12 +126,28 @@ const Details = ({ setPage }) => {
                 <Text style={styles.buttonText}>View Blockchain</Text>
               </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              onPress={() => setPage("OverView")}
-              style={styles.overviewButton}
-            >
-              <Text style={styles.overviewButtonText}>Blog Overview</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                onPress={() => setPage("AllBlogs")}
+                style={styles.backButton}
+              >
+                <Ionicons name="arrow-back" size={24} color="white" />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => setPage("OverView")}
+                style={styles.readBlogButton}
+              >
+                <View style={styles.readBlogContent}>
+                  <Ionicons
+                    name="reader-outline"
+                    size={20}
+                    color="white"
+                    style={styles.bookIcon}
+                  />
+                  <Text style={styles.overviewButtonText}>Blog Overview</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
       </View>
@@ -179,6 +197,32 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: "800",
     marginBottom: 16,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 8,
+  },
+  backButton: {
+    backgroundColor: "#000",
+    padding: 10,
+    width: 90,
+    alignItems: "center",
+  },
+  readBlogButton: {
+    backgroundColor: "#000",
+    flex: 1,
+    marginLeft: 4,
+    padding: 12,
+  },
+  readBlogContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  bookIcon: {
+    marginRight: 8,
   },
 });
 

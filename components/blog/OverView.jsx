@@ -46,9 +46,6 @@ const OverView = ({ setPage, blog }) => {
                 affected by the lockdown
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.seeDetailsButton}>
-              <Text style={styles.buttonText}>See Details</Text>
-            </TouchableOpacity>
           </View>
 
           <View style={styles.buttonContainer}>
@@ -84,7 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    marginHorizontal: 16,
+    marginHorizontal: 10,
     marginBottom: 20,
   },
   card: {
@@ -108,7 +105,7 @@ const styles = StyleSheet.create({
   contributorText: {
     borderColor: "#e0e0e0",
     borderWidth: 1,
-    borderRadius: 20,
+    borderRadius: 2,
     paddingHorizontal: 12,
     paddingVertical: 6,
     marginRight: 10,
@@ -141,18 +138,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginTop: 8,
-    paddingHorizontal: 4,
   },
   backButton: {
     backgroundColor: "#000",
-    padding: 12,
+    padding: 10,
     width: 90,
     alignItems: "center",
   },
   readBlogButton: {
     backgroundColor: "#000",
     flex: 1,
-    marginLeft: 12,
+    marginLeft: 4,
     padding: 12,
   },
   readBlogContent: {

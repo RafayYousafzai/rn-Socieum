@@ -35,7 +35,11 @@ export default function AllBlogs({ setPage, onlyHistory }) {
 
   return (
     <View style={{ flex: 1 }}>
-      <Header text={"Blog Y"} desc={"Read other blogs published by Y"} />
+      <Header
+        text={"Blog"}
+        desc={"Read other blogs published by Y"}
+        logo={true}
+      />
       <FlatList
         data={filteredBlogs}
         keyExtractor={(blog) => blog._id} // Unique key for each blog

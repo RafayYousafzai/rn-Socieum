@@ -1,4 +1,3 @@
-// BlogCard.js
 import React from "react";
 import {
   View,
@@ -10,7 +9,6 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { Card, Avatar } from "react-native-paper";
 import { limitString } from "../../common/limitString";
-import { useBlogContext } from "@/context/BlogContext";
 
 export default function BlogCard({
   title,
@@ -25,11 +23,9 @@ export default function BlogCard({
   const placeholderImg =
     "https://via.placeholder.com/300x150.png?text=Blog+Image";
 
-  // Creating a dynamic image URL
   const imageUrl = imagePath
     ? `https://younite.uk/images/${imagePath}`
     : placeholderImg;
-
 
   const contribution = donorDescription || "N/A";
   const date = updatedAt ? new Date(updatedAt).toLocaleDateString() : "Unknown";
@@ -43,12 +39,12 @@ export default function BlogCard({
             source={{ uri: imageUrl }}
             style={styles.imageBackground}
             imageStyle={styles.imageStyle}
+            resizeMode="cover" // Ensures image keeps aspect ratio without distortion
           >
             <LinearGradient
               colors={["rgba(0, 0, 0, 0.0)", "rgba(0, 0, 0, 0.8)"]}
               style={styles.gradientOverlay}
             />
-            <Text style={styles.titleOverlay}>{limitString(title, 25)}</Text>
             <View style={styles.infoRow}>
               <View style={styles.infoItem}>
                 <Avatar.Icon
@@ -114,13 +110,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   imageContainer: {
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
     overflow: "hidden",
   },
   imageBackground: {
     padding: 16,
-    height: 200,
+    aspectRatio: 2, // This keeps the original aspect ratio consistent
     justifyContent: "center",
   },
   imageStyle: {
@@ -131,18 +125,6 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
-  },
-  titleOverlay: {
-    color: "#ffffff",
-    fontSize: 16,
-    fontWeight: "600",
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    alignSelf: "flex-start",
-    marginBottom: 12,
-    marginTop: 10,
   },
   infoRow: {
     flexDirection: "row",

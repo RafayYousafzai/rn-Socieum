@@ -55,7 +55,7 @@ const BlogProvider = ({ children }) => {
   return (
     <BlogContext.Provider
       value={{
-        blogs,
+        blogs: blogs.filter((blog) => blog?.childStory.length > 0),
         loading,
         error,
         fetchBlogs,

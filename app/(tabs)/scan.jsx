@@ -19,7 +19,7 @@ const Scan = () => {
       <Header
         text={" Scan Your QR Code"}
         desc={
-          "Scan your QR code or use your 6 digit code to see how your contribution is progressing"
+          "Scan your QR code or use your 6 digit code assigned to your garment."
         }
       />
 
@@ -32,7 +32,7 @@ const Scan = () => {
             <TextInput
               placeholder="Or enter your 6 digit code"
               className="w-[75%] ml-[5%] rounded-sm bg-slate-100 py-2 px-4 text-base text-gray-800"
-              keyboardType="numeric"
+              keyboardType="default"
             />
             <TouchableOpacity className="ml-3 w-14 rounded-sm bg-slate-100 py-2 px-4 text-base text-gray-800">
               <MaterialIcons name="search" size={24} color="#000" />

@@ -1,50 +1,61 @@
-import { View, Text, ScrollView, SafeAreaView } from "react-native";
-import React from "react";
+import { View, Text, SafeAreaView, FlatList } from "react-native";
+import React, { useState } from "react";
 import Header from "@/components/Header";
 
-const InfoCard = ({ icon, title, description }) => (
-  <View className="bg-white rounded-xl p-6 mb-6 border border-gray-100 shadow-md elevation-5  ">
-    <View className="flex-row items-center mb-4">
-      <Text className="text-xl font-black text-gray-800 flex-1">{title}</Text>
-    </View>
-    <Text className="text-base leading-6 text-gray-600">{description}</Text>
+const InfoCard = ({ title, description }) => (
+  <View className="bg-white rounded-none p-6 my-6 border border-gray-100 shadow-md elevation-5">
+    <Text className="text-xl font-black text-gray-800">{title}</Text>
+    <Text className="text-base leading-6 text-gray-600 mt-4">
+      {description}
+    </Text>
   </View>
 );
 
 const Home = () => {
+  const [infoData] = useState([
+    {
+      id: "1",
+      title: "We Are Y",
+      description:
+        "By combining blockchain technology with premium, handcrafted, ethically sourced organic fashion, we offer a truly unique retail experience. A portion of revenue from each collection supports various social causes through our transparent blockchain platform. Our philosophy is to reinvest in initiatives that matter to the Y community and empowering positive social change together.",
+    },
+    {
+      id: "2",
+      title: "Blockchain Technology",
+      description:
+        "Blockchain technology is a secure, decentralized digital ledger maintained by a network of computers, designed to store and share information transparently for public access. Through the Y blockchain platform, you can track your contributions and see exactly how these funds are utilised by the organisations we support.",
+    },
+    {
+      id: "3",
+      title: "Blog Y",
+      description:
+        "Blog Y links you to the individuals benefitting from your contribution to give you an insight in to the lives you are helping to change. Blog Y aims to connect people from all walks of life and build a community of social media inspirers to showcase what can be achieved when we all come together.",
+    },
+    {
+      id: "4",
+      title: "We Are Y",
+      description:
+        "Use your Y garment to make a statement and inspire others to do the same.",
+    },
+  ]);
+
+  const renderInfoCard = ({ item }) => (
+    <InfoCard title={item.title} description={item.description} />
+  );
+
   return (
     <SafeAreaView className="bg-gray-100 flex-1">
       <Header
-        text={"Welcome to Wearey"}
-        desc={"Your gateway to meaningful fashion"}
+        text={"Welcome to"}
+        desc={"Individually We Are One Drop, Together We Are An Ocean"}
+        logo={true}
       />
-      <ScrollView>
-        <View className="px-5 pb-12 mt-10">
-          <InfoCard
-            icon="info"
-            title="About Wearey"
-            description="By combining fashion with blockchain technology, Wearey provides consumers with the ultimate retail therapy experience. By purchasing Wearey products, you support organizations tackling social issues you care about. The Wearey philosophy is to invest in the people and communities that form our customer base, with a percentage of revenue generated given back."
-          />
-
-          <InfoCard
-            icon="security"
-            title="Blockchain Technology"
-            description="Blockchain technology is an online record book maintained by a network of computers that securely stores and shares information for public view. The Wearey blockchain platform allows you to follow your contributions and see how they have been utilized by recipient organizations."
-          />
-
-          <InfoCard
-            icon="article"
-            title="Blog Wearey"
-            description="Blog Wearey links you to the individuals benefiting from your contribution, giving you a personal insight into the lives you are helping to change. Wearey aims to connect people from all walks of life and build a community of social media inspirers, showing what we can achieve when we come together."
-          />
-
-          <InfoCard
-            icon="group"
-            title="We Are Wearey"
-            description="Use your Wearey garment to make a statement and inspire others to do the same."
-          />
-        </View>
-      </ScrollView>
+      <FlatList
+        data={infoData}
+        renderItem={renderInfoCard}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 20 }}
+      />
     </SafeAreaView>
   );
 };
