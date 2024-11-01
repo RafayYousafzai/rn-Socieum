@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     color: "#90cdf4",
     textAlign: "center",
     marginTop: 4,
+    marginHorizontal: 20,
   },
   logo: {
     height: 40,

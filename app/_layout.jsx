@@ -9,9 +9,9 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 import "@/global.css";
-import { PaperProvider } from "react-native-paper";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { showToast } from "@/helper/endpoints";
+import BlogProvider from "@/context/BlogContext";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -26,8 +26,8 @@ export default function RootLayout() {
 
     if (loaded) {
       timer = setInterval(() => {
-        showToast("Early Build for testing only");
-      }, 18000);
+        showToast("Final Prototype this build is for testing only");
+      }, 10000);
 
       SplashScreen.hideAsync();
     }
@@ -36,8 +36,8 @@ export default function RootLayout() {
   }, [loaded]);
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <PaperProvider>
+    <BlogProvider>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack
           screenOptions={{
             headerShown: false,
@@ -46,7 +46,7 @@ export default function RootLayout() {
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
-      </PaperProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </BlogProvider>
   );
 }
