@@ -62,7 +62,7 @@ const Details = ({ setPage }) => {
         return;
       }
 
-      setQrBlog(data.data); // Set qrBlog as the array from response data
+      setQrBlog(data.data);
     } catch (err) {
       console.error("Failed to fetch data:", err);
       showToast("An error occurred while fetching data.");
@@ -81,11 +81,11 @@ const Details = ({ setPage }) => {
 
   useEffect(() => {
     if (!loading && selectedBlog?._id) {
-      saveBlogId(selectedBlog._id); // Save the blog ID
+      saveBlogId(selectedBlog._id);
     }
 
     if (!loading) {
-      fetchBlogsByQrCode(); // Fetch blogs based on QR code
+      fetchBlogsByQrCode();
     }
   }, [selectedBlog, loading]);
 

@@ -7,66 +7,31 @@ import {
   StyleSheet,
   Modal,
   TouchableOpacity,
-  Alert,
-  ToastAndroid,
 } from "react-native";
-// Removed unused import for WebBrowser
-import { END_POINTS } from "../helper/endpoints";
+import { useBlogContext } from "@/context/BlogContext";
 
 export default function BarcodeScanner() {
+  const { setPage, selectedBlog } = useBlogContext();
+
   const [cameraPermission, setCameraPermission] = useState(null);
   const [isBarcodeScanned, setIsBarcodeScanned] = useState(false);
   const [isScannerModalVisible, setIsScannerModalVisible] = useState(false);
   const handleScanButtonPress = async (barcodeType, barcodeData) => {
     try {
-      // Construct the URL using the barcode data
-      const url = END_POINTS.GET_BLOG_BY_QR_KEY({ qrCode: barcodeData });
-      const response = await fetch(url);
+      const response = blogs.find(
+        (blog) => blog.qrCodeUniqueString === barcodeData
+      );
 
-      // console.log(
-      //   "barcodeType:",
-      //   barcodeType,
-      //   "barcodeData:",
-      //   barcodeData,
-      //   "response:",
-      //   response,
-      //   "url:",
-      //   url
-      // );
-
-      if (!response.ok) {
-        const errorResponse = await response.json();
-        ToastAndroid.show(
-          errorResponse.message ||
-            "No Contribution found against this QR code.",
-          ToastAndroid.SHORT
-        );
+      if (!response) {
+        showToast("No Contribution found against this QR code.");
         return;
       }
-
-      const responseData = await response.json();
-
-      if (
-        responseData.success &&
-        responseData.data &&
-        responseData.data.length > 0
-      ) {
-        const contribution = responseData.data[0];
-        // console.log("Contribution data:", contribution);
-
-        ToastAndroid.show("Contribution found!", ToastAndroid.SHORT);
-      } else {
-        ToastAndroid.show(
-          "No Contribution found against this QR code.",
-          ToastAndroid.SHORT
-        );
-      }
+      setViewBlog(response._id);
+      setPage("Details");
+      router.navigate("listBlog");
     } catch (error) {
       console.error("Failed to fetch data:", error);
-      ToastAndroid.show(
-        "An error occurred while fetching data.",
-        ToastAndroid.SHORT
-      );
+      showToast("An error occurred while fetching data.");
     }
   };
 

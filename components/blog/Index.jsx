@@ -7,11 +7,9 @@ import { useBlogContext } from "@/context/BlogContext";
 import { useFocusEffect } from "expo-router";
 
 const ViewBlogs = ({ onlyHistory }) => {
-  const [page, setPage] = useState("AllBlogs");
-  const { selectedBlog } = useBlogContext();
+  const { page, setPage, selectedBlog } = useBlogContext();
 
   // console.log(selectedBlog);
-  
 
   useEffect(() => {
     if (!selectedBlog) {
@@ -19,13 +17,13 @@ const ViewBlogs = ({ onlyHistory }) => {
     }
   }, [selectedBlog]);
 
-  useFocusEffect(
-    useCallback(() => {
-      // console.log("AllBlogs listBlog");
-      setPage("AllBlogs");
-      return () => {};
-    }, [])
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     // console.log("AllBlogs listBlog");
+  //     setPage("AllBlogs");
+  //     return () => {};
+  //   }, [])
+  // );
 
   switch (page) {
     case "AllBlogs":

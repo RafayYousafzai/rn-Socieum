@@ -6,6 +6,7 @@ const BlogContext = createContext();
 
 // Provider Component
 const BlogProvider = ({ children }) => {
+  const [page, setPage] = useState("AllBlogs");
   const [viewBlog, setViewBlog] = useState("");
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -62,6 +63,8 @@ const BlogProvider = ({ children }) => {
         viewBlog,
         setViewBlog,
         selectedBlog,
+        page,
+        setPage,
       }}
     >
       {children}
