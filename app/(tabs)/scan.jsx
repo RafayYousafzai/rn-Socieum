@@ -13,7 +13,7 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import Header from "@/components/Header";
 import BarcodeScanner from "@/components/BarCodeScanner";
-import img from "@/assets/images/HomeQR.png";
+import img from "@/assets/images/qrcode.png";
 import { useBlogContext } from "@/context/BlogContext";
 import { router } from "expo-router";
 
@@ -56,14 +56,15 @@ const Scan = () => {
         desc={
           "Scan your QR code or use your 6 digit code assigned to your garment."
         }
+        light={true}
       />
 
       <ScrollView>
         <View className="px-5 pb-12 mt-10 items-center">
-          <Image source={img} className="w-[200px] h-[200px] mb-[20px]" />
+          <Image source={img} className="w-[250px] h-[250px] mb-[20px]" />
           <BarcodeScanner />
 
-          <View className="flex flex-row w-full">
+          <View className="flex flex-row w-full mt-10">
             <TextInput
               placeholder="Or enter your 6 digit code"
               className="w-[75%] ml-[5%] rounded-sm bg-slate-100 py-2 px-4 text-base text-gray-800"

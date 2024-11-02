@@ -3,6 +3,7 @@ import { View, FlatList } from "react-native";
 import BlogCard from "@/components/blog/cards/BlogCard";
 import { useBlogContext } from "@/context/BlogContext";
 import Header from "@/components/Header";
+import NoBlogHistory from "./NoBlogHistory";
 import { getValueFor } from "@/lib/SecureStore";
 
 const openedBlogIds = "openedBlogIds";
@@ -40,27 +41,31 @@ export default function AllBlogs({ setPage, onlyHistory }) {
         desc={"Read other blogs published by Y"}
         logo={true}
       />
-      <FlatList
-        data={filteredBlogs}
-        keyExtractor={(blog) => blog._id} // Unique key for each blog
-        renderItem={({ item }) => (
-          <BlogCard
-            key={item._id}
-            title={item?.title || ""}
-            description={item?.description || ""}
-            donorDescription={item?.donorDescription || ""}
-            imagePath={item?.imagePath || ""}
-            updatedAt={item?.updatedAt || ""}
-            donorName={item?.donorName || ""}
-            _id={item?._id || ""}
-            onPress={(_id) => {
-              setViewBlog(_id);
-              setPage("Details");
-            }}
-          />
-        )}
-        contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 20 }} // Adjust padding as needed
-      />
+      {filteredBlogs.length > 0 ? (
+        <FlatList
+          data={filteredBlogs}
+          keyExtractor={(blog) => blog._id}
+          renderItem={({ item }) => (
+            <BlogCard
+              key={item._id}
+              title={item?.title || ""}
+              description={item?.description || ""}
+              donorDescription={item?.donorDescription || ""}
+              imagePath={item?.imagePath || ""}
+              updatedAt={item?.updatedAt || ""}
+              donorName={item?.donorName || ""}
+              _id={item?._id || ""}
+              onPress={(_id) => {
+                setViewBlog(_id);
+                setPage("Details");
+              }}
+            />
+          )}
+          contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 20 }}
+        />
+      ) : (
+        <NoBlogHistory />
+      )}
     </View>
   );
 }

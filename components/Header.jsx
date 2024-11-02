@@ -1,12 +1,16 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-const Header = ({ text, desc, logo }) => {
+const Header = ({ text, desc, logo, light }) => {
+  // Insert a line break after commas
+  const formattedText = text.replace(/, /g, ",\n");
+  const formattedDesc = desc.replace(/, /g, ",\n");
+
   return (
     <View style={styles.headerContainer}>
       <View style={styles.innerContainer}>
         <Text style={styles.headerText}>
-          {text}
+          {formattedText}
           {logo && (
             <Image
               source={require("@/assets/images/icon.png")}
@@ -14,7 +18,14 @@ const Header = ({ text, desc, logo }) => {
             />
           )}
         </Text>
-        <Text style={styles.descriptionText}>{desc}</Text>
+        <Text
+          style={[
+            styles.descriptionText,
+            { color: light ? "#fff" : "#90cdf4" },
+          ]}
+        >
+          {formattedDesc}
+        </Text>
       </View>
     </View>
   );
@@ -23,13 +34,13 @@ const Header = ({ text, desc, logo }) => {
 const styles = StyleSheet.create({
   headerContainer: {
     backgroundColor: "#000",
-    height: 200,
+    height: 170,
     width: "100%",
-    // borderBottomLeftRadius: 50,
-    // borderBottomRightRadius: 50,
     overflow: "hidden",
     alignItems: "center",
     justifyContent: "center",
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
   },
   innerContainer: {
     justifyContent: "center",
@@ -45,16 +56,16 @@ const styles = StyleSheet.create({
   },
   descriptionText: {
     fontSize: 16,
-    color: "#90cdf4",
     textAlign: "center",
+    maxWidth: "90%",
+    flexShrink: 1,
+    lineHeight: 22,
     marginTop: 4,
-    marginHorizontal: 20,
   },
   logo: {
-    height: 40,
-    width: 50,
-    resizeMode: "contain",
-    marginBottom: 20,
+    height: 35,
+    width: 30,
+    resizeMode: "cover",
   },
 });
 
