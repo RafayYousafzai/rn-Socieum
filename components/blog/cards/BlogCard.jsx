@@ -20,6 +20,7 @@ export default function BlogCard({
   donorName,
   _id,
   onPress,
+  children,
 }) {
   const placeholderImg =
     "https://via.placeholder.com/300x150.png?text=Blog+Image";
@@ -94,6 +95,7 @@ export default function BlogCard({
         <Card.Content style={styles.content}>
           <Text style={styles.cardTitle}>{title}</Text>
           <Text style={styles.description}>{description}</Text>
+          {children}
         </Card.Content>
       </Card>
     </TouchableOpacity>

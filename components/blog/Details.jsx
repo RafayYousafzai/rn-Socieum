@@ -107,7 +107,32 @@ const Details = ({ setPage }) => {
                   updatedAtStr={qrBlog[0].fundsReceivingDate}
                   imagePath={"charity" + qrBlog[0].charityBanner}
                   onPress={() => console.log(qrBlog[0]._id)}
-                />
+                >
+                  <View style={styles.buttonContainer}>
+                    {/* <TouchableOpacity
+                      onPress={() => setPage("AllBlogs")}
+                      style={styles.backButton}
+                    >
+                      <Ionicons name="arrow-back" size={24} color="white" />
+                    </TouchableOpacity> */}
+                    <TouchableOpacity
+                      onPress={() => setPage("Read")}
+                      style={styles.readBlogButton}
+                    >
+                      <View style={styles.readBlogContent}>
+                        <Ionicons
+                          name="reader-outline"
+                          size={20}
+                          color="white"
+                          style={styles.bookIcon}
+                        />
+                        <Text style={styles.buttonText}>
+                          Read Full Blog
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </BlogCard>
               )}
 
               <View style={styles.card}>
@@ -121,7 +146,6 @@ const Details = ({ setPage }) => {
                     affected by the lockdown
                   </Text>
                 </TouchableOpacity>
-              </View>
                 <View>
                   <TouchableOpacity style={{ marginTop: 10 }}>
                     <Text style={styles.text}>
@@ -135,27 +159,6 @@ const Details = ({ setPage }) => {
                     <Text style={styles.buttonText}>View Blockchain</Text>
                   </TouchableOpacity>
                 </View>
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                  onPress={() => setPage("AllBlogs")}
-                  style={styles.backButton}
-                >
-                  <Ionicons name="arrow-back" size={24} color="white" />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => setPage("Read")}
-                  style={styles.readBlogButton}
-                >
-                  <View style={styles.readBlogContent}>
-                    <Ionicons
-                      name="reader-outline"
-                      size={20}
-                      color="white"
-                      style={styles.bookIcon}
-                    />
-                    <Text style={styles.buttonText}>Read Complete Blog</Text>
-                  </View>
-                </TouchableOpacity>
               </View>
             </View>
           </ScrollView>
@@ -183,7 +186,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   card: {
-    marginTop: 16,
     padding: 16,
     backgroundColor: "#FFFFFF",
     borderRadius: 2,
