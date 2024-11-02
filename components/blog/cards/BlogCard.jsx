@@ -65,16 +65,18 @@ export default function BlogCard({
                 </Text>
               </View>
 
-              <View style={styles.infoItem}>
-                <Avatar.Icon
-                  color="#10B981"
-                  size={36}
-                  icon="calendar-today"
-                  style={styles.avatarIcon}
-                />
-                <Text style={styles.infoText}>Contribution Date</Text>
-                <Text style={styles.infoValue}>{limitString(date, 30)}</Text>
-              </View>
+              {date && (
+                <View style={styles.infoItem}>
+                  <Avatar.Icon
+                    color="#10B981"
+                    size={36}
+                    icon="calendar-today"
+                    style={styles.avatarIcon}
+                  />
+                  <Text style={styles.infoText}>Contribution Date</Text>
+                  <Text style={styles.infoValue}>{limitString(date, 30)}</Text>
+                </View>
+              )}
 
               <View style={styles.infoItem}>
                 <Avatar.Icon
