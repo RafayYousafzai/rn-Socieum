@@ -3,10 +3,9 @@ import {
   Text,
   TouchableOpacity,
   ActivityIndicator,
-  StyleSheet,
   ScrollView,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Header from "@/components/Header";
 import BlogCard from "./cards/BlogCard";
 import { useBlogContext } from "@/context/BlogContext";
@@ -14,6 +13,7 @@ import { END_POINTS, showToast } from "@/helper/endpoints";
 import * as WebBrowser from "expo-web-browser";
 import { getValueFor, save } from "@/lib/SecureStore";
 import { Ionicons } from "@expo/vector-icons";
+import { StyleSheet } from "react-native";
 
 const BLOG_IDS_KEY = "openedBlogIds";
 
@@ -36,7 +36,7 @@ const Details = ({ setPage }) => {
   const [isFetching, setIsFetching] = useState(false);
   const qrCode = selectedBlog?.qrCode;
 
-  const fetchBlogsByQrCode = async () => {
+  const fetchBlogsByQrCode = useCallback(async () => {
     if (!qrCode) {
       showToast("No QR Code.");
       return;
@@ -52,23 +52,22 @@ const Details = ({ setPage }) => {
         return;
       }
       const data = await res.json();
+      setQrBlog(data.data.length > 0 ? data.data : []);
       if (data.data.length === 0) {
         showToast("No Contribution found against this QR code.");
-        setQrBlog([]);
-        return;
       }
-      setQrBlog(data.data);
     } catch (err) {
       console.error("Failed to fetch data:", err);
       showToast("An error occurred while fetching data.");
     } finally {
       setIsFetching(false);
     }
-  };
+  }, [qrCode]);
 
-  const _handlePressButtonAsync = async () => {
-    if (qrBlog?.[0]?.tokenTranHash) {
-      await WebBrowser.openBrowserAsync(qrBlog[0].tokenTranHash);
+  const handlePressButtonAsync = async () => {
+    const transactionLink = qrBlog?.[0]?.tokenTranHash;
+    if (transactionLink) {
+      await WebBrowser.openBrowserAsync(transactionLink);
     } else {
       showToast("No blockchain link available.");
     }
@@ -77,11 +76,9 @@ const Details = ({ setPage }) => {
   useEffect(() => {
     if (!loading && selectedBlog?._id) {
       saveBlogId(selectedBlog._id);
-    }
-    if (!loading) {
       fetchBlogsByQrCode();
     }
-  }, [selectedBlog, loading]);
+  }, [selectedBlog, loading, fetchBlogsByQrCode]);
 
   return (
     <View style={styles.container}>
@@ -109,12 +106,6 @@ const Details = ({ setPage }) => {
                   onPress={() => console.log(qrBlog[0]._id)}
                 >
                   <View style={styles.buttonContainer}>
-                    {/* <TouchableOpacity
-                      onPress={() => setPage("AllBlogs")}
-                      style={styles.backButton}
-                    >
-                      <Ionicons name="arrow-back" size={24} color="white" />
-                    </TouchableOpacity> */}
                     <TouchableOpacity
                       onPress={() => setPage("Read")}
                       style={styles.readBlogButton}
@@ -126,9 +117,7 @@ const Details = ({ setPage }) => {
                           color="white"
                           style={styles.bookIcon}
                         />
-                        <Text style={styles.buttonText}>
-                          Read Full Blog
-                        </Text>
+                        <Text style={styles.buttonText}>Read Full Blog</Text>
                       </View>
                     </TouchableOpacity>
                   </View>
@@ -154,7 +143,7 @@ const Details = ({ setPage }) => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.blockchainButton}
-                    onPress={_handlePressButtonAsync}
+                    onPress={handlePressButtonAsync}
                   >
                     <Text style={styles.buttonText}>View Blockchain</Text>
                   </TouchableOpacity>

@@ -39,13 +39,14 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     alignItems: "center",
     justifyContent: "center",
-    borderBottomLeftRadius: 50,
-    borderBottomRightRadius: 50,
+    // borderBottomLeftRadius: 50,
+    // borderBottomRightRadius: 50,
   },
   innerContainer: {
     justifyContent: "center",
     alignItems: "center",
-    paddingVertical: 16,
+    paddingBottom: 10,
+    paddingTop: 30,
   },
   headerText: {
     fontSize: 24,

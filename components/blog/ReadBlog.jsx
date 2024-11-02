@@ -164,6 +164,7 @@ const styles = StyleSheet.create({
   title: {
     color: "#666",
     fontSize: 14,
+    textTransform: "capitalize",
   },
   largeImage: {
     height: 400,

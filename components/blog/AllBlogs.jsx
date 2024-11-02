@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, ActivityIndicator } from "react-native";
 import BlogCard from "@/components/blog/cards/BlogCard";
 import { useBlogContext } from "@/context/BlogContext";
 import Header from "@/components/Header";
@@ -11,16 +11,18 @@ const openedBlogIds = "openedBlogIds";
 export default function AllBlogs({ setPage, onlyHistory }) {
   const { blogs, setViewBlog } = useBlogContext();
   const [historyIds, setHistoryIds] = useState([]);
-  // console.log(...blogs);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchHistoryIds = async () => {
       try {
         const existingIds = await getValueFor(openedBlogIds);
         const blogIdsArray = existingIds ? JSON.parse(existingIds) : [];
-        setHistoryIds(blogIdsArray); // Store the history IDs in state
+        setHistoryIds(blogIdsArray);
       } catch (error) {
         console.error("Error fetching blog IDs:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -28,6 +30,7 @@ export default function AllBlogs({ setPage, onlyHistory }) {
       fetchHistoryIds();
     } else {
       setHistoryIds([]);
+      setLoading(false);
     }
   }, [onlyHistory, setViewBlog]);
 
@@ -37,12 +40,10 @@ export default function AllBlogs({ setPage, onlyHistory }) {
 
   return (
     <View style={{ flex: 1 }}>
-      <Header
-        text={"Blog"}
-        desc={"Read other blogs published by Y"}
-        logo={true}
-      />
-      {filteredBlogs.length > 0 ? (
+      <Header text={"Blog Y"} desc={"Read other blogs published by Y"} />
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : filteredBlogs.length > 0 ? (
         <FlatList
           data={filteredBlogs}
           keyExtractor={(blog) => blog._id}
