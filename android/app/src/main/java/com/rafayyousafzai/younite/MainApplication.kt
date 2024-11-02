@@ -1,4 +1,4 @@
-package com.rafaykhan177.notnative
+package com.rafayyousafzai.younite
 
 import android.app.Application
 import android.content.res.Configuration
