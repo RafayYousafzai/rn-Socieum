@@ -32,7 +32,7 @@ const ReadBlog = ({ setPage }) => {
   }
 
   const handleBackPress = () => {
-    setPage("OverView");
+    setPage("Details");
   };
 
   const renderItem = ({ item }) => (
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   smallImage: {
     height: 48,
     width: 48,
-    borderRadius: "100%",
+    borderRadius: 24,
   },
   avatarText: {
     color: "white",
