@@ -11,6 +11,8 @@ import BlogCard from "./cards/BlogCard";
 import { Ionicons } from "@expo/vector-icons";
 
 const OverView = ({ setPage, blog }) => {
+  console.log(blog);
+
   return (
     <View style={styles.flexContainer}>
       <Header
@@ -26,10 +28,10 @@ const OverView = ({ setPage, blog }) => {
               key={blog._id}
               title={blog?.title || ""}
               description={blog?.description || ""}
-              donorDescription={blog?.donorDescription || ""}
+              donorDescription={blog?.donorName || ""}
               imagePath={blog?.imagePath || ""}
-              updatedAt={blog?.updatedAt || ""}
-              donorName={blog?.donorName || ""}
+              updatedAt={blog?.childStory[0]?.updatedAt || ""}
+              donorName={"UK"}
               _id={blog?._id || ""}
               onPress={() => console.log(blog._id)}
             />

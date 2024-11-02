@@ -11,6 +11,7 @@ const openedBlogIds = "openedBlogIds";
 export default function AllBlogs({ setPage, onlyHistory }) {
   const { blogs, setViewBlog } = useBlogContext();
   const [historyIds, setHistoryIds] = useState([]);
+  // console.log(...blogs);
 
   useEffect(() => {
     const fetchHistoryIds = async () => {
@@ -50,10 +51,10 @@ export default function AllBlogs({ setPage, onlyHistory }) {
               key={item._id}
               title={item?.title || ""}
               description={item?.description || ""}
-              donorDescription={item?.donorDescription || ""}
+              donorDescription={item?.donorName || ""}
               imagePath={item?.imagePath || ""}
-              updatedAt={item?.updatedAt || ""}
-              donorName={item?.donorName || ""}
+              updatedAt={item?.childStory[0]?.updatedAt || ""}
+              donorName={"UK"}
               _id={item?._id || ""}
               onPress={(_id) => {
                 setViewBlog(_id);

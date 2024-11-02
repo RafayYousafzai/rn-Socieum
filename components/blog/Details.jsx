@@ -33,7 +33,7 @@ const saveBlogId = async (blogId) => {
 };
 
 const Details = ({ setPage }) => {
-  const { selectedBlog, loading } = useBlogContext();
+  const { selectedBlog, viewBlog, setViewBlog, loading } = useBlogContext();
   const [qrBlog, setQrBlog] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const qrCode = selectedBlog?.qrCode;
@@ -107,8 +107,10 @@ const Details = ({ setPage }) => {
                 key={qrBlog[0]._id}
                 title={qrBlog[0].charityName}
                 description={qrBlog[0].description}
+                donorDescription={`YNT ${qrBlog[0]?.token}`}
+                donorName={qrBlog[0]?.location}
+                updatedAtStr={qrBlog[0].fundsReceivingDate}
                 imagePath={"charity" + qrBlog[0].charityBanner}
-                updatedAt={qrBlog[0].fundsReceivingDate}
                 onPress={() => console.log(qrBlog[0]._id)}
               />
             )}

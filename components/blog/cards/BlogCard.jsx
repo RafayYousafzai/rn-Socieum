@@ -16,6 +16,7 @@ export default function BlogCard({
   donorDescription,
   imagePath,
   updatedAt,
+  updatedAtStr,
   donorName,
   _id,
   onPress,
@@ -28,7 +29,11 @@ export default function BlogCard({
     : placeholderImg;
 
   const contribution = donorDescription || "N/A";
-  const date = updatedAt ? new Date(updatedAt).toLocaleDateString() : "Unknown";
+  const date = updatedAt
+    ? new Date(updatedAt).toLocaleDateString()
+    : updatedAtStr;
+  console.log(updatedAt, date, updatedAtStr);
+
   const location = donorName || "Unknown";
 
   return (
@@ -55,7 +60,7 @@ export default function BlogCard({
                 />
                 <Text style={styles.infoText}>Contribution</Text>
                 <Text style={styles.infoValue}>
-                  {limitString(contribution, 10)}
+                  {limitString(contribution, 40)}
                 </Text>
               </View>
 
@@ -67,7 +72,7 @@ export default function BlogCard({
                   style={styles.avatarIcon}
                 />
                 <Text style={styles.infoText}>Contribution Date</Text>
-                <Text style={styles.infoValue}>{limitString(date, 10)}</Text>
+                <Text style={styles.infoValue}>{limitString(date, 30)}</Text>
               </View>
 
               <View style={styles.infoItem}>
@@ -79,7 +84,7 @@ export default function BlogCard({
                 />
                 <Text style={styles.infoText}>Location</Text>
                 <Text style={styles.infoValue}>
-                  {limitString(location, 10)}
+                  {limitString(location, 40)}
                 </Text>
               </View>
             </View>
@@ -87,10 +92,8 @@ export default function BlogCard({
         </View>
 
         <Card.Content style={styles.content}>
-          <Text style={styles.cardTitle}>{limitString(title, 30)}</Text>
-          <Text style={styles.description}>
-            {limitString(description, 100)}
-          </Text>
+          <Text style={styles.cardTitle}>{title}</Text>
+          <Text style={styles.description}>{description}</Text>
         </Card.Content>
       </Card>
     </TouchableOpacity>
@@ -100,7 +103,7 @@ export default function BlogCard({
 const styles = StyleSheet.create({
   card: {
     marginVertical: 8,
-    borderRadius: 12,
+    borderRadius: 0,
     overflow: "hidden",
     shadowColor: "#000",
     shadowOpacity: 0.3,
@@ -118,8 +121,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   imageStyle: {
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+    // borderTopLeftRadius: 12,
+    // borderTopRightRadius: 12,
   },
   gradientOverlay: {
     ...StyleSheet.absoluteFillObject,
@@ -151,8 +154,9 @@ const styles = StyleSheet.create({
   infoValue: {
     color: "#ffffff",
     fontWeight: "bold",
-    fontSize: 12,
+    fontSize: 10,
     marginBottom: 10,
+    fontWeight: "500",
   },
   content: {
     paddingVertical: 12,

@@ -40,14 +40,11 @@ const ReadBlog = ({ setPage }) => {
       {/* Profile Section */}
       <View style={styles.profileContainer}>
         <View style={styles.avatarCircle}>
-          <Text style={styles.avatarText}>
-            {item.title
-              .split(" ")
-              .slice(0, 2)
-              .map((word) => word[0])
-              .filter((char) => /[a-zA-Z]/.test(char))
-              .join("")}
-          </Text>
+          <Image
+            source={require("@/assets/images/icon.png")}
+            style={styles.smallImage}
+            resizeMode="contain"
+          />
         </View>
         <View style={styles.profileInfo}>
           <Text style={styles.name}>{item.title}</Text>
@@ -71,7 +68,7 @@ const ReadBlog = ({ setPage }) => {
       <Text style={[styles.paragraph, { marginHorizontal: 20 }]}>
         {formatDateToCustomString(item.updatedAt)}
       </Text>
-        <Player url={item.voicePath} />
+      <Player url={item.voicePath} />
     </View>
   );
 
@@ -146,6 +143,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  smallImage: {
+    height: 48,
+    width: 48,
+    borderRadius: "100%",
+  },
   avatarText: {
     color: "white",
     fontSize: 16,
@@ -157,6 +159,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 16,
     fontWeight: "500",
+    paddingRight: 27,
   },
   title: {
     color: "#666",
