@@ -38,31 +38,34 @@ export default function AllBlogs({ setPage, onlyHistory }) {
     ? blogs.filter((blog) => historyIds.includes(blog._id))
     : blogs;
 
+  const handlePress = (_id) => {
+    setViewBlog(_id);
+    setPage("Details");
+  };
+
   return (
     <View style={{ flex: 1 }}>
-      <Header text={"Blog Y"} desc={"Read other blogs published by Y"} />
+      {onlyHistory ? (
+        <Header
+          text={"Search History"}
+          desc={"View which blogs you have previously read"}
+        />
+      ) : (
+        <Header text={"Blog Y"} desc={"Read other blogs published by Y"} />
+      )}
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : filteredBlogs.length > 0 ? (
         <FlatList
           data={filteredBlogs}
           keyExtractor={(blog) => blog._id}
-          renderItem={({ item }) => (
-            <BlogCard
-              key={item._id}
-              title={item?.title || ""}
-              description={item?.description || ""}
-              donorDescription={item?.donorName || ""}
-              imagePath={item?.imagePath || ""}
-              updatedAt={item?.childStory[0]?.updatedAt || ""}
-              donorName={"UK"}
-              _id={item?._id || ""}
-              onPress={(_id) => {
-                setViewBlog(_id);
-                setPage("Details");
-              }}
-            />
-          )}
+          renderItem={({ item }) =>
+            onlyHistory ? (
+              <HistoryCard item={item} handlePress={handlePress} />
+            ) : (
+              <BasicCard item={item} handlePress={handlePress} />
+            )
+          }
           contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 20 }}
         />
       ) : (
@@ -71,3 +74,24 @@ export default function AllBlogs({ setPage, onlyHistory }) {
     </View>
   );
 }
+
+const BasicCard = ({ item, handlePress }) => {
+  return (
+    <BlogCard
+      key={item._id}
+      title={item?.title}
+      description={item?.description}
+      donorDescription={item?.donorName}
+      imagePath={item?.imagePath}
+      updatedAt={false}
+      updatedAtStr={item?.qrCodeUniqueString}
+      donorName={"UK"}
+      _id={item?._id}
+      onPress={handlePress}
+      hideLabel={false}
+    />
+  );
+};
+const HistoryCard = () => {
+  return <View></View>;
+};

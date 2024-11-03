@@ -21,6 +21,7 @@ export default function BlogCard({
   _id,
   onPress,
   children,
+  hideLabel,
 }) {
   const placeholderImg =
     "https://via.placeholder.com/300x150.png?text=Blog+Image";
@@ -33,7 +34,6 @@ export default function BlogCard({
   const date = updatedAt
     ? new Date(updatedAt).toLocaleDateString()
     : updatedAtStr;
-  console.log(updatedAt, date, updatedAtStr);
 
   const location = donorName || "Unknown";
 
@@ -45,7 +45,7 @@ export default function BlogCard({
             source={{ uri: imageUrl }}
             style={styles.imageBackground}
             imageStyle={styles.imageStyle}
-            resizeMode="cover" // Ensures image keeps aspect ratio without distortion
+            resizeMode="cover"
           >
             <LinearGradient
               colors={["rgba(0, 0, 0, 0.0)", "rgba(0, 0, 0, 0.8)"]}
@@ -53,13 +53,15 @@ export default function BlogCard({
             />
             <View style={styles.infoRow}>
               <View style={styles.infoItem}>
+                <Text style={styles.infoText}>
+                  {!hideLabel && "Contribution"}
+                </Text>
                 <Avatar.Icon
                   color="#3B82F6"
                   size={36}
                   icon="account-circle"
                   style={styles.avatarIcon}
                 />
-                <Text style={styles.infoText}>Contribution</Text>
                 <Text style={styles.infoValue}>
                   {limitString(contribution, 40)}
                 </Text>
@@ -67,25 +69,33 @@ export default function BlogCard({
 
               {date && (
                 <View style={styles.infoItem}>
+                  <Text style={styles.infoText}>
+                    {!hideLabel && (
+                      <Text>
+                        {updatedAt === undefined
+                          ? "Contribution Date"
+                          : "6 digit code"}
+                      </Text>
+                    )}
+                  </Text>
                   <Avatar.Icon
                     color="#10B981"
                     size={36}
                     icon="calendar-today"
                     style={styles.avatarIcon}
                   />
-                  <Text style={styles.infoText}>Contribution Date</Text>
                   <Text style={styles.infoValue}>{limitString(date, 30)}</Text>
                 </View>
               )}
 
               <View style={styles.infoItem}>
+                <Text style={styles.infoText}>{!hideLabel && "Location"}</Text>
                 <Avatar.Icon
                   color="#EF4444"
                   size={36}
                   icon="map-marker"
                   style={styles.avatarIcon}
                 />
-                <Text style={styles.infoText}>Location</Text>
                 <Text style={styles.infoValue}>
                   {limitString(location, 40)}
                 </Text>
@@ -121,7 +131,7 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     padding: 16,
-    aspectRatio: 2, // This keeps the original aspect ratio consistent
+    aspectRatio: 2,
     justifyContent: "center",
   },
   imageStyle: {
@@ -150,10 +160,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   infoText: {
-    color: "#D1D5DB",
+    color: "#fff",
     fontSize: 10,
     marginTop: -6,
     height: 14,
+    fontWeight: "600",
+    marginBottom: 2,
   },
   infoValue: {
     color: "#ffffff",

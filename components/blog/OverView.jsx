@@ -11,8 +11,6 @@ import BlogCard from "./cards/BlogCard";
 import { Ionicons } from "@expo/vector-icons";
 
 const OverView = ({ setPage, blog }) => {
-  console.log(blog);
-
   return (
     <View style={styles.flexContainer}>
       <Header
@@ -30,7 +28,8 @@ const OverView = ({ setPage, blog }) => {
               description={blog?.description || ""}
               donorDescription={blog?.donorName || ""}
               imagePath={blog?.imagePath || ""}
-              updatedAt={blog?.childStory[0]?.updatedAt || ""}
+              updatedAtStr={blog?.qrCodeUniqueString || ""}
+              updatedAt={false}
               donorName={"UK"}
               _id={blog?._id || ""}
               onPress={() => console.log(blog._id)}
@@ -38,7 +37,7 @@ const OverView = ({ setPage, blog }) => {
           </View>
 
           <View style={styles.card}>
-            <TouchableOpacity>
+            <TouchableOpacity style={{ padding: 15 }}>
               <View style={styles.contributorContainer}>
                 <Text style={styles.contributorText}>Contributor</Text>
                 <Text style={styles.text}>Y</Text>
@@ -53,13 +52,13 @@ const OverView = ({ setPage, blog }) => {
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               onPress={() => setPage("Details")}
-              style={styles.backButton}
+              style={[styles.backButton, { maxWidth: 70 }]}
             >
               <Ionicons name="arrow-back" size={24} color="white" />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => setPage("Read")}
-              style={styles.readBlogButton}
+              style={[styles.readBlogButton, { marginLeft: 4 }]}
             >
               <View style={styles.readBlogContent}>
                 <Ionicons
@@ -88,7 +87,6 @@ const styles = StyleSheet.create({
   },
   card: {
     marginTop: 6,
-    padding: 16,
     backgroundColor: "#fff",
     shadowColor: "#000",
     shadowOffset: {
@@ -98,6 +96,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     elevation: 2,
+    padding: 4,
   },
   contributorContainer: {
     flexDirection: "row",
@@ -150,7 +149,6 @@ const styles = StyleSheet.create({
   readBlogButton: {
     backgroundColor: "#000",
     flex: 1,
-    marginLeft: 4,
     padding: 12,
   },
   readBlogContent: {

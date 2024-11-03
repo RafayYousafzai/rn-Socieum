@@ -54,7 +54,7 @@ const Scan = () => {
       <Header
         text={"Scan Your QR Code"}
         desc={
-          "Scan your QR code or use your 6 digit code assigned to your garment."
+          "Scan the QR code or use the 6 digit code assigned to your garment."
         }
         light={true}
       />

@@ -104,51 +104,55 @@ const Details = ({ setPage }) => {
                   updatedAtStr={qrBlog[0].fundsReceivingDate}
                   imagePath={"charity" + qrBlog[0].charityBanner}
                   onPress={() => console.log(qrBlog[0]._id)}
-                >
-                  <View style={styles.buttonContainer}>
-                    <TouchableOpacity
-                      onPress={() => setPage("Read")}
-                      style={styles.readBlogButton}
-                    >
-                      <View style={styles.readBlogContent}>
-                        <Ionicons
-                          name="reader-outline"
-                          size={20}
-                          color="white"
-                          style={styles.bookIcon}
-                        />
-                        <Text style={styles.buttonText}>Read Full Blog</Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                </BlogCard>
+                ></BlogCard>
               )}
 
-              <View style={styles.card}>
-                <TouchableOpacity>
-                  <View style={styles.contributorContainer}>
-                    <Text style={styles.contributorText}>Contributor</Text>
-                    <Text style={styles.text}>Y</Text>
-                  </View>
-                  <Text style={styles.textSmall}>
-                    About Contributor: Y wanted to help children and families
-                    affected by the lockdown
-                  </Text>
-                </TouchableOpacity>
+              <View style={[styles.card, { padding: 4 }]}>
                 <View>
-                  <TouchableOpacity style={{ marginTop: 10 }}>
-                    <Text style={styles.text}>
-                      View your Contribution on the blockchain
-                    </Text>
-                  </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.blockchainButton}
                     onPress={handlePressButtonAsync}
                   >
-                    <Text style={styles.buttonText}>View Blockchain</Text>
+                    <Text style={[styles.buttonText, { fontWeight: "800" }]}>
+                      View Blockchain
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{ padding: 10 }}>
+                    <Text style={styles.text}>
+                      View your Contribution on the blockchain
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>
+            </View>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                onPress={() => setPage("AllBlogs")}
+                style={[styles.readBlogButton, { maxWidth: 70 }]}
+              >
+                <View style={styles.readBlogContent}>
+                  <Ionicons
+                    name="arrow-back"
+                    size={20}
+                    color="white"
+                    style={styles.bookIcon}
+                  />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => setPage("OverView")}
+                style={styles.readBlogButton}
+              >
+                <View style={styles.readBlogContent}>
+                  <Ionicons
+                    name="reader-outline"
+                    size={20}
+                    color="white"
+                    style={styles.bookIcon}
+                  />
+                  <Text style={styles.buttonText}>Blog Overview</Text>
+                </View>
+              </TouchableOpacity>
             </View>
           </ScrollView>
         )}
@@ -189,7 +193,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     alignItems: "center",
     borderRadius: 2,
-    marginTop: 8,
   },
   buttonText: {
     color: "#FFFFFF",
