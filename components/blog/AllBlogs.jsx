@@ -96,7 +96,7 @@ const BasicCard = ({ item, handlePress }) => {
       hideLabel={false}
     />
   );
-}; 
+};
 const HistoryCard = ({ item, handlePress }) => {
   const [qrBlog, setQrBlog] = useState(null);
 
@@ -133,6 +133,7 @@ const HistoryCard = ({ item, handlePress }) => {
 
   return (
     <BlogCard
+      charityName={qrBlog.charityName || ""}
       key={qrBlog._id || ""}
       title={qrBlog.charityName || ""}
       description={qrBlog.description || ""}

@@ -1,10 +1,9 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-const Header = ({ text, desc, logo, light }) => {
-  // Insert a line break after commas
+const Header = ({ text, desc, logo, light }) => { 
   const formattedText = text.replace(/, /g, ",\n");
-  const formattedDesc = desc.replace(/, /g, ",\n");
+  const formattedDesc = desc?.replace(/, /g, ",\n");
 
   return (
     <View style={styles.headerContainer}>
@@ -18,14 +17,16 @@ const Header = ({ text, desc, logo, light }) => {
             />
           )}
         </Text>
-        <Text
-          style={[
-            styles.descriptionText,
-            { color: light ? "#fff" : "#90cdf4" },
-          ]}
-        >
-          {formattedDesc}
-        </Text>
+        {desc && (
+          <Text
+            style={[
+              styles.descriptionText,
+              { color: light ? "#fff" : "#90cdf4" },
+            ]}
+          >
+            {formattedDesc}
+          </Text>
+        )}
       </View>
     </View>
   );

@@ -45,7 +45,6 @@ const Home = () => {
     <SafeAreaView className="bg-gray-100 flex-1">
       <Header
         text={"Welcome to Y"}
-        desc={"Individually We Are One Drop, Together We Are An Ocean"}
       />
       <FlatList
         data={infoData}

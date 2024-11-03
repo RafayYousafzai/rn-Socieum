@@ -23,16 +23,24 @@ export default function RootLayout() {
 
   useEffect(() => {
     let timer;
+    let splashTimeout;
 
     if (loaded) {
+      // Show toast every 10 seconds
       timer = setInterval(() => {
-        showToast("Final Prototype this build is for testing only");
+        showToast("Final Prototype: This build is for testing only.");
       }, 10000);
 
-      SplashScreen.hideAsync();
+      // Delay hiding the splash screen for at least 1.5 seconds
+      splashTimeout = setTimeout(async () => {
+        await SplashScreen.hideAsync();
+      }, 1500);
     }
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(splashTimeout);
+    };
   }, [loaded]);
 
   return (

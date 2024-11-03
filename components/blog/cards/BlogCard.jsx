@@ -66,7 +66,9 @@ export default function BlogCard({
                   icon="account-circle"
                   style={styles.avatarIcon}
                 />
-                <Text style={styles.infoValue}>
+                <Text
+                  style={[styles.infoValue, { fontWeight: 700, color: "#fff" }]}
+                >
                   {limitString(contribution, 40)}
                 </Text>
               </View>
