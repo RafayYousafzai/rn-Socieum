@@ -39,13 +39,13 @@ const ReadBlog = ({ setPage }) => {
     <View style={styles.blogContainer}>
       {/* Profile Section */}
       <View style={styles.profileContainer}>
-        <View style={styles.avatarCircle}>
+        {/* <View style={styles.avatarCircle}>
           <Image
             source={require("@/assets/images/icon.png")}
             style={styles.smallImage}
             resizeMode="contain"
           />
-        </View>
+        </View> */}
         <View style={styles.profileInfo}>
           <Text style={styles.name}>{item.title}</Text>
           <Text style={styles.title}>Regional Charity Manager</Text>
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   profileInfo: {
-    marginLeft: 12,
+    marginLeft: 0,
   },
   name: {
     fontSize: 16,
