@@ -87,26 +87,33 @@ const Details = ({ setPage }) => {
         desc="See details about where, when and how your contribution has been used"
       />
       <View style={styles.contentContainer}>
-        {isFetching ? (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color="#4B5563" />
-          </View>
-        ) : (
-          <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <ScrollView contentContainerStyle={styles.scrollViewContent}>
+          <View>
             <View>
-              {qrBlog.length > 0 && (
-                <BlogCard
-                  key={qrBlog[0]._id}
-                  title={qrBlog[0].charityName}
-                  description={qrBlog[0].description}
-                  donorDescription={`YNT ${qrBlog[0]?.token}`}
-                  donorName={qrBlog[0]?.location}
-                  updatedAtStr={qrBlog[0].fundsReceivingDate}
-                  imagePath={"charity" + qrBlog[0].charityBanner}
-                  onPress={() => console.log(qrBlog[0]._id)}
-                ></BlogCard>
+              {isFetching && (
+                <View style={styles.loadingContainer}>
+                  <ActivityIndicator
+                    style={{ marginVertical: 100 }}
+                    size="large"
+                    color="#000"
+                  />
+                </View>
               )}
-
+              <View>
+                {qrBlog.length > 0 && (
+                  <BlogCard
+                    charityName={qrBlog[0]?.charityName || ""}
+                    key={qrBlog[0]._id}
+                    title={qrBlog[0].charityName}
+                    description={qrBlog[0].description}
+                    donorDescription={`YNT ${qrBlog[0]?.token}`}
+                    donorName={qrBlog[0]?.location}
+                    updatedAtStr={qrBlog[0].fundsReceivingDate}
+                    imagePath={"charity" + qrBlog[0].charityBanner}
+                    onPress={() => console.log(qrBlog[0]._id)}
+                  />
+                )}
+              </View>
               <View style={[styles.card, { padding: 4 }]}>
                 <View>
                   <TouchableOpacity
@@ -125,37 +132,37 @@ const Details = ({ setPage }) => {
                 </View>
               </View>
             </View>
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                onPress={() => setPage("AllBlogs")}
-                style={[styles.readBlogButton, { maxWidth: 70 }]}
-              >
-                <View style={styles.readBlogContent}>
-                  <Ionicons
-                    name="arrow-back"
-                    size={20}
-                    color="white"
-                    style={styles.bookIcon}
-                  />
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => setPage("OverView")}
-                style={styles.readBlogButton}
-              >
-                <View style={styles.readBlogContent}>
-                  <Ionicons
-                    name="reader-outline"
-                    size={20}
-                    color="white"
-                    style={styles.bookIcon}
-                  />
-                  <Text style={styles.buttonText}>Blog Overview</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
-        )}
+          </View>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              onPress={() => setPage("AllBlogs")}
+              style={[styles.readBlogButton, { maxWidth: 70 }]}
+            >
+              <View style={styles.readBlogContent}>
+                <Ionicons
+                  name="arrow-back"
+                  size={20}
+                  color="white"
+                  style={styles.bookIcon}
+                />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setPage("OverView")}
+              style={styles.readBlogButton}
+            >
+              <View style={styles.readBlogContent}>
+                <Ionicons
+                  name="reader-outline"
+                  size={20}
+                  color="white"
+                  style={styles.bookIcon}
+                />
+                <Text style={styles.buttonText}>Blog Overview</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </View>
     </View>
   );

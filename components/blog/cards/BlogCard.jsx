@@ -22,6 +22,7 @@ export default function BlogCard({
   onPress,
   children,
   hideLabel,
+  charityName,
 }) {
   const placeholderImg =
     "https://via.placeholder.com/300x150.png?text=Blog+Image";
@@ -51,6 +52,9 @@ export default function BlogCard({
               colors={["rgba(0, 0, 0, 0.0)", "rgba(0, 0, 0, 0.8)"]}
               style={styles.gradientOverlay}
             />
+            {charityName && (
+              <Text style={styles.titleOverlay}>{charityName}</Text>
+            )}
             <View style={styles.infoRow}>
               <View style={styles.infoItem}>
                 <Text style={styles.infoText}>
@@ -115,6 +119,20 @@ export default function BlogCard({
 }
 
 const styles = StyleSheet.create({
+  titleOverlay: {
+    color: "white",
+    fontSize: 12,
+    fontWeight: "600",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+    alignSelf: "flex-start",
+    marginBottom: 12,
+    position: "fixed",
+    top: 24,
+    left: 16,
+  },
   card: {
     marginVertical: 8,
     borderRadius: 0,
@@ -147,6 +165,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 80,
+    height: 100,
   },
   infoItem: {
     alignItems: "center",

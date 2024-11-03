@@ -55,7 +55,11 @@ export default function AllBlogs({ setPage, onlyHistory }) {
         <Header text={"Blog Y"} desc={"Read other blogs published by Y"} />
       )}
       {loading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator
+          style={{ marginTop: 100 }}
+          size="large"
+          color="#000"
+        />
       ) : filteredBlogs.length > 0 ? (
         <FlatList
           data={filteredBlogs}
@@ -92,52 +96,50 @@ const BasicCard = ({ item, handlePress }) => {
       hideLabel={false}
     />
   );
-};
+}; 
 const HistoryCard = ({ item, handlePress }) => {
-  const [qrBlog, setQrBlog] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
+  const [qrBlog, setQrBlog] = useState(null);
 
-  const fetchBlogsByQrCode = useCallback(async () => {
-    setIsFetching(true);
+  const fetchBlogsByQrCode = async () => {
     try {
       const url = END_POINTS.GET_BLOG_BY_QR_KEY({ qrCode: item.qrCode });
       const res = await fetch(url);
-      console.log(url);
+
       if (!res.ok) {
         const errorData = await res.json();
         showToast("Failed to fetch data: " + errorData.message);
         return;
       }
+
       const data = await res.json();
-      setQrBlog(data.data.length > 0 ? data.data : []);
-      if (data.data.length === 0) {
+      if (data.data.length > 0) {
+        setQrBlog(data.data[0]); // Set only the first item if multiple are returned
+      } else {
         showToast("No Contribution found against this QR code.");
       }
     } catch (err) {
       console.error("Failed to fetch data:", err);
       showToast("An error occurred while fetching data.");
-    } finally {
-      setIsFetching(false);
     }
-  }, []);
+  };
 
   useEffect(() => {
     fetchBlogsByQrCode();
   }, []);
 
-  if (isFetching) {
-    return;
+  if (!qrBlog) {
+    return null;
   }
 
   return (
     <BlogCard
-      key={qrBlog[0]?._id || ""}
-      title={qrBlog[0]?.charityName || ""}
-      description={qrBlog[0]?.description || ""}
-      donorDescription={`YNT ${qrBlog[0]?.token}`}
-      donorName={qrBlog[0]?.location}
-      updatedAtStr={qrBlog[0]?.fundsReceivingDate || ""}
-      imagePath={"charity" + qrBlog[0]?.charityBanner || ""}
+      key={qrBlog._id || ""}
+      title={qrBlog.charityName || ""}
+      description={qrBlog.description || ""}
+      donorDescription={`YNT ${qrBlog.token}`}
+      donorName={qrBlog.location}
+      updatedAtStr={qrBlog.fundsReceivingDate || ""}
+      imagePath={`charity${qrBlog.charityBanner || ""}`}
       onPress={() => handlePress(item._id)}
       hideLabel={false}
     />

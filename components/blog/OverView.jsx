@@ -5,12 +5,44 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Header from "@/components/Header";
 import BlogCard from "./cards/BlogCard";
 import { Ionicons } from "@expo/vector-icons";
+import { END_POINTS, showToast } from "../../helper/endpoints";
 
 const OverView = ({ setPage, blog }) => {
+  const [qrBlog, setQrBlog] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
+
+  const fetchBlogsByQrCode = useCallback(async () => {
+    setIsFetching(true);
+    try {
+      const url = END_POINTS.GET_BLOG_BY_QR_KEY({ qrCode: blog.qrCode });
+      const res = await fetch(url);
+      console.log(url);
+      if (!res.ok) {
+        const errorData = await res.json();
+        showToast("Failed to fetch data: " + errorData.message);
+        return;
+      }
+      const data = await res.json();
+      setQrBlog(data.data.length > 0 ? data.data : []);
+      if (data.data.length === 0) {
+        showToast("No Contribution found against this QR code.");
+      }
+    } catch (err) {
+      console.error("Failed to fetch data:", err);
+      showToast("An error occurred while fetching data.");
+    } finally {
+      setIsFetching(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchBlogsByQrCode();
+  }, []);
+
   return (
     <View style={styles.flexContainer}>
       <Header
@@ -27,7 +59,7 @@ const OverView = ({ setPage, blog }) => {
               title={blog?.title || ""}
               description={blog?.description || ""}
               donorDescription={blog?.donorName || ""}
-              imagePath={blog?.imagePath || ""}
+              imagePath={"charity" + qrBlog[0]?.charityBanner}
               updatedAtStr={blog?.qrCodeUniqueString || ""}
               updatedAt={false}
               donorName={"UK"}
