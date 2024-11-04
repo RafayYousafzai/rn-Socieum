@@ -69,7 +69,7 @@ const OverView = ({ setPage, blog }) => {
           </View>
 
           <View style={styles.card}>
-            <TouchableOpacity style={{ padding: 15 }}>
+            <TouchableOpacity style={{ padding: 5 }}>
               <View style={styles.contributorContainer}>
                 <Text style={styles.contributorText}>Contributor</Text>
                 <Text style={styles.text}>Y</Text>
@@ -118,7 +118,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   card: {
-    marginTop: 6,
     backgroundColor: "#fff",
     shadowColor: "#000",
     shadowOffset: {
@@ -133,10 +132,11 @@ const styles = StyleSheet.create({
   contributorContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 12,
+    marginBottom: 5,
+    marginRight: 5,
   },
   contributorText: {
-    borderColor: "#e0e0e0",
+    borderColor: "#000",
     borderWidth: 1,
     borderRadius: 2,
     paddingHorizontal: 12,
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   aboutText: {
     fontSize: 14,
     color: "#666",
-    marginBottom: 16,
+    marginBottom: 2,
     lineHeight: 20,
   },
   seeDetailsButton: {

@@ -31,9 +31,8 @@ const Home = () => {
     },
     {
       id: "4",
-      title: "Individually We Are One Drop, Together We Are An Ocean",
-      description:
-        "Make a statement with your garment and inspire others to do the same.",
+      title: "We Are Y",
+      description: "Individually We Are One Drop Together We Are An Ocean",
     },
   ]);
 
@@ -44,7 +43,9 @@ const Home = () => {
   return (
     <SafeAreaView className="bg-gray-100 flex-1">
       <Header
-        text={"Welcome to Y"}
+        text={"We Are Y"}
+        desc={"Individually We Are One Drop"}
+        desc2={"Together We Are An Ocean"}
       />
       <FlatList
         data={infoData}

@@ -126,7 +126,7 @@ const Details = ({ setPage }) => {
                   </TouchableOpacity>
                   <TouchableOpacity style={{ padding: 10 }}>
                     <Text style={styles.text}>
-                      View your Contribution on the blockchain
+                      View your contribution on the blockchain
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -158,7 +158,9 @@ const Details = ({ setPage }) => {
                   color="white"
                   style={styles.bookIcon}
                 />
-                <Text style={styles.buttonText}>Blog Overview</Text>
+                <Text style={[styles.buttonText, { fontWeight: "800" }]}>
+                  Blog Overview
+                </Text>
               </View>
             </TouchableOpacity>
           </View>

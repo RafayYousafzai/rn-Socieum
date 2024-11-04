@@ -140,8 +140,10 @@ const HistoryCard = ({ item, handlePress }) => {
       donorDescription={`YNT ${qrBlog.token}`}
       donorName={qrBlog.location}
       updatedAtStr={qrBlog.fundsReceivingDate || ""}
-      imagePath={`charity${qrBlog.charityBanner || ""}`}
+      // imagePath={`charity${qrBlog.charityBanner || ""}`}
       onPress={() => handlePress(item._id)}
+      imagePath={item?.imagePath}
+
       hideLabel={false}
     />
   );

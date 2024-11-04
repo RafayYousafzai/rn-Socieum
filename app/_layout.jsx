@@ -26,15 +26,13 @@ export default function RootLayout() {
     let splashTimeout;
 
     if (loaded) {
-      // Show toast every 10 seconds
       timer = setInterval(() => {
-        showToast("Final Prototype: This build is for testing only.");
-      }, 10000);
+        showToast("This build is for testing only.");
+      }, 90000);
 
-      // Delay hiding the splash screen for at least 1.5 seconds
       splashTimeout = setTimeout(async () => {
         await SplashScreen.hideAsync();
-      }, 1500);
+      }, 4000);
     }
 
     return () => {

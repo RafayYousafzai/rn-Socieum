@@ -1,15 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-const Header = ({ text, desc, logo, light }) => { 
-  const formattedText = text.replace(/, /g, ",\n");
-  const formattedDesc = desc?.replace(/, /g, ",\n");
-
+const Header = ({ text, desc, desc2, logo, light }) => {
   return (
     <View style={styles.headerContainer}>
       <View style={styles.innerContainer}>
         <Text style={styles.headerText}>
-          {formattedText}
+          {text}
           {logo && (
             <Image
               source={require("@/assets/images/icon.png")}
@@ -21,10 +18,20 @@ const Header = ({ text, desc, logo, light }) => {
           <Text
             style={[
               styles.descriptionText,
-              { color: light ? "#fff" : "#90cdf4" },
+              { color: light ? "#fff" : "#fff" },
             ]}
           >
-            {formattedDesc}
+            {desc}
+          </Text>
+        )}
+        {desc2 && (
+          <Text
+            style={[
+              styles.descriptionText,
+              { color: light ? "#fff" : "#fff" },
+            ]}
+          >
+            {desc2}
           </Text>
         )}
       </View>
@@ -35,17 +42,16 @@ const Header = ({ text, desc, logo, light }) => {
 const styles = StyleSheet.create({
   headerContainer: {
     backgroundColor: "#000",
-    height: 170,
+    height: 160,
     width: "100%",
     overflow: "hidden",
     alignItems: "center",
-    justifyContent: "center",
+    paddingTop: 20,
+    // justifyContent: "center",
     // borderBottomLeftRadius: 50,
     // borderBottomRightRadius: 50,
   },
   innerContainer: {
-    justifyContent: "center",
-    alignItems: "center",
     paddingBottom: 10,
     paddingTop: 30,
   },

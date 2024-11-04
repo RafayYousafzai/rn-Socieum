@@ -52,13 +52,22 @@ export default function BlogCard({
               colors={["rgba(0, 0, 0, 0.0)", "rgba(0, 0, 0, 0.8)"]}
               style={styles.gradientOverlay}
             />
-            {charityName && (
-              <Text style={styles.titleOverlay}>{charityName}</Text>
-            )}
+            <Text
+              style={[
+                styles.titleOverlay,
+                !charityName && {
+                  backgroundColor: "transparent",
+                  color: "transparent",
+                },
+              ]}
+            >
+              {charityName && charityName}
+            </Text>
             <View style={styles.infoRow}>
               <View style={styles.infoItem}>
                 <Text style={styles.infoText}>
-                  {!hideLabel && "Contribution"}
+                  {!hideLabel && "Contribution"}{" "}
+                  {updatedAt === undefined ? "" : "Name"}
                 </Text>
                 <Avatar.Icon
                   color="#3B82F6"
@@ -132,8 +141,8 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginBottom: 12,
     position: "fixed",
-    top: 24,
-    left: 16,
+    top: 40,
+    left: 0,
   },
   card: {
     marginVertical: 8,
@@ -178,7 +187,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     padding: 4,
     height: 35,
-    marginBottom: 10,
+    marginBottom: 2,
   },
   infoText: {
     color: "#fff",

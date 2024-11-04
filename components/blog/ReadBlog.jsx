@@ -48,7 +48,7 @@ const ReadBlog = ({ setPage }) => {
         </View> */}
         <View style={styles.profileInfo}>
           <Text style={styles.name}>{item.title}</Text>
-          <Text style={styles.title}>Regional Charity Manager</Text>
+          {/* <Text style={styles.title}>Regional Charity Manager</Text> */}
         </View>
       </View>
 
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     textTransform: "capitalize",
   },
   largeImage: {
-    height: 400,
+    height: 300,
     marginVertical: 16,
     width: "100%",
     objectFit: "cover",
