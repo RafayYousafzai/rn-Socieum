@@ -6,40 +6,59 @@ import {
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { useEffect, useCallback, useState } from "react"; // Added useCallback and useState
 import "react-native-reanimated";
 import "@/global.css";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { showToast } from "@/helper/endpoints";
 import BlogProvider from "@/context/BlogContext";
+import { Image, View } from "react-native";
 
-SplashScreen.preventAutoHideAsync();
+// Prevent auto-hide immediately
+SplashScreen.preventAutoHideAsync().catch(() => {
+  /* Handling any potential errors in case app reloads */
+});
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
+  const [isAppReady, setIsAppReady] = useState(false);
+
+  useEffect(() => {
+    if (loaded) {
+      setTimeout(() => setIsAppReady(true), 3000);
+    }
+  }, [loaded]);
+
+  // const onLayoutRootView = useCallback(async () => {
+  //   if (isAppReady) {
+  //     await SplashScreen.hideAsync();
+  //   }
+  // }, [isAppReady]);
 
   useEffect(() => {
     let timer;
-    let splashTimeout;
-
-    if (loaded) {
+    if (isAppReady) {
+      // Show toast every 90 seconds
       timer = setInterval(() => {
         showToast("This build is for testing only.");
       }, 90000);
-
-      splashTimeout = setTimeout(async () => {
-        await SplashScreen.hideAsync();
-      }, 4000);
     }
+    return () => clearInterval(timer);
+  }, [isAppReady]);
 
-    return () => {
-      clearTimeout(timer);
-      clearTimeout(splashTimeout);
-    };
-  }, [loaded]);
+  if (!isAppReady) {
+    return (
+      <View>
+        <Image
+          source={require("@/assets/app/splash.png")}
+          className="w-[100%] h-[100%] bg-black"
+        />
+      </View>
+    );
+  }
 
   return (
     <BlogProvider>

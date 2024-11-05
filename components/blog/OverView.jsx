@@ -15,6 +15,8 @@ const OverView = ({ setPage, blog }) => {
   const [qrBlog, setQrBlog] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
 
+  console.log(qrBlog);
+
   const fetchBlogsByQrCode = useCallback(async () => {
     setIsFetching(true);
     try {
@@ -55,6 +57,7 @@ const OverView = ({ setPage, blog }) => {
         <View style={styles.container}>
           <View>
             <BlogCard
+              charityName={qrBlog[0]?.charityName || ""}
               key={blog._id}
               title={blog?.title || ""}
               description={blog?.description || ""}

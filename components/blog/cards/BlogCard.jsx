@@ -96,9 +96,10 @@ export default function BlogCard({
                   <Avatar.Icon
                     color="#10B981"
                     size={36}
-                    icon="calendar-today"
+                    icon={updatedAt === undefined ? "calendar-today" : "ticket-confirmation"}
                     style={styles.avatarIcon}
                   />
+
                   <Text style={styles.infoValue}>{limitString(date, 30)}</Text>
                 </View>
               )}
@@ -137,12 +138,12 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     paddingHorizontal: 8,
     paddingVertical: 4,
-    borderRadius: 12,
+    borderRadius: 2,
     alignSelf: "flex-start",
     marginBottom: 12,
     position: "fixed",
-    top: 40,
-    left: 0,
+    top: 27,
+    left: -9,
   },
   card: {
     marginVertical: 8,

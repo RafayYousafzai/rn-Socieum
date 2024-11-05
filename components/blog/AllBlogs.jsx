@@ -81,8 +81,42 @@ export default function AllBlogs({ setPage, onlyHistory }) {
 }
 
 const BasicCard = ({ item, handlePress }) => {
+  const [qrBlog, setQrBlog] = useState(null);
+
+  const fetchBlogsByQrCode = async () => {
+    try {
+      const url = END_POINTS.GET_BLOG_BY_QR_KEY({ qrCode: item.qrCode });
+      const res = await fetch(url);
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        showToast("Failed to fetch data: " + errorData.message);
+        return;
+      }
+
+      const data = await res.json();
+      if (data.data.length > 0) {
+        setQrBlog(data.data[0]); // Set only the first item if multiple are returned
+      } else {
+        showToast("No Contribution found against this QR code.");
+      }
+    } catch (err) {
+      console.error("Failed to fetch data:", err);
+      showToast("An error occurred while fetching data.");
+    }
+  };
+
+  useEffect(() => {
+    fetchBlogsByQrCode();
+  }, []);
+
+  if (!qrBlog) {
+    return null;
+  }
+
   return (
     <BlogCard
+      charityName={qrBlog.charityName || ""}
       key={item._id}
       title={item?.title}
       description={item?.description}
@@ -143,7 +177,6 @@ const HistoryCard = ({ item, handlePress }) => {
       // imagePath={`charity${qrBlog.charityBanner || ""}`}
       onPress={() => handlePress(item._id)}
       imagePath={item?.imagePath}
-
       hideLabel={false}
     />
   );

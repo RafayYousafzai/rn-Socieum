@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { ToastAndroid, Alert, Platform } from "react-native";
 import { END_POINTS, showToast } from "@/helper/endpoints";
 // Create the BlogContext
 const BlogContext = createContext();

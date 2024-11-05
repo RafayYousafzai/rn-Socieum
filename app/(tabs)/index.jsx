@@ -21,13 +21,13 @@ const Home = () => {
       id: "2",
       title: "Blockchain Technology",
       description:
-        "Blockchain technology is a secure, decentralised digital ledger maintained by a network of computers designed to store and share information transparently for public access. Through the Y blockchain platform, you can track your contributions and see exactly how these funds are utilised by the organisations we support.",
+        "Blockchain technology is a secure, decentralised digital ledger maintained by a network of computers designed to store and share information transparently for public access. Through the Y blockchain platform, you can track your contribution and see exactly how these funds are utilised by the organisations we support.",
     },
     {
       id: "3",
       title: "Blog Y",
       description:
-        "Blog Y links you to the individuals benefitting from your contribution and give you an insight in to the lives you are helping to change. The blog aims to connect people from all walks of life and build a community of social media inspirers to showcase what can be achieved when we all come together.",
+        "Blog Y links you to the individuals benefitting from your contribution and gives you an insight in to the lives you are helping to change. The blog aims to connect people from all walks of life and build a community of social media inspirers to showcase what can be achieved when we all come together.",
     },
     {
       id: "4",
@@ -43,7 +43,7 @@ const Home = () => {
   return (
     <SafeAreaView className="bg-gray-100 flex-1">
       <Header
-        text={"We Are Y"}
+        text={"Welcome To Y"}
         desc={"Individually We Are One Drop"}
         desc2={"Together We Are An Ocean"}
       />
