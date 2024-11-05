@@ -6,7 +6,6 @@ import {
   FlatList,
   StyleSheet,
   Image,
-  Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useBlogContext } from "@/context/BlogContext";
@@ -21,7 +20,6 @@ function formatDateToCustomString(isoDateString) {
 
 const ReadBlog = ({ setPage }) => {
   const { selectedBlog } = useBlogContext();
-  const { width } = Dimensions.get("window");
 
   const blogs = selectedBlog?.childStory;
 
@@ -54,8 +52,13 @@ const ReadBlog = ({ setPage }) => {
 
       {/* Blog Image */}
       <Image
-        source={{ uri: `https://younite.uk/images/${item.imagePath}` }}
-        style={styles.largeImage}
+        source={{
+          uri: `https://younite.uk/images/${item.imagePath}`,
+        }}
+        style={[
+          styles.largeImage,
+          item.imagePath === "/myFile_1637079444347.png" && { height: 200 },
+        ]}
         resizeMode="contain"
       />
 
@@ -167,7 +170,7 @@ const styles = StyleSheet.create({
     textTransform: "capitalize",
   },
   largeImage: {
-    height: 300,
+    height: 330,
     marginVertical: 16,
     width: "100%",
     objectFit: "cover",

@@ -102,7 +102,7 @@ const Details = ({ setPage }) => {
               <View>
                 {qrBlog.length > 0 && (
                   <BlogCard
-                    charityName={selectedBlog.charityName || ""}
+                    charityName={qrBlog[0].charityName || ""}
                     key={qrBlog[0]._id}
                     title={selectedBlog?.title}
                     description={selectedBlog?.description}
@@ -152,12 +152,6 @@ const Details = ({ setPage }) => {
               style={styles.readBlogButton}
             >
               <View style={styles.readBlogContent}>
-                <Ionicons
-                  name="reader-outline"
-                  size={20}
-                  color="white"
-                  style={styles.bookIcon}
-                />
                 <Text style={[styles.buttonText, { fontWeight: "800" }]}>
                   Blog Overview
                 </Text>

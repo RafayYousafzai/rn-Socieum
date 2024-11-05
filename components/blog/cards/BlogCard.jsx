@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Card, Avatar } from "react-native-paper";
-import { limitString } from "../../common/limitString";
 
 export default function BlogCard({
   title,
@@ -38,6 +37,8 @@ export default function BlogCard({
 
   const location = donorName || "Unknown";
 
+  const iconHeight = contribution.length > 20 ? { height: 55 } : { height: 30 };
+
   return (
     <TouchableOpacity onPress={() => onPress(_id)} activeOpacity={0.9}>
       <Card style={styles.card}>
@@ -63,7 +64,7 @@ export default function BlogCard({
             >
               {charityName && charityName}
             </Text>
-            <View style={styles.infoRow}>
+            <View style={[styles.infoRow, iconHeight]}>
               <View style={styles.infoItem}>
                 <Text style={styles.infoText}>
                   {!hideLabel && "Contribution"}{" "}
@@ -143,9 +144,9 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     alignSelf: "flex-start",
     marginBottom: 12,
-    position: "fixed",
-    top: 27,
-    left: -9,
+    position: "absolute",
+    top: 6,
+    left: 6,
   },
   card: {
     marginVertical: 8,

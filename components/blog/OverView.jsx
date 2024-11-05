@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import Header from "@/components/Header";
@@ -78,8 +79,7 @@ const OverView = ({ setPage, blog }) => {
                 <Text style={styles.text}>Y</Text>
               </View>
               <Text style={styles.aboutText}>
-                About Contributor: Y wanted to help children and families
-                affected by the lockdown
+                About Contributor: {qrBlog[0]?.goodsName}
               </Text>
             </TouchableOpacity>
           </View>
@@ -96,13 +96,9 @@ const OverView = ({ setPage, blog }) => {
               style={[styles.readBlogButton, { marginLeft: 4 }]}
             >
               <View style={styles.readBlogContent}>
-                <Ionicons
-                  name="book-outline"
-                  size={20}
-                  color="white"
-                  style={styles.bookIcon}
-                />
-                <Text style={styles.readBlogText}>Read The Blog</Text>
+                <Text style={[styles.readBlogText, { fontWeight: "800" }]}>
+                  Read The Blog
+                </Text>
               </View>
             </TouchableOpacity>
           </View>
