@@ -61,11 +61,11 @@ const OverView = ({ setPage, blog }) => {
               key={blog._id}
               title={blog?.title || ""}
               description={blog?.description || ""}
-              donorDescription={blog?.donorName || ""}
-              imagePath={"charity" + qrBlog[0]?.charityBanner}
-              updatedAtStr={blog?.qrCodeUniqueString || ""}
+              imagePath={blog?.imagePath}
+              donorName={qrBlog[0]?.location}
               updatedAt={false}
-              donorName={"UK"}
+              updatedAtStr={blog?.qrCodeUniqueString || ""}
+              donorDescription={blog?.donorName || ""}
               _id={blog?._id || ""}
               onPress={() => console.log(blog._id)}
             />
@@ -78,7 +78,7 @@ const OverView = ({ setPage, blog }) => {
                 <Text style={styles.text}>Y</Text>
               </View>
               <Text style={styles.aboutText}>
-                About Contributor : Y wanted to help children and families
+                About Contributor: Y wanted to help children and families
                 affected by the lockdown
               </Text>
             </TouchableOpacity>

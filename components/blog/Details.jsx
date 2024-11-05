@@ -102,14 +102,14 @@ const Details = ({ setPage }) => {
               <View>
                 {qrBlog.length > 0 && (
                   <BlogCard
-                    charityName={qrBlog[0]?.charityName || ""}
+                    charityName={selectedBlog.charityName || ""}
                     key={qrBlog[0]._id}
-                    title={qrBlog[0].charityName}
-                    description={qrBlog[0].description}
-                    donorDescription={`YNT ${qrBlog[0]?.token}`}
+                    title={selectedBlog?.title}
+                    description={selectedBlog?.description}
+                    imagePath={selectedBlog?.imagePath}
                     donorName={qrBlog[0]?.location}
+                    donorDescription={`YNT ${qrBlog[0]?.token}`}
                     updatedAtStr={qrBlog[0].fundsReceivingDate}
-                    imagePath={"charity" + qrBlog[0].charityBanner}
                     onPress={() => console.log(qrBlog[0]._id)}
                   />
                 )}
@@ -212,6 +212,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "700",
     color: "#374151",
+    textAlign: "center",
   },
   buttonContainer: {
     flexDirection: "row",

@@ -46,7 +46,7 @@ export default function BlogCard({
             source={{ uri: imageUrl }}
             style={styles.imageBackground}
             imageStyle={styles.imageStyle}
-            resizeMode="cover"
+            resizeMode="contain"
           >
             <LinearGradient
               colors={["rgba(0, 0, 0, 0.0)", "rgba(0, 0, 0, 0.8)"]}
@@ -70,7 +70,7 @@ export default function BlogCard({
                   {updatedAt === undefined ? "" : "Name"}
                 </Text>
                 <Avatar.Icon
-                  color="#3B82F6"
+                  color="#000"
                   size={36}
                   icon="account-circle"
                   style={styles.avatarIcon}
@@ -78,7 +78,7 @@ export default function BlogCard({
                 <Text
                   style={[styles.infoValue, { fontWeight: 700, color: "#fff" }]}
                 >
-                  {limitString(contribution, 40)}
+                  {contribution}
                 </Text>
               </View>
 
@@ -94,27 +94,29 @@ export default function BlogCard({
                     )}
                   </Text>
                   <Avatar.Icon
-                    color="#10B981"
+                    color="#000"
                     size={36}
-                    icon={updatedAt === undefined ? "calendar-today" : "ticket-confirmation"}
+                    icon={
+                      updatedAt === undefined
+                        ? "calendar-today"
+                        : "ticket-confirmation"
+                    }
                     style={styles.avatarIcon}
                   />
 
-                  <Text style={styles.infoValue}>{limitString(date, 30)}</Text>
+                  <Text style={styles.infoValue}>{date}</Text>
                 </View>
               )}
 
               <View style={styles.infoItem}>
                 <Text style={styles.infoText}>{!hideLabel && "Location"}</Text>
                 <Avatar.Icon
-                  color="#EF4444"
+                  color="#000"
                   size={36}
                   icon="map-marker"
                   style={styles.avatarIcon}
                 />
-                <Text style={styles.infoValue}>
-                  {limitString(location, 40)}
-                </Text>
+                <Text style={styles.infoValue}>{location}</Text>
               </View>
             </View>
           </ImageBackground>
@@ -204,6 +206,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginBottom: 10,
     fontWeight: "500",
+    textAlign: "center",
   },
   content: {
     paddingVertical: 12,

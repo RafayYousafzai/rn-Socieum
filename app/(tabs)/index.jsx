@@ -15,7 +15,7 @@ const Home = () => {
       id: "1",
       title: "About Y",
       description:
-        "By combining blockchain technology with premium, handcrafted, ethically sourced organic fashion, we offer a truly unique retail experience. A portion of revenue from each collection supports various social causes through our transparent blockchain platform. Our philosophy is to reinvest in initiatives that matter to the Y community and empower positive social change together.",
+        "By combining blockchain technology with premium, handcrafted, ethically manufactured fashion, we offer a truly unique retail experience. A portion of revenue from each collection supports various social causes through our transparent blockchain platform. Our philosophy is to reinvest in initiatives that matter to the Y community and empower positive social change together.",
     },
     {
       id: "2",

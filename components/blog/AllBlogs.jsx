@@ -11,6 +11,7 @@ const openedBlogIds = "openedBlogIds";
 
 export default function AllBlogs({ setPage, onlyHistory }) {
   const { blogs, setViewBlog } = useBlogContext();
+
   const [historyIds, setHistoryIds] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -49,7 +50,7 @@ export default function AllBlogs({ setPage, onlyHistory }) {
       {onlyHistory ? (
         <Header
           text={"Search History"}
-          desc={"View which blogs you have previously read"}
+          desc={"View blogs you have previously read"}
         />
       ) : (
         <Header text={"Blog Y"} desc={"Read other blogs published by Y"} />
@@ -62,7 +63,7 @@ export default function AllBlogs({ setPage, onlyHistory }) {
         />
       ) : filteredBlogs.length > 0 ? (
         <FlatList
-          data={filteredBlogs}
+          data={filteredBlogs.filter((blog) => blog.title !== "Gira")}
           keyExtractor={(blog) => blog._id}
           renderItem={({ item }) =>
             onlyHistory ? (
@@ -118,14 +119,14 @@ const BasicCard = ({ item, handlePress }) => {
     <BlogCard
       charityName={qrBlog.charityName || ""}
       key={item._id}
+      _id={item?._id}
       title={item?.title}
       description={item?.description}
-      donorDescription={item?.donorName}
       imagePath={item?.imagePath}
-      updatedAt={false}
+      donorName={qrBlog.location}
+      donorDescription={item?.donorName}
       updatedAtStr={item?.qrCodeUniqueString}
-      donorName={"UK"}
-      _id={item?._id}
+      updatedAt={false}
       onPress={() => handlePress(item._id)}
       hideLabel={false}
     />
@@ -169,14 +170,13 @@ const HistoryCard = ({ item, handlePress }) => {
     <BlogCard
       charityName={qrBlog.charityName || ""}
       key={qrBlog._id || ""}
-      title={qrBlog.charityName || ""}
-      description={qrBlog.description || ""}
-      donorDescription={`YNT ${qrBlog.token}`}
-      donorName={qrBlog.location}
-      updatedAtStr={qrBlog.fundsReceivingDate || ""}
-      // imagePath={`charity${qrBlog.charityBanner || ""}`}
-      onPress={() => handlePress(item._id)}
+      title={item?.title}
+      description={item?.description}
       imagePath={item?.imagePath}
+      donorName={qrBlog.location}
+      donorDescription={`YNT ${qrBlog.token}`}
+      updatedAtStr={qrBlog.fundsReceivingDate || ""}
+      onPress={() => handlePress(item._id)}
       hideLabel={false}
     />
   );
