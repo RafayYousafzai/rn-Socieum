@@ -76,7 +76,7 @@ const OverView = ({ setPage, blog }) => {
             <TouchableOpacity style={{ padding: 5 }}>
               <View style={styles.contributorContainer}>
                 <Text style={styles.contributorText}>Contributor</Text>
-                <Text style={styles.text}>Y</Text>
+                <Text style={styles.text}>{blog.donorName || ""}</Text>
               </View>
               <Text style={styles.aboutText}>
                 About Contributor: {qrBlog[0]?.goodsName}
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     color: "#666",
   },
   text: {
-    fontSize: 14,
+    fontSize: 13,
     color: "#333",
   },
   aboutText: {

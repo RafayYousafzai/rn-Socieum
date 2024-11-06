@@ -37,7 +37,7 @@ export default function BlogCard({
 
   const location = donorName || "Unknown";
 
-  const iconHeight = contribution.length > 20 ? { height: 55 } : { height: 30 };
+  const iconHeight = contribution.length > 20 ? { height: 80 } : { height: 55 };
 
   return (
     <TouchableOpacity onPress={() => onPress(_id)} activeOpacity={0.9}>
