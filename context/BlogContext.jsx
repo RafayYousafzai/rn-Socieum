@@ -102,11 +102,17 @@ const BlogProvider = ({ children }) => {
 
       const modifiedBlogs = modifyBlogDataById(blogsWithQrData.filter(Boolean));
 
-      setBlogs(modifiedBlogs);
+      const sortedBlogs = modifiedBlogs.sort((a, b) => {
+        const dateA = new Date(a.updatedAt || a.childStory?.[0]?.updatedAt);
+        const dateB = new Date(b.updatedAt || b.childStory?.[0]?.updatedAt);
+        return dateB - dateA;
+      });
+
+      setBlogs(sortedBlogs);
 
       showToast(
-        modifiedBlogs.length > 0
-          ? "Data fetched successfully."
+        sortedBlogs.length > 0
+          ? "Data fetched and sorted by date successfully."
           : "No Contribution found."
       );
     } catch (err) {

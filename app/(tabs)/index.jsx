@@ -32,7 +32,8 @@ const Home = () => {
     {
       id: "4",
       title: "We Are Y",
-      description: "Individually We Are One Drop Together We Are An Ocean",
+      description:
+        "Make a statement with your Y garment and inspire others to do the same.",
     },
   ]);
 

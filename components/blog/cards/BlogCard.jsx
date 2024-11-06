@@ -208,6 +208,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontWeight: "500",
     textAlign: "center",
+    width: 110,
   },
   content: {
     paddingVertical: 12,
