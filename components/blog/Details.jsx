@@ -62,15 +62,15 @@ const Details = ({ setPage }) => {
               <View>
                 {qrBlog.length > 0 && (
                   <BlogCard
-                    charityName={qrBlog.charityName || ""}
-                    key={qrBlog[0]._id}
+                    charityName={selectedBlog.more.charityName || ""}
+                    key={selectedBlog.more._id}
                     title={selectedBlog?.title}
                     description={selectedBlog?.description}
                     imagePath={selectedBlog?.imagePath}
-                    donorName={qrBlog[0]?.location}
-                    donorDescription={`YNT ${qrBlog[0]?.token}`}
-                    updatedAtStr={qrBlog[0].fundsReceivingDate}
-                    onPress={() => console.log(qrBlog[0]._id)}
+                    donorName={selectedBlog.more?.location}
+                    donorDescription={`YNT ${selectedBlog.more?.token}`}
+                    updatedAtStr={selectedBlog.more.fundsReceivingDate}
+                    onPress={() => console.log(selectedBlog.more._id)}
                   />
                 )}
               </View>
