@@ -36,6 +36,48 @@ const BlogProvider = ({ children }) => {
       return null;
     }
   };
+  const modifyBlogDataById = (data) => {
+    // Define modifications based on object IDs
+    const modifications = {
+      "608d77fea44c1b592258ad8f": {
+        childStory: [
+          {
+            _id: "6329aab22bea4b0a52655fa4",
+            description:
+              "Socieum staff met the school's food bank organiser make the following donation. The teacher explained how parents are finding it difficult to provide 3 daily meals for their children. This donation is appreciated and will be added to the school pantry.",
+            imagePath: "/myFile_1619886347176.jpg",
+            storyType: "Child Story",
+            title: "Y Support Staff",
+            updatedAt: "2021-09-05T11:57:38.310Z",
+          },
+        ],
+      },
+      "60588e4574ddf1165da4ea4a": {
+        description:
+          "Helping children requiring support. From help with school uniforms, learning material and school dinners.",
+      },
+    };
+
+    return data.map((item) => {
+      if (modifications[item._id]) {
+        // Apply modifications to main object fields
+        const modifiedItem = { ...item, ...modifications[item._id] };
+
+        // If `childStory` modifications exist, apply those as well
+        if (modifications[item._id].childStory) {
+          modifiedItem.childStory = modifiedItem.childStory.map((story) => {
+            const storyMod = modifications[item._id].childStory.find(
+              (mod) => mod._id === story._id
+            );
+            return storyMod ? { ...story, ...storyMod } : story;
+          });
+        }
+
+        return modifiedItem;
+      }
+      return item;
+    });
+  };
 
   const fetchBlogs = async () => {
     setLoading(true);
@@ -57,13 +99,16 @@ const BlogProvider = ({ children }) => {
       const blogsWithQrData = await Promise.all(
         data.map((blog) => fetchBlogsByQrCode(blog))
       );
-      setBlogs(blogsWithQrData.filter(Boolean));
 
-      if (blogsWithQrData.length === 0) {
-        showToast("No Contribution found.");
-      } else {
-        showToast("Data fetched successfully.");
-      }
+      const modifiedBlogs = modifyBlogDataById(blogsWithQrData.filter(Boolean));
+
+      setBlogs(modifiedBlogs);
+
+      showToast(
+        modifiedBlogs.length > 0
+          ? "Data fetched successfully."
+          : "No Contribution found."
+      );
     } catch (err) {
       showToast("An error occurred while fetching data.");
       setError("An error occurred while fetching data.");

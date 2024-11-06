@@ -20,6 +20,7 @@ function formatDateToCustomString(isoDateString) {
 
 const ReadBlog = ({ setPage }) => {
   const { selectedBlog } = useBlogContext();
+console.log(selectedBlog);
 
   const blogs = selectedBlog?.childStory;
 
