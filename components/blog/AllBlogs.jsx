@@ -1,12 +1,10 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, FlatList, ActivityIndicator } from "react-native";
 import BlogCard from "@/components/blog/cards/BlogCard";
 import { useBlogContext } from "@/context/BlogContext";
 import Header from "@/components/Header";
 import NoBlogHistory from "./NoBlogHistory";
 import { getValueFor } from "@/lib/SecureStore";
-import { END_POINTS, showToast } from "../../helper/endpoints";
-
 const openedBlogIds = "openedBlogIds";
 
 export default function AllBlogs({ setPage, onlyHistory }) {
@@ -57,7 +55,7 @@ export default function AllBlogs({ setPage, onlyHistory }) {
       )}
       {loading ? (
         <ActivityIndicator
-          style={{ marginTop: 100 }}
+          style={{ marginTop: 200 }}
           size="large"
           color="#000"
         />
@@ -82,48 +80,15 @@ export default function AllBlogs({ setPage, onlyHistory }) {
 }
 
 const BasicCard = ({ item, handlePress }) => {
-  const [qrBlog, setQrBlog] = useState(null);
-
-  const fetchBlogsByQrCode = async () => {
-    try {
-      const url = END_POINTS.GET_BLOG_BY_QR_KEY({ qrCode: item.qrCode });
-      const res = await fetch(url);
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        showToast("Failed to fetch data: " + errorData.message);
-        return;
-      }
-
-      const data = await res.json();
-      if (data.data.length > 0) {
-        setQrBlog(data.data[0]); // Set only the first item if multiple are returned
-      } else {
-        showToast("No Contribution found against this QR code.");
-      }
-    } catch (err) {
-      console.error("Failed to fetch data:", err);
-      showToast("An error occurred while fetching data.");
-    }
-  };
-
-  useEffect(() => {
-    fetchBlogsByQrCode();
-  }, []);
-
-  if (!qrBlog) {
-    return null;
-  }
-
   return (
     <BlogCard
-      charityName={qrBlog.charityName || ""}
+      charityName={item?.more?.charityName || ""}
       key={item._id}
       _id={item?._id}
       title={item?.title}
       description={item?.description}
       imagePath={item?.imagePath}
-      donorName={qrBlog.location}
+      donorName={item?.more.location}
       donorDescription={item?.donorName}
       updatedAtStr={item?.qrCodeUniqueString}
       updatedAt={false}
@@ -133,49 +98,16 @@ const BasicCard = ({ item, handlePress }) => {
   );
 };
 const HistoryCard = ({ item, handlePress }) => {
-  const [qrBlog, setQrBlog] = useState(null);
-
-  const fetchBlogsByQrCode = async () => {
-    try {
-      const url = END_POINTS.GET_BLOG_BY_QR_KEY({ qrCode: item.qrCode });
-      const res = await fetch(url);
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        showToast("Failed to fetch data: " + errorData.message);
-        return;
-      }
-
-      const data = await res.json();
-      if (data.data.length > 0) {
-        setQrBlog(data.data[0]); // Set only the first item if multiple are returned
-      } else {
-        showToast("No Contribution found against this QR code.");
-      }
-    } catch (err) {
-      console.error("Failed to fetch data:", err);
-      showToast("An error occurred while fetching data.");
-    }
-  };
-
-  useEffect(() => {
-    fetchBlogsByQrCode();
-  }, []);
-
-  if (!qrBlog) {
-    return null;
-  }
-
   return (
     <BlogCard
-      charityName={qrBlog.charityName || ""}
-      key={qrBlog._id || ""}
+      charityName={item?.more?.charityName || ""}
+      key={item?.more?._id || ""}
       title={item?.title}
       description={item?.description}
       imagePath={item?.imagePath}
-      donorName={qrBlog.location}
-      donorDescription={`YNT ${qrBlog.token}`}
-      updatedAtStr={qrBlog.fundsReceivingDate || ""}
+      donorName={item?.more?.location}
+      donorDescription={`YNT ${item?.more?.token}`}
+      updatedAtStr={item?.more?.fundsReceivingDate || ""}
       onPress={() => handlePress(item._id)}
       hideLabel={false}
     />

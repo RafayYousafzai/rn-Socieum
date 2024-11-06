@@ -13,38 +13,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { END_POINTS, showToast } from "../../helper/endpoints";
 
 const OverView = ({ setPage, blog }) => {
-  const [qrBlog, setQrBlog] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
-
-  console.log(qrBlog);
-
-  const fetchBlogsByQrCode = useCallback(async () => {
-    setIsFetching(true);
-    try {
-      const url = END_POINTS.GET_BLOG_BY_QR_KEY({ qrCode: blog.qrCode });
-      const res = await fetch(url);
-      console.log(url);
-      if (!res.ok) {
-        const errorData = await res.json();
-        showToast("Failed to fetch data: " + errorData.message);
-        return;
-      }
-      const data = await res.json();
-      setQrBlog(data.data.length > 0 ? data.data : []);
-      if (data.data.length === 0) {
-        showToast("No Contribution found against this QR code.");
-      }
-    } catch (err) {
-      console.error("Failed to fetch data:", err);
-      showToast("An error occurred while fetching data.");
-    } finally {
-      setIsFetching(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchBlogsByQrCode();
-  }, []);
 
   return (
     <View style={styles.flexContainer}>
@@ -58,12 +26,12 @@ const OverView = ({ setPage, blog }) => {
         <View style={styles.container}>
           <View>
             <BlogCard
-              charityName={qrBlog[0]?.charityName || ""}
+              charityName={blog?.more?.charityName || ""}
               key={blog._id}
               title={blog?.title || ""}
               description={blog?.description || ""}
               imagePath={blog?.imagePath}
-              donorName={qrBlog[0]?.location}
+              donorName={blog?.more?.location}
               updatedAt={false}
               updatedAtStr={blog?.qrCodeUniqueString || ""}
               donorDescription={blog?.donorName || ""}
@@ -79,7 +47,7 @@ const OverView = ({ setPage, blog }) => {
                 <Text style={styles.text}>{blog.donorName || ""}</Text>
               </View>
               <Text style={styles.aboutText}>
-                About Contributor: {qrBlog[0]?.goodsName}
+                About Contributor: {blog?.more?.goodsName}
               </Text>
             </TouchableOpacity>
           </View>

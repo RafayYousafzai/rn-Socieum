@@ -31,38 +31,8 @@ const saveBlogId = async (blogId) => {
 };
 
 const Details = ({ setPage }) => {
-  const { selectedBlog, viewBlog, setViewBlog, loading } = useBlogContext();
-  const [qrBlog, setQrBlog] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
-  const qrCode = selectedBlog?.qrCode;
-
-  const fetchBlogsByQrCode = useCallback(async () => {
-    if (!qrCode) {
-      showToast("No QR Code.");
-      return;
-    }
-
-    setIsFetching(true);
-    try {
-      const url = END_POINTS.GET_BLOG_BY_QR_KEY({ qrCode });
-      const res = await fetch(url);
-      if (!res.ok) {
-        const errorData = await res.json();
-        showToast("Failed to fetch data: " + errorData.message);
-        return;
-      }
-      const data = await res.json();
-      setQrBlog(data.data.length > 0 ? data.data : []);
-      if (data.data.length === 0) {
-        showToast("No Contribution found against this QR code.");
-      }
-    } catch (err) {
-      console.error("Failed to fetch data:", err);
-      showToast("An error occurred while fetching data.");
-    } finally {
-      setIsFetching(false);
-    }
-  }, [qrCode]);
+  const { selectedBlog, loading } = useBlogContext();
+  const [qrBlog, setQrBlog] = useState([selectedBlog?.more]);
 
   const handlePressButtonAsync = async () => {
     const transactionLink = qrBlog?.[0]?.tokenTranHash;
@@ -76,9 +46,8 @@ const Details = ({ setPage }) => {
   useEffect(() => {
     if (!loading && selectedBlog?._id) {
       saveBlogId(selectedBlog._id);
-      fetchBlogsByQrCode();
     }
-  }, [selectedBlog, loading, fetchBlogsByQrCode]);
+  }, [selectedBlog, loading]);
 
   return (
     <View style={styles.container}>
@@ -90,19 +59,10 @@ const Details = ({ setPage }) => {
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
           <View>
             <View>
-              {isFetching && (
-                <View style={styles.loadingContainer}>
-                  <ActivityIndicator
-                    style={{ marginVertical: 100 }}
-                    size="large"
-                    color="#000"
-                  />
-                </View>
-              )}
               <View>
                 {qrBlog.length > 0 && (
                   <BlogCard
-                    charityName={qrBlog[0].charityName || ""}
+                    charityName={qrBlog.charityName || ""}
                     key={qrBlog[0]._id}
                     title={selectedBlog?.title}
                     description={selectedBlog?.description}
