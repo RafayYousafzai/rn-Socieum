@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList, ActivityIndicator } from "react-native";
+import { View, FlatList } from "react-native";
 import BlogCard from "@/components/blog/cards/BlogCard";
 import { useBlogContext } from "@/context/BlogContext";
 import Header from "@/components/Header";
 import NoBlogHistory from "./NoBlogHistory";
 import { getValueFor } from "@/lib/SecureStore";
+import LoadingScreen from "../LoadingScreen";
+
 const openedBlogIds = "openedBlogIds";
 
 export default function AllBlogs({ setPage, onlyHistory }) {
-  const { blogs, setViewBlog } = useBlogContext();
+  const { blogs, setViewBlog, loading } = useBlogContext();
 
   const [historyIds, setHistoryIds] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingHistory, setLoadingHistory] = useState(true);
 
   useEffect(() => {
     const fetchHistoryIds = async () => {
+      setLoadingHistory(true);
       try {
         const existingIds = await getValueFor(openedBlogIds);
         const blogIdsArray = existingIds ? JSON.parse(existingIds) : [];
@@ -22,7 +25,7 @@ export default function AllBlogs({ setPage, onlyHistory }) {
       } catch (error) {
         console.error("Error fetching blog IDs:", error);
       } finally {
-        setLoading(false);
+        setLoadingHistory(false);
       }
     };
 
@@ -30,7 +33,7 @@ export default function AllBlogs({ setPage, onlyHistory }) {
       fetchHistoryIds();
     } else {
       setHistoryIds([]);
-      setLoading(false);
+      setLoadingHistory(false);
     }
   }, [onlyHistory, setViewBlog]);
 
@@ -53,12 +56,8 @@ export default function AllBlogs({ setPage, onlyHistory }) {
       ) : (
         <Header text={"Blog Y"} desc={"Read other blogs published by Y"} />
       )}
-      {loading ? (
-        <ActivityIndicator
-          style={{ marginTop: 200 }}
-          size="large"
-          color="#000"
-        />
+      {loading || loadingHistory ? (
+        <LoadingScreen />
       ) : filteredBlogs.length > 0 ? (
         <FlatList
           data={filteredBlogs.filter((blog) => blog.title !== "Gira")}
@@ -83,6 +82,7 @@ const BasicCard = ({ item, handlePress }) => {
   return (
     <BlogCard
       charityName={item?.more?.charityName || ""}
+      contributor={true}
       key={item._id}
       _id={item?._id}
       title={item?.title}

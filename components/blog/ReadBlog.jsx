@@ -30,7 +30,7 @@ const ReadBlog = ({ setPage }) => {
   }
 
   const handleBackPress = () => {
-    setPage("Details");
+    setPage("OverView");
   };
 
   const renderItem = ({ item }) => (

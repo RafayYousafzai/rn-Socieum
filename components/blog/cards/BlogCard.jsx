@@ -10,6 +10,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Card, Avatar } from "react-native-paper";
 
 export default function BlogCard({
+  contributor,
   title,
   description,
   donorDescription,
@@ -66,10 +67,16 @@ export default function BlogCard({
             </Text>
             <View style={[styles.infoRow, iconHeight]}>
               <View style={styles.infoItem}>
-                <Text style={styles.infoText}>
-                  {!hideLabel && "Contribution"}{" "}
-                  {updatedAt === undefined ? "" : "Name"}
-                </Text>
+                {contributor ? (
+                  <Text style={styles.infoText}>
+                    {!hideLabel && "Contributor"}
+                  </Text>
+                ) : (
+                  <Text style={styles.infoText}>
+                    {!hideLabel && "Contribution"}{" "}
+                    {updatedAt === undefined ? "" : "Name"}
+                  </Text>
+                )}
                 <Avatar.Icon
                   color="#000"
                   size={36}

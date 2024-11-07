@@ -103,8 +103,40 @@ const BlogProvider = ({ children }) => {
       const modifiedBlogs = modifyBlogDataById(blogsWithQrData.filter(Boolean));
 
       const sortedBlogs = modifiedBlogs.sort((a, b) => {
-        const dateA = new Date(a.updatedAt || a.childStory?.[0]?.updatedAt);
-        const dateB = new Date(b.updatedAt || b.childStory?.[0]?.updatedAt);
+        const parseDate = (dateStr) => {
+          if (!dateStr) return null;
+
+          let day, month, year;
+
+          // Check if dateStr contains "/" or "-" and split accordingly
+          if (dateStr.includes("/")) {
+            [day, month, year] = dateStr.split("/").map(Number);
+          } else if (dateStr.includes("-")) {
+            [day, month, year] = dateStr.split("-").map(Number);
+          } else {
+            console.error("Unknown date format:", dateStr);
+            return null;
+          }
+
+          // Validate day, month, year
+          if (isNaN(day) || isNaN(month) || isNaN(year)) {
+            console.error("Invalid date format:", dateStr);
+            return null;
+          }
+
+          return new Date(year, month - 1, day); // Month is 0-based
+        };
+
+        const dateA = parseDate(a?.more?.fundsReceivingDate);
+        const dateB = parseDate(b?.more?.fundsReceivingDate);
+
+        console.log("Parsed dates:", { dateA, dateB });
+
+        // Handle cases where dates might be missing
+        if (!dateA && !dateB) return 0;
+        if (!dateA) return 1;
+        if (!dateB) return -1;
+
         return dateB - dateA;
       });
 
