@@ -32,23 +32,6 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
-  // const onLayoutRootView = useCallback(async () => {
-  //   if (isAppReady) {
-  //     await SplashScreen.hideAsync();
-  //   }
-  // }, [isAppReady]);
-
-  useEffect(() => {
-    let timer;
-    if (isAppReady) {
-      // Show toast every 90 seconds
-      timer = setInterval(() => {
-        showToast("This build is for testing only.");
-      }, 90000);
-    }
-    return () => clearInterval(timer);
-  }, [isAppReady]);
-
   if (!isAppReady) {
     return (
       <View>
