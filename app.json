@@ -16,7 +16,8 @@
       "supportsTablet": true,
       "config": {
         "usesNonExemptEncryption": false
-      }
+      },
+      "bundleIdentifier": "com.rafayyousafzai.younite"
     },
     "android": {
       "adaptiveIcon": {

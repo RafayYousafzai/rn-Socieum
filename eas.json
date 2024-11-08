@@ -1,19 +1,27 @@
 {
+    "submit": {
+        "production": {
+            "android": {
+                "serviceAccountKeyPath": "./younite-14e71-e1e67677a9c8.json",
+                "track": "internal",
+                "releaseStatus": "completed"
+            },
+            "ios": {
+                "appleId": "poweredbyyounite@gmail.com",
+                // "ascAppId": "1234567890", // Optional but recommended to avoid prompts
+                "appleTeamId": "22A73T54JM",
+                "appName": "We Are Y",
+                "language": "en-US"
+                ,"sku": "com.rafayyousafzai.younite"
+            }
+        }
+    },
     "build": {
+        "development": {
+            "developmentClient": true,
+            "distribution": "internal"
+        },
         "preview": {
-            "android": {
-                "buildType": "apk"
-            }
-        },
-        "preview2": {
-            "android": {
-                "gradleCommand": ":app:assembleRelease"
-            }
-        },
-        "preview3": {
-            "developmentClient": true
-        },
-        "preview4": {
             "distribution": "internal"
         },
         "production": {}
