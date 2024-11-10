@@ -19,7 +19,9 @@ const BlogProvider = ({ children }) => {
 
       if (!res.ok) {
         const errorData = await res.json();
-        showToast("Failed to fetch data: " + errorData.message);
+        showToast(
+          "Something went wrong while fetching blogs: " + errorData.message
+        );
         return null;
       }
 
@@ -31,7 +33,7 @@ const BlogProvider = ({ children }) => {
         return { ...item, more: null };
       }
     } catch (err) {
-      console.error("Failed to fetch data:", err);
+      console.error("Something went wrong while fetching blogs:", err);
       showToast("An error occurred while fetching data.");
       return null;
     }
@@ -130,8 +132,6 @@ const BlogProvider = ({ children }) => {
         const dateA = parseDate(a?.more?.fundsReceivingDate);
         const dateB = parseDate(b?.more?.fundsReceivingDate);
 
-        console.log("Parsed dates:", { dateA, dateB });
-
         // Handle cases where dates might be missing
         if (!dateA && !dateB) return 0;
         if (!dateA) return 1;
@@ -142,14 +142,14 @@ const BlogProvider = ({ children }) => {
 
       setBlogs(sortedBlogs);
 
-      showToast(
+      console.log(
         sortedBlogs.length > 0
           ? "Data fetched and sorted by date successfully."
           : "No Contribution found."
       );
     } catch (err) {
-      showToast("An error occurred while fetching data.");
-      setError("An error occurred while fetching data.");
+      showToast("An error occurred while fetching blogs.");
+      setError("An error occurred while fetching blogs.");
     } finally {
       setLoading(false);
     }

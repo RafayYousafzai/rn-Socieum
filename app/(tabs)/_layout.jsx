@@ -63,7 +63,6 @@ export default function TabLayout() {
         }}
         listeners={() => ({
           tabPress: (e) => {
-            console.log("Tab 'listBlog' was pressed!");
             setPage("AllBlogs");
           },
         })}
@@ -83,7 +82,6 @@ export default function TabLayout() {
         }}
         listeners={() => ({
           tabPress: (e) => {
-            console.log("Tab 'listBlog' was pressed!");
             setPage("AllBlogs");
           },
         })}

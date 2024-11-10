@@ -1,14 +1,9 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { Camera } from "expo-camera/legacy";
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  Modal,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, StyleSheet, Modal, TouchableOpacity } from "react-native";
 import { useBlogContext } from "@/context/BlogContext";
+import { showToast } from "@/helper/endpoints";
 
 export default function BarcodeScanner() {
   const { setPage, selectedBlog } = useBlogContext();
@@ -30,8 +25,8 @@ export default function BarcodeScanner() {
       setPage("Details");
       router.navigate("listBlog");
     } catch (error) {
-      console.error("Failed to fetch data:", error);
-      showToast("An error occurred while fetching data.");
+      console.error("Failed to fetch blog by QR Code :", error);
+      showToast("An error occurred while scanning QR Code.");
     }
   };
 

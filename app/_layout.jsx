@@ -10,7 +10,6 @@ import { useEffect, useCallback, useState } from "react"; // Added useCallback a
 import "react-native-reanimated";
 import "@/global.css";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { showToast } from "@/helper/endpoints";
 import BlogProvider from "@/context/BlogContext";
 import { Image, View } from "react-native";
 

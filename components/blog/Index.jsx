@@ -9,21 +9,11 @@ import { useFocusEffect } from "expo-router";
 const ViewBlogs = ({ onlyHistory }) => {
   const { page, setPage, selectedBlog } = useBlogContext();
 
-  // console.log(selectedBlog);
-
   useEffect(() => {
     if (!selectedBlog) {
       setPage("AllBlogs");
     }
   }, [selectedBlog]);
-
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     // console.log("AllBlogs listBlog");
-  //     setPage("AllBlogs");
-  //     return () => {};
-  //   }, [])
-  // );
 
   switch (page) {
     case "AllBlogs":

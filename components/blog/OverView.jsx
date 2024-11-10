@@ -9,8 +9,7 @@ import {
 import React, { useCallback, useEffect, useState } from "react";
 import Header from "@/components/Header";
 import BlogCard from "./cards/BlogCard";
-import { Ionicons } from "@expo/vector-icons";
-import { END_POINTS, showToast } from "../../helper/endpoints";
+import { Ionicons } from "@expo/vector-icons"; 
 
 const OverView = ({ setPage, blog }) => {
 

@@ -26,8 +26,7 @@
       },
       "package": "com.rafayyousafzai.younite",
       "permissions": [
-        "android.permission.CAMERA",
-        "android.permission.RECORD_AUDIO"
+        "android.permission.CAMERA"
       ]
     },
     "web": {
@@ -40,9 +39,7 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow We Are Y to access your camera",
-          "microphonePermission": "Allow We Are Y to access your microphone",
-          "recordAudioAndroid": true
+          "cameraPermission": "Allow We Are Y to access your camera to scan QR Code"
         }
       ],
       [

@@ -16,12 +16,17 @@ import BarcodeScanner from "@/components/BarCodeScanner";
 import img from "@/assets/images/qrcode.png";
 import { useBlogContext } from "@/context/BlogContext";
 import { router } from "expo-router";
+import { showToast } from "@/helper/endpoints";
 
 const Scan = () => {
   const { setPage, blogs, setViewBlog } = useBlogContext();
   const [qrCodeUniqueString, setQrCodeUniqueString] = useState("");
 
   const handlePress = async () => {
+    if (!blogs) {
+      showToast("Sorry there are't any blogs!");
+      return;
+    }
     try {
       const response = blogs.find(
         (blog) => blog.qrCodeUniqueString === qrCodeUniqueString
@@ -34,10 +39,9 @@ const Scan = () => {
       setViewBlog(response._id);
       setPage("Details");
       router.navigate("listBlog");
-      console.log(response._id);
     } catch (error) {
-      console.error("Failed to fetch data:", error);
-      showToast("An error occurred while fetching data.");
+      console.error("Failed to find blog by code:", error);
+      showToast("An error occurred while fetching blog.");
     }
   };
 
