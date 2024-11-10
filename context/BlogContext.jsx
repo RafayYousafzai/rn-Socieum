@@ -147,7 +147,8 @@ const BlogProvider = ({ children }) => {
           ? "Data fetched and sorted by date successfully."
           : "No Contribution found."
       );
-    } catch (err) {
+    } catch (error) {
+      console.log("An error occurred while fetching blogs.", error);
       showToast("An error occurred while fetching blogs.");
       setError("An error occurred while fetching blogs.");
     } finally {

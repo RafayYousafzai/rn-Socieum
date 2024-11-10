@@ -1,4 +1,4 @@
-import { Platform, ToastAndroid } from "react-native";
+import { Alert, Platform, ToastAndroid } from "react-native";
 
 export const SERVER_URL = "https://younite.uk";
 export const IMAGES = "images";

@@ -1,15 +1,9 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ActivityIndicator,
-  ScrollView,
-} from "react-native";
-import React, { useEffect, useState, useCallback } from "react";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import BlogCard from "./cards/BlogCard";
 import { useBlogContext } from "@/context/BlogContext";
-import { END_POINTS, showToast } from "@/helper/endpoints";
+import { showToast } from "@/helper/endpoints";
 import * as WebBrowser from "expo-web-browser";
 import { getValueFor, save } from "@/lib/SecureStore";
 import { Ionicons } from "@expo/vector-icons";

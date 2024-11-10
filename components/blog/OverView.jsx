@@ -4,15 +4,13 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  ActivityIndicator,
 } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import Header from "@/components/Header";
 import BlogCard from "./cards/BlogCard";
-import { Ionicons } from "@expo/vector-icons"; 
+import { Ionicons } from "@expo/vector-icons";
 
 const OverView = ({ setPage, blog }) => {
-
   return (
     <View style={styles.flexContainer}>
       <Header

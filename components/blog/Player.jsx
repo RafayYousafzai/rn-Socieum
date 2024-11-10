@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Audio } from "expo-av";
-import { END_POINTS, showToast } from "@/helper/endpoints";
+import {   showToast } from "@/helper/endpoints";
 import { IMAGES, SERVER_URL } from "../../helper/endpoints";
 import { Ionicons } from "@expo/vector-icons";
 

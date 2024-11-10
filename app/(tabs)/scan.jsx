@@ -6,9 +6,6 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
-  ToastAndroid,
-  Alert,
-  Platform,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import Header from "@/components/Header";
