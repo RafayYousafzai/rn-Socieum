@@ -4,9 +4,10 @@ import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Modal, TouchableOpacity } from "react-native";
 import { useBlogContext } from "@/context/BlogContext";
 import { showToast } from "@/helper/endpoints";
+import { router } from "expo-router";
 
 export default function BarcodeScanner() {
-  const { setPage, selectedBlog } = useBlogContext();
+  const { setPage, blogs, setViewBlog } = useBlogContext();
 
   const [cameraPermission, setCameraPermission] = useState(null);
   const [isBarcodeScanned, setIsBarcodeScanned] = useState(false);

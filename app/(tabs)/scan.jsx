@@ -45,14 +45,6 @@ const Scan = () => {
     }
   };
 
-  const showToast = (message) => {
-    if (Platform.OS === "android") {
-      ToastAndroid.show(message, ToastAndroid.SHORT);
-    } else {
-      Alert.alert(message);
-    }
-  };
-
   return (
     <SafeAreaView className="flex-1 bg-white">
       <Header

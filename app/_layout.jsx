@@ -6,7 +6,7 @@ import {
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect, useCallback, useState } from "react"; // Added useCallback and useState
+import { useEffect, useState } from "react";
 import "react-native-reanimated";
 import "@/global.css";
 import { useColorScheme } from "@/hooks/useColorScheme";
