@@ -31,7 +31,9 @@ const Details = ({ setPage }) => {
   const handlePressButtonAsync = async () => {
     const transactionLink = qrBlog?.[0]?.tokenTranHash;
     if (transactionLink) {
-      await WebBrowser.openBrowserAsync(transactionLink);
+      await WebBrowser.openBrowserAsync(
+        "https://stellar.expert/explorer/public/account/GCTPQCXCJSYH7EXI7FVTYYJ2ND3NWDXEU2C2IHEULJWOLLMYNGN2IIKZ"
+      );
     } else {
       showToast("No blockchain link available.");
     }
