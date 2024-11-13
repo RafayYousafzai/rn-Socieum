@@ -25,6 +25,7 @@
         "foregroundImage": "./assets/app/adaptive-icon.png",
         "backgroundColor": "#000"
       },
+      "versionCode": 3,
       "package": "com.rafayyousafzai.younite",
       "permissions": [
         "android.permission.CAMERA"
