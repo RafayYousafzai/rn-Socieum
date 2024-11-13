@@ -1,17 +1,38 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import { Camera } from "expo-camera/legacy";
-import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Modal, TouchableOpacity } from "react-native";
+import { CameraView, useCameraPermissions } from "expo-camera";
+import React, { useState } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Modal,
+  TouchableOpacity,
+  Button,
+} from "react-native";
 import { useBlogContext } from "@/context/BlogContext";
 import { showToast } from "@/helper/endpoints";
 import { router } from "expo-router";
 
 export default function BarcodeScanner() {
   const { setPage, blogs, setViewBlog } = useBlogContext();
-
-  const [cameraPermission, setCameraPermission] = useState(null);
   const [isBarcodeScanned, setIsBarcodeScanned] = useState(false);
   const [isScannerModalVisible, setIsScannerModalVisible] = useState(false);
+  const [permission, requestPermission] = useCameraPermissions();
+
+  // Handling permission status and request
+  if (!permission) {
+    return <Text>Requesting camera permission...</Text>;
+  }
+
+  if (!permission.granted) {
+    return (
+      <View style={styles.container}>
+        <Text>We need your permission to access the camera</Text>
+        <Button onPress={requestPermission} title="Grant Permission" />
+      </View>
+    );
+  }
+
   const handleScanButtonPress = async (barcodeType, barcodeData) => {
     try {
       const response = blogs.find(
@@ -26,17 +47,10 @@ export default function BarcodeScanner() {
       setPage("Details");
       router.navigate("listBlog");
     } catch (error) {
-      console.error("Failed to fetch blog by QR Code :", error);
+      console.error("Failed to fetch blog by QR Code:", error);
       showToast("An error occurred while scanning QR Code.");
     }
   };
-
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setCameraPermission(status === "granted");
-    })();
-  }, []);
 
   // Callback function when barcode is scanned
   const handleBarcodeScanned = ({ type, data }) => {
@@ -48,14 +62,6 @@ export default function BarcodeScanner() {
   const resetScanner = () => {
     setIsBarcodeScanned(false);
   };
-
-  if (cameraPermission === null) {
-    return <Text>Requesting camera permission...</Text>;
-  }
-
-  if (cameraPermission === false) {
-    return <Text>No access to camera</Text>;
-  }
 
   return (
     <View style={styles.container}>
@@ -78,19 +84,20 @@ export default function BarcodeScanner() {
         onRequestClose={() => setIsScannerModalVisible(false)}
       >
         <View style={styles.modalContainer}>
-          <Camera
+          <CameraView
             style={styles.camera}
-            onBarCodeScanned={
+            onBarcodeScanned={
               isBarcodeScanned ? undefined : handleBarcodeScanned
-            } // Updated to use meaningful variable
+            }
+            barcodeScannerSettings={{
+              barcodeTypes: ["qr"],
+            }}
           />
           <TouchableOpacity
             style={styles.closeButton}
             onPress={() => setIsScannerModalVisible(false)}
           >
-            <Text style={styles.closeButtonText}>
-              <MaterialIcons name="close-fullscreen" size={40} color="#000" />
-            </Text>
+            <MaterialIcons name="close" size={40} color="#000" />
           </TouchableOpacity>
         </View>
       </Modal>
@@ -131,10 +138,5 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "#fff",
     borderRadius: 5,
-  },
-  closeButtonText: {
-    fontSize: 14,
-    color: "#000",
-    fontWeight: "bold",
   },
 });
