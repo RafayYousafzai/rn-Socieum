@@ -3,9 +3,7 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
 import "react-native-reanimated";
 import "@/global.css";
@@ -13,23 +11,13 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import BlogProvider from "@/context/BlogContext";
 import { Image, View } from "react-native";
 
-// Prevent auto-hide immediately
-SplashScreen.preventAutoHideAsync().catch(() => {
-  /* Handling any potential errors in case app reloads */
-});
-
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-  });
   const [isAppReady, setIsAppReady] = useState(false);
 
   useEffect(() => {
-    if (loaded) {
-      setTimeout(() => setIsAppReady(true), 2000);
-    }
-  }, [loaded]);
+    setTimeout(() => setIsAppReady(true), 2000);
+  }, []);
 
   if (!isAppReady) {
     return (
