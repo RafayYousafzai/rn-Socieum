@@ -16,6 +16,13 @@ async function getValueFor(key, options = {}) {
     return result ? result : null;
   } catch (error) {
     console.error("Error retrieving data:", error);
+
+    // Specific handling for decryption errors
+    if (error.message.includes("Could not decrypt the value")) {
+      console.warn(`Resetting key '${key}' due to decryption error.`);
+      await SecureStore.deleteItemAsync(key, options); // Reset the corrupted key
+    }
+
     return null;
   }
 }
