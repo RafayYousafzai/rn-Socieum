@@ -2,9 +2,11 @@ import { Tabs } from "expo-router";
 import React from "react";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { useBlogContext } from "@/context/BlogContext";
+import { Platform } from "react-native";
 
 export default function TabLayout() {
   const { setPage } = useBlogContext();
+
   return (
     <Tabs
       screenOptions={{
@@ -38,6 +40,7 @@ export default function TabLayout() {
           ),
         }}
       />
+
       <Tabs.Screen
         name="scan"
         options={{
@@ -48,8 +51,10 @@ export default function TabLayout() {
               color={color}
             />
           ),
+          href: Platform.OS === "web" ? null : undefined,
         }}
       />
+
       <Tabs.Screen
         name="history"
         options={{
@@ -62,11 +67,12 @@ export default function TabLayout() {
           ),
         }}
         listeners={() => ({
-          tabPress: (e) => {
+          tabPress: () => {
             setPage("AllBlogs");
           },
         })}
       />
+
       <Tabs.Screen
         name="listBlog"
         options={{
@@ -81,7 +87,7 @@ export default function TabLayout() {
           ),
         }}
         listeners={() => ({
-          tabPress: (e) => {
+          tabPress: () => {
             setPage("AllBlogs");
           },
         })}
