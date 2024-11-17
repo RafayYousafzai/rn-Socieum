@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  useWindowDimensions,
 } from "react-native";
 import React from "react";
 import Header from "@/components/Header";
@@ -11,6 +12,9 @@ import BlogCard from "./cards/BlogCard";
 import { Ionicons } from "@expo/vector-icons";
 
 const OverView = ({ setPage, blog }) => {
+  const { width } = useWindowDimensions();
+  const isLargeScreen = width > 800;
+
   return (
     <View style={styles.flexContainer}>
       <Header
@@ -19,7 +23,15 @@ const OverView = ({ setPage, blog }) => {
           "View a summary of your contribution and see how you have helped to change lives"
         }
       />
-      <ScrollView>
+      <ScrollView
+        style={[
+          isLargeScreen && {
+            width: 380,
+            marginHorizontal: "auto",
+            marginTop: 5,
+          },
+        ]}
+      >
         <View style={styles.container}>
           <View>
             <BlogCard

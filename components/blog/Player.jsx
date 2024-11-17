@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Audio } from "expo-av";
-import {   showToast } from "@/helper/endpoints";
+import { showToast } from "@/helper/endpoints";
 import { IMAGES, SERVER_URL } from "../../helper/endpoints";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function Player({ url }) {
   const [sound, setSound] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [duration, setDuration] = useState(null);
-  const [position, setPosition] = useState(0);
 
   async function loadAndPlaySound() {
     try {
@@ -43,8 +41,6 @@ export default function Player({ url }) {
 
   function updatePlaybackStatus(status) {
     if (status.isLoaded) {
-      setPosition(status.positionMillis);
-      setDuration(status.durationMillis);
       setIsPlaying(status.isPlaying);
 
       if (status.didJustFinish) {
@@ -67,7 +63,6 @@ export default function Player({ url }) {
 
   async function resetPlayer() {
     setIsPlaying(false);
-    setPosition(0);
     if (sound) {
       await sound.stopAsync();
       await sound.unloadAsync();

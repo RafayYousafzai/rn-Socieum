@@ -1,4 +1,10 @@
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  useWindowDimensions,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import BlogCard from "./cards/BlogCard";
@@ -28,6 +34,9 @@ const Details = ({ setPage }) => {
   const { selectedBlog, loading } = useBlogContext();
   const [qrBlog, setQrBlog] = useState([selectedBlog?.more]);
 
+  const { width } = useWindowDimensions();
+  const isLargeScreen = width > 800;
+
   const handlePressButtonAsync = async () => {
     const transactionLink = qrBlog?.[0]?.tokenTranHash;
     if (transactionLink) {
@@ -51,7 +60,16 @@ const Details = ({ setPage }) => {
         text="Track Your Contribution"
         desc="See details about where, when and how your contribution has been used"
       />
-      <View style={styles.contentContainer}>
+      <View
+        style={[
+          styles.contentContainer,
+          isLargeScreen && {
+            width: 380,
+            marginHorizontal: "auto",
+            marginTop: 5,
+          },
+        ]}
+      >
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
           <View>
             <View>
