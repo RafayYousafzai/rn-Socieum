@@ -1,11 +1,27 @@
 import { View, Text, SafeAreaView, FlatList } from "react-native";
 import React, { useState } from "react";
 import Header from "@/components/Header";
+import { Link } from "expo-router";
 
-const InfoCard = ({ title, description }) => (
+const InfoCard = ({ title, description, linkName, link }) => (
   <View className="bg-white rounded-none p-6 my-6 border border-gray-100 shadow-md elevation-5">
     <Text className="text-xl font-black text-gray-800 mb-2">{title}</Text>
     <Text className="text-base leading-6 text-gray-600">{description}</Text>
+    {linkName && link && (
+      <View className="flex ">
+        <Text className=" text-md text-gray-600 mb-2 font-semibold">
+          {linkName}:{" "}
+          <Link
+            className=" font-normal text-blue-500 mb-2 00"
+            target="_self"
+            href={link}
+          >
+            {" "}
+            {link}
+          </Link>
+        </Text>
+      </View>
+    )}
   </View>
 );
 
@@ -31,22 +47,29 @@ const Home = () => {
     },
     {
       id: "4",
-      title: "We Are Y",
+      title: "Shop Y",
       description:
-        "Make a statement with your Y garment and inspire others to do the same.",
+        "Use your garment to make a statement and inspire others to do the same.",
+      linkName: "Visit Shop Y",
+      link: "https://www.wearey.co.uk",
     },
   ]);
 
   const renderInfoCard = ({ item }) => (
-    <InfoCard title={item.title} description={item.description} />
+    <InfoCard
+      title={item.title}
+      description={item.description}
+      linkName={item.linkName}
+      link={item.link}
+    />
   );
 
   return (
     <SafeAreaView className="bg-gray-100 flex-1">
       <Header
-        text={"Welcome To Y"}
-        desc={"Individually We Are One Drop"}
-        desc2={"Together We Are An Ocean"}
+        text="Welcome To Y"
+        desc="Individually We Are One Drop"
+        desc2="Together We Are An Ocean"
       />
       <FlatList
         data={infoData}
