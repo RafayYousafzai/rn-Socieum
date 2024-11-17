@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  useWindowDimensions,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Card, Avatar } from "react-native-paper";
@@ -24,6 +25,7 @@ export default function BlogCard({
   hideLabel,
   charityName,
 }) {
+  const { width } = useWindowDimensions();
   const placeholderImg =
     "https://via.placeholder.com/300x150.png?text=Blog+Image";
 
@@ -39,16 +41,21 @@ export default function BlogCard({
   const location = donorName || "Unknown";
 
   const iconHeight = contribution.length > 20 ? { height: 80 } : { height: 55 };
+  const isLargeScreen = width > 800;
 
   return (
-    <TouchableOpacity onPress={() => onPress(_id)} activeOpacity={0.9}>
-      <Card style={styles.card}>
+    <TouchableOpacity
+      style={styles.parentContainer}
+      onPress={() => onPress(_id)}
+      activeOpacity={0.9}
+    >
+      <Card style={[styles.card, isLargeScreen && { maxWidth: 350 }]}>
         <View style={styles.imageContainer}>
           <ImageBackground
             source={{ uri: imageUrl }}
             style={styles.imageBackground}
             imageStyle={styles.imageStyle}
-            resizeMode="contain"
+            resizeMode={isLargeScreen ? "cover" : "contain"}
           >
             <LinearGradient
               colors={["rgba(0, 0, 0, 0.0)", "rgba(0, 0, 0, 0.8)"]}
@@ -141,6 +148,9 @@ export default function BlogCard({
 }
 
 const styles = StyleSheet.create({
+  parentContainer: {
+    maxWidth: 600,
+  },
   titleOverlay: {
     color: "white",
     fontSize: 12,
@@ -165,6 +175,10 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     elevation: 8,
     backgroundColor: "#fff",
+    height: 300,
+    width: "96%",
+    marginLeft: "2%",
+    overflow: "hidden",
   },
   imageContainer: {
     overflow: "hidden",

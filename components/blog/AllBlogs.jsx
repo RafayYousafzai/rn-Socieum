@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, StyleSheet, useWindowDimensions } from "react-native";
 import BlogCard from "@/components/blog/cards/BlogCard";
 import { useBlogContext } from "@/context/BlogContext";
 import Header from "@/components/Header";
@@ -11,7 +11,7 @@ const openedBlogIds = "openedBlogIds";
 
 export default function AllBlogs({ setPage, onlyHistory }) {
   const { blogs, setViewBlog, loading } = useBlogContext();
-
+  const { width } = useWindowDimensions(); // Get the screen width
   const [historyIds, setHistoryIds] = useState([]);
   const [loadingHistory, setLoadingHistory] = useState(true);
 
@@ -46,8 +46,14 @@ export default function AllBlogs({ setPage, onlyHistory }) {
     setPage("Details");
   };
 
+  const isLargeScreen = width > 800;
+
   return (
-    <View style={{ flex: 1 }}>
+    <View
+      style={{
+        flex: 1,
+      }}
+    >
       {onlyHistory ? (
         <Header
           text={"Search History"}
@@ -69,7 +75,9 @@ export default function AllBlogs({ setPage, onlyHistory }) {
               <BasicCard item={item} handlePress={handlePress} />
             )
           }
-          contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 20 }}
+          contentContainerStyle={[
+            isLargeScreen && styles.largeContentContainer,
+          ]}
         />
       ) : (
         <NoBlogHistory />
@@ -97,6 +105,7 @@ const BasicCard = ({ item, handlePress }) => {
     />
   );
 };
+
 const HistoryCard = ({ item, handlePress }) => {
   return (
     <BlogCard
@@ -113,3 +122,14 @@ const HistoryCard = ({ item, handlePress }) => {
     />
   );
 };
+
+const styles = StyleSheet.create({
+  largeContentContainer: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 20,
+    justifyContent: "center",
+  },
+});

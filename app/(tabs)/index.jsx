@@ -1,10 +1,10 @@
-import { View, Text, SafeAreaView, FlatList } from "react-native";
+import { View, Text, SafeAreaView, FlatList, Platform } from "react-native";
 import React, { useState } from "react";
 import Header from "@/components/Header";
 import { Link } from "expo-router";
 
 const InfoCard = ({ title, description, linkName, link }) => (
-  <View className="bg-white rounded-none p-6 my-6 border border-gray-100 shadow-md elevation-5">
+  <View className="mx-auto max-w-6xl w-full bg-white rounded-none p-6 my-6 border border-gray-100 shadow-md elevation-5">
     <Text className="text-xl font-black text-gray-800 mb-2">{title}</Text>
     <Text className="text-base leading-6 text-gray-600">{description}</Text>
     {linkName && link && (
@@ -66,11 +66,18 @@ const Home = () => {
 
   return (
     <SafeAreaView className="bg-gray-100 flex-1">
-      <Header
-        text="Welcome To Y"
-        desc="Individually We Are One Drop"
-        desc2="Together We Are An Ocean"
-      />
+      {Platform.OS !== "web" ? (
+        <Header
+          text="Welcome To Y"
+          desc="Individually We Are One Drop"
+          desc2="Together We Are An Ocean"
+        />
+      ) : (
+        <Header
+          text="Welcome To Y"
+          desc="Individually We Are One Drop, Together We Are An Ocean"
+        />
+      )}
       <FlatList
         data={infoData}
         renderItem={renderInfoCard}

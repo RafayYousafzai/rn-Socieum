@@ -1,16 +1,37 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Platform,
+} from "react-native";
 
 const Header = ({ text, desc, desc2, logo, light }) => {
   return (
-    <View style={styles.headerContainer}>
-      <View style={styles.innerContainer}>
-        <Text style={styles.headerText}>
+    <View
+      style={[
+        styles.headerContainer,
+        Platform.OS === "web" && styles.desktopHeader,
+      ]}
+    >
+      <View
+        style={[
+          styles.innerContainer,
+          Platform.OS === "web" && styles.desktopInnerContainer,
+        ]}
+      >
+        <Text
+          style={[
+            styles.headerText,
+            Platform.OS === "web" && styles.desktopHeaderText,
+          ]}
+        >
           {text}
           {logo && (
             <Image
               source={require("@/assets/images/icon.png")}
-              style={styles.logo}
+              style={[styles.logo, Platform.OS === "web" && styles.desktopLogo]}
             />
           )}
         </Text>
@@ -19,6 +40,7 @@ const Header = ({ text, desc, desc2, logo, light }) => {
             style={[
               styles.descriptionText,
               { color: light ? "#fff" : "#fff" },
+              Platform.OS === "web" && styles.desktopDescriptionText,
             ]}
           >
             {desc}
@@ -29,6 +51,7 @@ const Header = ({ text, desc, desc2, logo, light }) => {
             style={[
               styles.descriptionText,
               { color: light ? "#fff" : "#fff" },
+              Platform.OS === "web" && styles.desktopDescriptionText,
             ]}
           >
             {desc2}
@@ -47,13 +70,21 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     alignItems: "center",
     paddingTop: 20,
-    // justifyContent: "center",
-    // borderBottomLeftRadius: 50,
-    // borderBottomRightRadius: 50,
+  },
+  desktopHeader: {
+    height: 100,
+    paddingTop: 10,
+    alignItems: "center",
+    textAlign: "center",
   },
   innerContainer: {
     paddingBottom: 10,
     paddingTop: 30,
+  },
+  desktopInnerContainer: {
+    paddingBottom: 20,
+    paddingTop: 10,
+    alignItems: "center",
   },
   headerText: {
     fontSize: 24,
@@ -62,18 +93,30 @@ const styles = StyleSheet.create({
     textAlign: "center",
     display: "flex",
   },
+  desktopHeaderText: {
+    fontSize: 20,
+    textAlign: "center",
+  },
   descriptionText: {
     fontSize: 16,
     textAlign: "center",
-    maxWidth: "90%",
     flexShrink: 1,
+    maxWidth: Platform.OS !== "web" ? "90%" : "100%",
     lineHeight: 22,
     marginTop: 4,
+  },
+  desktopDescriptionText: {
+    fontSize: 14,
+    lineHeight: 28,
   },
   logo: {
     height: 35,
     width: 30,
     resizeMode: "cover",
+  },
+  desktopLogo: {
+    height: 50,
+    width: 45,
   },
 });
 

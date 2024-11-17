@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
+  StyleSheet,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import Header from "@/components/Header";
@@ -54,13 +55,13 @@ const Scan = () => {
 
       <ScrollView>
         <View className="px-5 pb-12 mt-10 items-center">
-          <Image source={img} className="w-[250px] h-[250px] mb-[20px]" />
+          <Image source={img} style={styles.img} />
           <BarcodeScanner />
 
-          <View className="flex flex-row w-full mt-10">
+          <View className="flex flex-row w-full mt-10 justify-center">
             <TextInput
               placeholder="Or enter your 6 digit code"
-              className="w-[75%] ml-[5%] rounded-sm bg-slate-100 py-2 px-4 text-base text-gray-800"
+              className="w-[75%] max-w-4xl  rounded-sm bg-slate-100 py-2 px-4 text-base text-gray-800"
               keyboardType="default"
               onChangeText={setQrCodeUniqueString}
               value={qrCodeUniqueString}
@@ -79,3 +80,12 @@ const Scan = () => {
 };
 
 export default Scan;
+
+const styles = StyleSheet.create({
+  img: {
+    width: 250,
+    height: 250,
+    marginBottom: 20,
+    resizeMode: "contain",
+  },
+});
