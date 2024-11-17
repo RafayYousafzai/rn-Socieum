@@ -32,17 +32,25 @@ export default function BarcodeScanner() {
       </View>
     );
   }
-
+  
   const handleScanButtonPress = async (barcodeType, barcodeData) => {
+    const baseUrl = "https://socieum.vercel.app/";
+
     try {
-      const response = blogs.find(
-        (blog) => blog.qrCodeUniqueString === barcodeData
-      );
+      let code = barcodeData;
+
+      if (barcodeData.startsWith(baseUrl)) {
+        const parsedUrl = new URL(barcodeData);
+        code = parsedUrl.pathname.slice(1);
+      }
+
+      const response = blogs.find((blog) => blog.qrCodeUniqueString === code);
 
       if (!response) {
         showToast("No Contribution found against this QR code.");
         return;
       }
+
       setViewBlog(response._id);
       setPage("Details");
       router.navigate("listBlog");
