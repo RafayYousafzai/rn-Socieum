@@ -11,7 +11,7 @@ const openedBlogIds = "openedBlogIds";
 
 export default function AllBlogs({ setPage, onlyHistory }) {
   const { blogs, setViewBlog, loading } = useBlogContext();
-  const { width } = useWindowDimensions(); // Get the screen width
+  const { width } = useWindowDimensions();  
   const [historyIds, setHistoryIds] = useState([]);
   const [loadingHistory, setLoadingHistory] = useState(true);
 

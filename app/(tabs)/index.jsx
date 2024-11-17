@@ -1,4 +1,11 @@
-import { View, Text, SafeAreaView, FlatList, Platform } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  FlatList,
+  Platform,
+  useWindowDimensions,
+} from "react-native";
 import React, { useState } from "react";
 import Header from "@/components/Header";
 import { Link } from "expo-router";
@@ -54,6 +61,8 @@ const Home = () => {
       link: "https://www.wearey.co.uk",
     },
   ]);
+  const { width } = useWindowDimensions();
+  const isLargeScreen = width > 800;
 
   const renderInfoCard = ({ item }) => (
     <InfoCard
@@ -66,16 +75,16 @@ const Home = () => {
 
   return (
     <SafeAreaView className="bg-gray-100 flex-1">
-      {Platform.OS !== "web" ? (
+      {isLargeScreen ? (
         <Header
           text="Welcome To Y"
-          desc="Individually We Are One Drop"
-          desc2="Together We Are An Ocean"
+          desc="Individually We Are One Drop, Together We Are An Ocean"
         />
       ) : (
         <Header
           text="Welcome To Y"
-          desc="Individually We Are One Drop, Together We Are An Ocean"
+          desc="Individually We Are One Drop"
+          desc2="Together We Are An Ocean"
         />
       )}
       <FlatList

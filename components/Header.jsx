@@ -1,18 +1,18 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Platform,
-} from "react-native";
+import { useWindowDimensions } from "react-native";
+import { View, Text, StyleSheet, Image, Platform } from "react-native";
 
 const Header = ({ text, desc, desc2, logo, light }) => {
+  const { width } = useWindowDimensions();
+  const isLargeScreen = width > 800;
+
   return (
     <View
       style={[
         styles.headerContainer,
-        Platform.OS === "web" && styles.desktopHeader,
+        isLargeScreen && styles.desktopHeader,
+        Platform.OS === "web" &&
+          !isLargeScreen && { height: 140, paddingHorizontal: 40 },
       ]}
     >
       <View
@@ -22,10 +22,7 @@ const Header = ({ text, desc, desc2, logo, light }) => {
         ]}
       >
         <Text
-          style={[
-            styles.headerText,
-            Platform.OS === "web" && styles.desktopHeaderText,
-          ]}
+          style={[styles.headerText, isLargeScreen && styles.desktopHeaderText]}
         >
           {text}
           {logo && (
@@ -40,7 +37,7 @@ const Header = ({ text, desc, desc2, logo, light }) => {
             style={[
               styles.descriptionText,
               { color: light ? "#fff" : "#fff" },
-              Platform.OS === "web" && styles.desktopDescriptionText,
+              isLargeScreen && styles.desktopDescriptionText,
             ]}
           >
             {desc}
@@ -51,7 +48,7 @@ const Header = ({ text, desc, desc2, logo, light }) => {
             style={[
               styles.descriptionText,
               { color: light ? "#fff" : "#fff" },
-              Platform.OS === "web" && styles.desktopDescriptionText,
+              isLargeScreen && styles.desktopDescriptionText,
             ]}
           >
             {desc2}

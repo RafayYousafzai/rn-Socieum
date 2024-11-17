@@ -6,6 +6,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   useWindowDimensions,
+  Platform,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Card, Avatar } from "react-native-paper";
@@ -49,7 +50,13 @@ export default function BlogCard({
       onPress={() => onPress(_id)}
       activeOpacity={0.9}
     >
-      <Card style={[styles.card, isLargeScreen && { maxWidth: 350 }]}>
+      <Card
+        style={[
+          styles.card,
+          isLargeScreen && { maxWidth: 350 },
+          Platform.OS === "web" && { height: 280 },
+        ]}
+      >
         <View style={styles.imageContainer}>
           <ImageBackground
             source={{ uri: imageUrl }}
@@ -175,7 +182,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     elevation: 8,
     backgroundColor: "#fff",
-    height: 300,
+
     width: "96%",
     marginLeft: "2%",
     overflow: "hidden",
