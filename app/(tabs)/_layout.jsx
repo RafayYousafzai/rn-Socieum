@@ -65,6 +65,7 @@ export default function TabLayout() {
               color={color}
             />
           ),
+          href: Platform.OS === "web" ? null : undefined,
         }}
         listeners={() => ({
           tabPress: () => {
